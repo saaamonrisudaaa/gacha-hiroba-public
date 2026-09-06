@@ -2589,6 +2589,17 @@ a.gh-rel:hover { background: #fffaf5; text-decoration: none; }
 .gh-station-guides > div a:hover { border-color: var(--gh-accent, #e94560); background: #fff1f3; }
 .gh-station-guides a:focus-visible { outline: 2px solid var(--gh-accent, #e94560); outline-offset: 3px; }
 .gh-station-guides__all { display: inline-block; margin-top: 9px; font-size: 12px; }
+
+.gh-article-nav { margin: 20px 0; padding: 16px 18px; border: 1px solid var(--gh-border); border-radius: 10px; background: var(--gh-bg, #f8f9fc); }
+.gh-article-nav ul { margin: 8px 0 0; padding-left: 20px; }
+.gh-article-nav li { margin: 6px 0; font-size: 14px; line-height: 1.6; }
+.gh-visit-plans__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px; }
+.gh-visit-plan { min-width: 0; padding: 16px; border: 1px solid var(--gh-border); border-radius: 10px; background: #fff; }
+.gh-visit-plan h3 { margin: 0 0 8px; font-size: 16px; }
+.gh-visit-plan p, .gh-visit-plan li { font-size: 14px; line-height: 1.8; }
+.gh-visit-plan ol { padding-left: 20px; margin-bottom: 0; }
+.gh-article-nav a:focus-visible, .gh-visit-plan a:focus-visible { outline: 2px solid var(--gh-accent, #e94560); outline-offset: 3px; }
+.gh-article [id] { scroll-margin-top: 100px; }
 .gh-topbar__trend {
   display: flex; align-items: center; gap: 8px; margin-top: 9px;
   overflow-x: auto; scrollbar-width: none;

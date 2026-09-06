@@ -5,7 +5,56 @@
   <link>https://gacha-hiroba.com/</link>
   <description>メーカー公式情報で確認した新作ガチャと、ガチャひろば運営者が作成した実用ガイドの更新情報を配信します。</description>
   <language>ja</language>
-  <lastBuildDate>Thu, 03 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Sun, 06 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <item>
+    <title>ガチャ店舗データ監査レポート｜確認状況・欠損率・情報充足率を公開</title>
+    <link>https://gacha-hiroba.com/guide/store-data-report.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/store-data-report.html</guid>
+    <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
+    <description>ガチャひろばが保有する店舗データについて、「何件あるか」だけでなく、掲載根拠URLと確認日がどこまでそろっているか、営業時間・公表設置規模・アクセスなど各項目をどの程度確認できているかを集計しました。ページ内の数値は data/spots.js から生成時に再計算しています。</description>
+  </item>
+  <item>
+    <title>カプセル楽局の東京店舗一覧｜住所・営業時間・エリア別検索【2026年】</title>
+    <link>https://gacha-hiroba.com/guide/capsule-rakkyoku-tokyo.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/capsule-rakkyoku-tokyo.html</guid>
+    <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
+    <description>来店前の確認：門前仲町店は公式一覧で「店内改装のため休業中」と案内されています（2026年9月6日再確認）。再開日はここでは断定せず、公式案内を確認してください。</description>
+  </item>
+  <item>
+    <title>シープラ（#C-pla）の店舗一覧｜東京・全国の住所・営業時間・設置規模【2026年】</title>
+    <link>https://gacha-hiroba.com/guide/cpla-store-guide.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/cpla-store-guide.html</guid>
+    <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
+    <description>シープラ（#C-pla）の店舗を探す人向けに、店舗または施設の確認元URLと確認日がそろう掲載分を1ページで比較します。2026年9月3日の生成時点では全国46店で、そのうち東京都が25店です。北海道から九州まで12都道府県を含みますが、公式チェーン全体の完全な店舗一覧ではなく、ガチャひろばが根拠を確認できた範囲です。</description>
+  </item>
+  <item>
+    <title>秋葉原のガチャガチャ設置場所｜駅改札内・電気街・末広町の3店比較</title>
+    <link>https://gacha-hiroba.com/guide/akihabara.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/akihabara.html</guid>
+    <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
+    <description>秋葉原のガチャガチャ探しは、JRの改札を出る前と出た後で候補が変わります。乗換の途中なら駅3階のケンエレスタンド、電気街へ出るならガシャポンのデパート、末広町方面まで歩くならガチャポン会館を候補にできます。</description>
+  </item>
+  <item>
+    <title>渋谷のガチャガチャ設置場所｜109・MAGNET・センター街・フクラスを比較</title>
+    <link>https://gacha-hiroba.com/guide/shibuya.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/shibuya.html</guid>
+    <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
+    <description>渋谷でガチャガチャを探すときは、「109」という名前だけで行き先を決めないのがコツです。道玄坂のSHIBUYA109と神南のMAGNET by SHIBUYA109は別の建物で、ガチャ売り場の階も異なります。センター街や渋谷フクラスも含め、建物名から候補を選びましょう。</description>
+  </item>
+  <item>
+    <title>池袋のガチャガチャ設置場所｜東口・西口・サンシャインの回り方</title>
+    <link>https://gacha-hiroba.com/guide/ikebukuro.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/ikebukuro.html</guid>
+    <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
+    <description>池袋でガチャガチャを探すなら、まず「東口の駅周辺」「サンシャインシティ」「西口」のどこに行くかを決めましょう。大きな売り場で時間を使いたい日はサンシャインシティ、買い物の合間なら今いる出口側の店舗が候補になります。</description>
+  </item>
+  <item>
+    <title>東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計</title>
+    <link>https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html</guid>
+    <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
+    <description>ガチャひろばで公開している東京都の店舗データを、23区内・23区外、区別、運営ブランド別に独自集計しました。数値は、掲載根拠URLと確認日の両方がある記録だけを対象に、data/spots.js からページ生成時に再計算します。</description>
+  </item>
   <item>
     <title>2026年8月の新作ガチャ20商品｜発売時期・価格・メーカー</title>
     <link>https://gacha-hiroba.com/releases/2026-08.html</link>
@@ -19,27 +68,6 @@
     <guid isPermaLink="true">https://gacha-hiroba.com/releases/2026-09.html</guid>
     <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
     <description>メーカー公式情報で確認した2026年9月発売の新作ガチャ9商品を、発売時期・価格・メーカー別に整理しました。</description>
-  </item>
-  <item>
-    <title>ガチャ店舗データ監査レポート｜確認状況・欠損率・情報充足率を公開</title>
-    <link>https://gacha-hiroba.com/guide/store-data-report.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/guide/store-data-report.html</guid>
-    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
-    <description>ガチャひろばが保有する店舗データについて、「何件あるか」だけでなく、掲載根拠URLと確認日がどこまでそろっているか、営業時間・公表設置規模・アクセスなど各項目をどの程度確認できているかを集計しました。ページ内の数値は data/spots.js から生成時に再計算しています。</description>
-  </item>
-  <item>
-    <title>カプセル楽局の東京店舗一覧｜住所・営業時間・エリア別検索【2026年】</title>
-    <link>https://gacha-hiroba.com/guide/capsule-rakkyoku-tokyo.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/guide/capsule-rakkyoku-tokyo.html</guid>
-    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
-    <description>カプセル楽局を東京で探す人向けに、運営元の公式店舗一覧で店名と所在地を確認でき、ガチャひろば側で確認日を記録した店舗だけをまとめました。2026年9月3日のページ生成時点では東京都内61店、51エリアを掲載しています。公式の全店舗数を転載した一覧ではなく、当サイトの公開条件を満たした掲載分です。</description>
-  </item>
-  <item>
-    <title>シープラ（#C-pla）の店舗一覧｜東京・全国の住所・営業時間・設置規模【2026年】</title>
-    <link>https://gacha-hiroba.com/guide/cpla-store-guide.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/guide/cpla-store-guide.html</guid>
-    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
-    <description>シープラ（#C-pla）の店舗を探す人向けに、店舗または施設の確認元URLと確認日がそろう掲載分を1ページで比較します。2026年9月3日の生成時点では全国46店で、そのうち東京都が25店です。北海道から九州まで12都道府県を含みますが、公式チェーン全体の完全な店舗一覧ではなく、ガチャひろばが根拠を確認できた範囲です。</description>
   </item>
   <item>
     <title>錦糸町のガチャガチャ設置場所｜PARCO・マルイ・オリナスを南北比較【2026年】</title>
@@ -68,13 +96,6 @@
     <guid isPermaLink="true">https://gacha-hiroba.com/guide/omori.html</guid>
     <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
     <description>大森駅周辺のガチャガチャ設置場所について、店舗・メーカーの確認元URLと確認日がそろう3店を掲載します。対象はJR大森駅改札外のNewDays付近、西友大森店3階のガシャポンバンダイオフィシャルショップ、イトーヨーカドー大森店のガチャコーナーです。駅名が同じでも、大田区側と品川区側の住所が含まれます。</description>
-  </item>
-  <item>
-    <title>東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計</title>
-    <link>https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html</guid>
-    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
-    <description>ガチャひろばで公開している東京都の店舗データを、23区内・23区外、区別、運営ブランド別に独自集計しました。数値は、掲載根拠URLと確認日の両方がある記録だけを対象に、data/spots.js からページ生成時に再計算します。</description>
   </item>
   <item>
     <title>立川のガチャガチャ設置場所｜駅前・立飛の大型店を比較【2026年】</title>

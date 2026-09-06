@@ -1773,7 +1773,15 @@ document.addEventListener('click', function (event) {
   } else if (isInternal && /\/stores\.html$/i.test(url.pathname) && brandFilter) {
     ghTrack('brand_page_click', { link_url: href, brand_name: brandFilter });
   } else if (isInternal && /\/guide\/[a-z0-9-]+\.html$/i.test(url.pathname)) {
-    ghTrack('guide_page_click', { link_url: href });
+    if (url.pathname === location.pathname && url.hash) {
+      ghTrack('guide_section_click', { guide_path: url.pathname, section_id: url.hash.slice(1) });
+    } else {
+      ghTrack('guide_page_click', {
+        link_url: href,
+        link_location: target.closest('.gh-station-guides') ? 'station_navigation' :
+          target.closest('#storeList') ? 'search_results' : 'other'
+      });
+    }
   } else if (isInternal && /\/releases\/\d{4}-\d{2}\.html$/i.test(url.pathname)) {
     ghTrack('release_hub_click', { link_url: href });
   } else if (target.hasAttribute('data-gh-share-link')) {

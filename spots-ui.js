@@ -94,6 +94,15 @@
     try { s = s.normalize('NFKC'); } catch (e) {}
     return s.toLowerCase().replace(/[#\-‐‑–—−]/g, '');
   }
+  function searchTerms(query) {
+    var generic = ['ガチャ', 'ガチャガチャ', 'ガチャポン', 'ガシャポン', 'カプセルトイ', 'カプセル', '専門店', '店舗', '設置場所'];
+    return normSearch(query).split(/\s+/).filter(function (term) {
+      return term && generic.indexOf(term) === -1;
+    }).map(function (term) {
+      // 駅名だけで登録されていない店舗も「池袋駅」の検索候補に含める。
+      return term.length > 1 ? term.replace(/駅$/, '') : term;
+    });
+  }
   function osmSearchUrl(store) {
     var q = [store.name, store.address].filter(Boolean).join(' ');
     return 'https://www.openstreetmap.org/search?query=' + encodeURIComponent(q);
@@ -581,6 +590,10 @@
   function renderArticleList() {
     var arts = (window.GH_ARTICLES || []).filter(function (a) {
       return a.type === 'guide' && a.reviewReady === true;
+    }).slice().sort(function (a, b) {
+      return (Number(b.featured || 0) - Number(a.featured || 0)) ||
+        String(b.updated || '').localeCompare(String(a.updated || '')) ||
+        String(a.title || '').localeCompare(String(b.title || ''), 'ja');
     });
     document.querySelectorAll('[data-gh-article-list]').forEach(function (box) {
       var limit = parseInt(box.getAttribute('data-gh-article-list') || '0', 10);
@@ -1054,13 +1067,11 @@
     /* ── キーワード検索（?q=）: 店名・エリア・住所・ブランドを横断で部分一致。
           スペース区切りの複数キーワードは AND 検索（例:「浅草 ガチャ」）── */
     if (query) {
-      var nq = normSearch(query);
-      var terms = nq.split(/\s+/).filter(function (t) { return t.length > 0; });
+      var terms = searchTerms(query);
       /* 「ガチャ」「カプセルトイ」等の一般語は全店舗が該当するため常にマッチ扱い */
-      var GENERIC = 'ガチャ ガチャガチャ ガチャポン ガシャポン カプセルトイ カプセル 専門店 店舗';
       var hits = SPOTS.filter(function (s) {
         var hay = normSearch([s.name, s.brand, s.area, s.pref, s.address, s.access]
-          .map(function (f) { return (f == null ? '' : String(f)); }).join(' ') + ' ' + GENERIC);
+          .map(function (f) { return (f == null ? '' : String(f)); }).join(' '));
         /* 空白を詰めた版も見る。「Main Labo」を「mainlabo」と入力しても、
            「ガシャポン のデパート」のように余分な空白を入れても当たるようにする。 */
         var flat = hay.replace(/\s+/g, '');
@@ -1084,7 +1095,7 @@
         var at = normSearch(a.label + ' ' + a.title);
         var al = normSearch(a.label);
         return terms.some(function (t) { return at.indexOf(t) !== -1 || (al && t.indexOf(al) !== -1); });
-      });
+      }).slice(0, 3);
       if (arts.length) {
         artHtml = '<div class="gh-news-list" style="margin-bottom:16px">' + arts.map(function (a) {
           return '<a href="' + guideUrl(a.slug) + '" class="gh-news-item">' +

@@ -193,7 +193,7 @@ window.GH_SPOTS = [
     "hours": "10:00〜21:00",
     "machines": 3775,
     "sourceUrl": "https://bandainamco-am.co.jp/others/capsule-toy-store/store/ikebukuro/",
-    "verifiedAt": "2026-08-20",
+    "verifiedAt": "2026-09-06",
     "lat": 35.729,
     "lon": 139.72,
     "access": "サンシャインシティ ワールドインポートマートビル 3F（バンダイナムコ Cross Store 東京内）"
@@ -227,7 +227,7 @@ window.GH_SPOTS = [
     "lat": 35.73152924,
     "lon": 139.71279907,
     "sourceUrl": "https://gashacoco.jp/shop-list/2482",
-    "verifiedAt": "2026-08-20"
+    "verifiedAt": "2026-09-06"
   },
   {
     "id": "gbo-tokyo-solamachi",
@@ -437,7 +437,7 @@ window.GH_SPOTS = [
     "hours": "10:00〜23:00",
     "machines": 500,
     "sourceUrl": "https://bandainamco-am.co.jp/others/capsule-toy-store/store/akihabara/",
-    "verifiedAt": "2026-08-20",
+    "verifiedAt": "2026-09-06",
     "lat": 35.7,
     "lon": 139.7706,
     "access": "秋葉原駅 徒歩1分（ガシャポンバンダイオフィシャルショップと同フロア・深夜23時まで営業）"
@@ -484,10 +484,13 @@ window.GH_SPOTS = [
     "area": "東京都・池袋",
     "address": "東京都豊島区東池袋1-21-13 aune池袋 1F",
     "sourceUrl": "https://gashacoco.jp/shop-list/3219",
-    "verifiedAt": "2026-07-20",
+    "verifiedAt": "2026-09-06",
     "lat": 35.73,
     "lon": 139.7143,
-    "access": "サンシャイン通り沿い aune池袋 1F（池袋駅東口から徒歩約4分・2026年2月5日オープン）"
+    "access": "サンシャイン通り沿い aune池袋 1F（池袋駅東口から徒歩約4分・2026年2月5日オープン）",
+    "hours": "11:00〜22:00",
+    "tel": "070-6525-6149",
+    "zip": "170-0013"
   },
   {
     "id": "caprak-machida",
@@ -812,7 +815,7 @@ window.GH_SPOTS = [
     "lat": 35.7308323,
     "lon": 139.7089542,
     "sourceUrl": "https://www.warehousenet.jp/capsule/",
-    "verifiedAt": "2026-08-20"
+    "verifiedAt": "2026-09-06"
   },
   {
     "id": "caprak-ex-ikebukuro",
@@ -1157,7 +1160,7 @@ window.GH_SPOTS = [
     "hours": "10:00〜23:00（B1F・2Fは22:30まで）",
     "machines": 2251,
     "sourceUrl": "https://toshin.jpn.com/shop/%E6%B8%8B%E8%B0%B7%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%E8%A1%97%E5%BA%97/",
-    "verifiedAt": "2026-08-20",
+    "verifiedAt": "2026-09-06",
     "lat": 35.6606,
     "lon": 139.6977,
     "access": "渋谷センター街内（渋谷駅 ハチ公口 徒歩3分）"
@@ -1174,10 +1177,11 @@ window.GH_SPOTS = [
     "hours": "10:00〜21:00",
     "machines": 601,
     "sourceUrl": "https://toshin.jpn.com/shop/shibuya109%E6%B8%8B%E8%B0%B7%E5%BA%97/",
-    "verifiedAt": "2026-08-20",
+    "verifiedAt": "2026-09-06",
     "lat": 35.6591,
     "lon": 139.6987,
-    "access": "SHIBUYA109 8F（渋谷駅 ハチ公口 徒歩3分）"
+    "access": "SHIBUYA109 8F（渋谷駅 ハチ公口 徒歩3分）",
+    "zip": "150-0043"
   },
   {
     "id": "dreamcapsule-magnet-shibuya",
@@ -1193,7 +1197,7 @@ window.GH_SPOTS = [
     "lon": 139.7006,
     "zip": "150-0041",
     "sourceUrl": "https://www.dreamcapsule.co.jp/shop/134",
-    "verifiedAt": "2026-08-21"
+    "verifiedAt": "2026-09-06"
   },
   {
     "id": "capsulelab-harajuku-takeshita",
@@ -1259,7 +1263,9 @@ window.GH_SPOTS = [
     "lon": 139.7717,
     "zip": "101-0021",
     "sourceUrl": "https://www.akibagacha.com/",
-    "verifiedAt": "2026-08-21"
+    "verifiedAt": "2026-09-06",
+    "hours": "平日11:00〜20:00／日祝11:00〜19:00（土曜は公式の最新案内を確認）",
+    "access": "JR秋葉原駅 電気街口から徒歩7分／東京メトロ銀座線 末広町駅から徒歩2分（公式案内）"
   },
   {
     "id": "caprak-kanda",
@@ -1389,7 +1395,7 @@ window.GH_SPOTS = [
     "hours": "11:00〜22:00",
     "machines": 1285,
     "sourceUrl": "https://toshin.jpn.com/shop/%E6%9D%B1%E6%80%A5%E3%83%97%E3%83%A9%E3%82%B6%E6%B8%8B%E8%B0%B7%E5%BA%97/",
-    "verifiedAt": "2026-08-20"
+    "verifiedAt": "2026-09-06"
   },
   {
     "id": "cpla-licopa-higashiyamato",
@@ -1468,7 +1474,7 @@ window.GH_SPOTS = [
     "zip": "101-0021",
     "hours": "10:00〜21:00",
     "sourceUrl": "https://kenelephant.co.jp/kenelestand/",
-    "verifiedAt": "2026-08-20"
+    "verifiedAt": "2026-09-06"
   },
   {
     "id": "kenele-stand-jr-shimbashi",
@@ -3829,7 +3835,7 @@ window.GH_SPOTS = [
     "region": "kanto",
     "pref": "東京都",
     "sourceUrl": "https://www.warehousenet.jp/capsule/",
-    "verifiedAt": "2026-09-03"
+    "verifiedAt": "2026-09-06"
   },
   {
     "id": "caprak-kojiya",
