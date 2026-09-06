@@ -1,0 +1,2730 @@
+'use strict';
+
+/* GH_LOCATION_ACCESS_START
+   位置情報を拒否した後の案内を、端末・ブラウザ別に出し分ける共通ヘルパー。
+   WebページからiPhoneやPCの設定画面を直接開く標準APIはないため、公式手順と
+   再試行を主導線にする。Androidの設定Intentは対応端末だけの補助導線として扱う。 */
+var GHLocationAccess = (function () {
+  var HELP = {
+    ja: {
+      iosSafari: 'https://support.apple.com/ja-jp/guide/iphone/iphb01fc3c85/ios',
+      iosChrome: 'https://support.google.com/chrome/answer/142065?co=GENIE.Platform%3DiOS&hl=ja',
+      iosOther: 'https://support.apple.com/ja-jp/guide/personal-safety/ips9bf20ad2f/web',
+      androidChrome: 'https://support.google.com/chrome/answer/142065?co=GENIE.Platform%3DAndroid&hl=ja',
+      androidOther: 'https://support.google.com/android/answer/179386?co=GENIE.Platform%3DAndroid&hl=ja',
+      desktopChrome: 'https://support.google.com/chrome/answer/142065?co=GENIE.Platform%3DDesktop&hl=ja',
+      edge: 'https://support.microsoft.com/edge/location-and-privacy-in-microsoft-edge',
+      firefox: 'https://support.mozilla.org/ja/kb/does-firefox-share-my-location-websites',
+      macSafari: 'https://support.apple.com/ja-jp/guide/safari/ibrw7f78f7fe/mac'
+    },
+    en: {
+      iosSafari: 'https://support.apple.com/guide/iphone/iphb01fc3c85/ios',
+      iosChrome: 'https://support.google.com/chrome/answer/142065?co=GENIE.Platform%3DiOS&hl=en',
+      iosOther: 'https://support.apple.com/guide/personal-safety/ips9bf20ad2f/web',
+      androidChrome: 'https://support.google.com/chrome/answer/142065?co=GENIE.Platform%3DAndroid&hl=en',
+      androidOther: 'https://support.google.com/android/answer/179386?co=GENIE.Platform%3DAndroid&hl=en',
+      desktopChrome: 'https://support.google.com/chrome/answer/142065?co=GENIE.Platform%3DDesktop&hl=en',
+      edge: 'https://support.microsoft.com/en-us/edge/location-and-privacy-in-microsoft-edge',
+      firefox: 'https://support.mozilla.org/en-US/kb/does-firefox-share-my-location-websites',
+      macSafari: 'https://support.apple.com/guide/safari/ibrw7f78f7fe/mac'
+    }
+  };
+
+  function environment(input) {
+    var nav = input || (typeof navigator !== 'undefined' ? navigator : {});
+    var ua = String(nav.userAgent || '');
+    var platform = String((nav.userAgentData && nav.userAgentData.platform) || nav.platform || '');
+    var touch = Number(nav.maxTouchPoints || 0);
+    var isIPadDesktop = /Mac/i.test(platform) && touch > 1;
+    var os = /iPhone|iPad|iPod/i.test(ua) || isIPadDesktop ? 'ios'
+      : /Android/i.test(ua) ? 'android'
+        : /Windows/i.test(ua) || /Win/i.test(platform) ? 'windows'
+          : /Macintosh|Mac OS X/i.test(ua) || /Mac/i.test(platform) ? 'mac'
+            : 'other';
+    var browser = /CriOS/i.test(ua) ? 'chrome'
+      : /EdgiOS|EdgA|Edg\//i.test(ua) ? 'edge'
+        : /FxiOS|Firefox/i.test(ua) ? 'firefox'
+          : /SamsungBrowser/i.test(ua) ? 'samsung'
+            : /Chrome|Chromium|CriOS/i.test(ua) ? 'chrome'
+              : /Safari/i.test(ua) ? 'safari'
+                : 'other';
+    return { os: os, browser: browser };
+  }
+
+  function helpUrl(env, en) {
+    var links = HELP[en ? 'en' : 'ja'];
+    if (env.os === 'ios') {
+      if (env.browser === 'safari') return links.iosSafari;
+      if (env.browser === 'chrome') return links.iosChrome;
+      return links.iosOther;
+    }
+    if (env.os === 'android') {
+      if (env.browser === 'chrome') return links.androidChrome;
+      if (env.browser === 'edge') return links.edge;
+      if (env.browser === 'firefox') return links.firefox;
+      return links.androidOther;
+    }
+    if (env.os === 'mac' && env.browser === 'safari') return links.macSafari;
+    if (env.browser === 'edge') return links.edge;
+    if (env.browser === 'firefox') return links.firefox;
+    return links.desktopChrome;
+  }
+
+  function guide(locale, input) {
+    var env = environment(input);
+    var en = locale === 'en';
+    var key = env.os + '-' + env.browser;
+    var data = {
+      platform: key,
+      title: en ? 'Allow location access' : '位置情報を許可してください',
+      intro: en
+        ? 'Your browser or device is blocking location for gacha-hiroba.com. Change the setting, return to this page, then try again.'
+        : 'ブラウザまたは端末で gacha-hiroba.com の位置情報が拒否されています。設定を変更してこのページへ戻り、もう一度お試しください。',
+      steps: en
+        ? ['Open the site information control beside the address bar.', 'Open Permissions or Site settings.', 'Set Location to Allow, return here, then try again.']
+        : ['アドレスバー横のサイト情報を開く', '「権限」または「サイトの設定」を開く', '「位置情報」を「許可」にして、このページへ戻る'],
+      note: en
+        ? 'If device-wide Location Services are off, turn them on in your device settings too.'
+        : '端末全体の位置情報サービスがオフの場合は、端末の設定でも位置情報をオンにしてください。',
+      helpUrl: helpUrl(env, en),
+      systemSettingsUrl: '',
+      systemSettingsLabel: ''
+    };
+
+    if (env.os === 'ios' && env.browser === 'safari') {
+      data.title = en ? 'Allow location in Safari on iPhone or iPad' : 'iPhone・iPadのSafariで位置情報を許可';
+      data.steps = en
+        ? ['Tap the Page Menu button on the left of the address bar.', 'Tap More, then find Website Settings For this site.', 'Set Location to Allow, return here, then try again.']
+        : ['アドレスバー左のページメニューをタップ', '「その他」を開き、「Webサイトの設定」欄まで進む', '「位置情報」を「許可」にして、このページへ戻る'];
+      data.note = en
+        ? 'If needed, also check Settings > Apps > Safari > Location.'
+        : '項目が出ない場合は「設定」→「アプリ」→「Safari」→「位置情報」も確認してください。';
+    } else if (env.os === 'ios') {
+      data.title = en ? 'Allow location on iPhone or iPad' : 'iPhone・iPadで位置情報を許可';
+      data.steps = en
+        ? ['Open the iPhone or iPad Settings app.', 'Open Apps, then your current browser.', 'Open Location and choose While Using the App, then return here.']
+        : ['iPhone・iPadの「設定」を開く', '「アプリ」→現在使っているブラウザを開く', '「位置情報」を「このAppの使用中」にして、このページへ戻る'];
+      data.note = en
+        ? 'The wording may differ slightly by browser and iOS version.'
+        : 'ブラウザやiOSのバージョンにより、項目名が少し異なる場合があります。';
+    } else if (env.os === 'android') {
+      data.title = en ? 'Allow location in your Android browser' : 'Androidのブラウザで位置情報を許可';
+      data.steps = en
+        ? ['Tap Site information on the left of the address bar.', 'Tap Permissions, then Location.', 'Choose Allow, return here, then try again.']
+        : ['アドレスバー左のサイト情報をタップ', '「権限」→「位置情報」を開く', '「許可」を選び、このページへ戻る'];
+      data.note = en
+        ? 'Also check Settings > Location > App permissions > your browser if device or app access is off.'
+        : '端末側がオフの場合は「設定」→「位置情報」→「アプリの権限」→使用中のブラウザも確認してください。';
+      data.systemSettingsUrl = en
+        ? 'intent:#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;S.browser_fallback_url=https%3A%2F%2Fsupport.google.com%2Fandroid%2Fanswer%2F179386%3Fco%3DGENIE.Platform%253DAndroid%26hl%3Den;end'
+        : 'intent:#Intent;action=android.settings.LOCATION_SOURCE_SETTINGS;S.browser_fallback_url=https%3A%2F%2Fsupport.google.com%2Fandroid%2Fanswer%2F179386%3Fco%3DGENIE.Platform%253DAndroid%26hl%3Dja;end';
+      data.systemSettingsLabel = en ? 'Open Android location settings (supported devices)' : 'Androidの位置情報設定を開く（対応端末）';
+    } else if (env.os === 'mac' && env.browser === 'safari') {
+      data.title = en ? 'Allow location in Safari on Mac' : 'MacのSafariで位置情報を許可';
+      data.steps = en
+        ? ['Open the Page Menu beside the address bar.', 'Choose Website Settings.', 'Set Location to Allow, then try again.']
+        : ['アドレスバー横のページメニューを開く', '「Webサイトの設定」を選ぶ', '「位置情報」を「許可」にして、もう一度試す'];
+      data.note = en
+        ? 'Also check System Settings > Privacy & Security > Location Services if location is off for Safari.'
+        : 'Safari自体が無効な場合は「システム設定」→「プライバシーとセキュリティ」→「位置情報サービス」も確認してください。';
+    } else if (env.os === 'windows') {
+      data.title = en ? 'Allow location in your PC browser' : 'パソコンのブラウザで位置情報を許可';
+      data.steps = en
+        ? ['Select Site information on the left of the address bar.', 'Open Site settings or Permissions.', 'Set Location to Allow, return here, then try again.']
+        : ['アドレスバー左のサイト情報をクリック', '「サイトの設定」または「権限」を開く', '「位置情報」を「許可」にして、このページへ戻る'];
+      data.note = en
+        ? 'If Windows location is off, turn it on under Settings > Privacy & security > Location.'
+        : 'Windows側がオフの場合は「設定」→「プライバシーとセキュリティ」→「位置情報」もオンにしてください。';
+      data.systemSettingsUrl = 'ms-settings:privacy-location';
+      data.systemSettingsLabel = en ? 'Open Windows location settings (supported PCs)' : 'Windowsの位置情報設定を開く（対応PC）';
+    }
+    return data;
+  }
+
+  function permissionState(input, maxWaitMs) {
+    var nav = input || (typeof navigator !== 'undefined' ? navigator : {});
+    if (!nav.permissions || typeof nav.permissions.query !== 'function') return Promise.resolve('unknown');
+    var query;
+    try {
+      query = Promise.resolve(nav.permissions.query({ name: 'geolocation' }))
+        .then(function (result) {
+          return result && /^(granted|denied|prompt)$/.test(result.state) ? result.state : 'unknown';
+        }).catch(function () { return 'unknown'; });
+    } catch (e) {
+      return Promise.resolve('unknown');
+    }
+    var wait = typeof maxWaitMs === 'number' ? maxWaitMs : 800;
+    if (wait <= 0 || typeof setTimeout !== 'function') return query;
+    return new Promise(function (resolve) {
+      var settled = false;
+      var timer = setTimeout(function () {
+        if (settled) return;
+        settled = true;
+        resolve('unknown');
+      }, wait);
+      query.then(function (state) {
+        if (settled) return;
+        settled = true;
+        if (typeof clearTimeout === 'function') clearTimeout(timer);
+        resolve(state);
+      });
+    });
+  }
+
+  function currentPosition(input, options) {
+    var nav = input || (typeof navigator !== 'undefined' ? navigator : {});
+    return new Promise(function (resolve, reject) {
+      if (!nav.geolocation || typeof nav.geolocation.getCurrentPosition !== 'function') {
+        reject({ code: 0, reason: 'unsupported' });
+        return;
+      }
+      try {
+        nav.geolocation.getCurrentPosition(resolve, function (error) {
+          reject(error || { code: 0, reason: 'unknown' });
+        }, options || {});
+      } catch (error) {
+        reject({ code: 0, reason: 'exception', originalError: error });
+      }
+    });
+  }
+
+  function requestPosition(input, config) {
+    var nav = input || (typeof navigator !== 'undefined' ? navigator : {});
+    var settings = config || {};
+    return permissionState(nav, settings.permissionTimeout).then(function (state) {
+      if (typeof settings.onPermissionState === 'function') settings.onPermissionState(state);
+      if (state === 'denied') {
+        return Promise.reject({ code: 1, reason: 'permission_denied', fromPermissionsApi: true });
+      }
+      return currentPosition(nav, settings.positionOptions || {});
+    });
+  }
+
+  function escapeHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function render(container, locale, input, reason) {
+    if (!container) return null;
+    var data = guide(locale, input);
+    var en = locale === 'en';
+    if (reason === 'position_unavailable') {
+      data.intro = en
+        ? 'Device location may be off, or your browser could not determine a position. Check both device and browser settings, return here, then try again.'
+        : '端末の位置情報がオフ、またはブラウザが現在地を特定できない状態です。端末とブラウザの設定を確認して、このページへ戻ってください。';
+      if (data.platform.indexOf('ios-') === 0) {
+        data.note = en
+          ? 'First check Settings > Privacy & Security > Location Services. Then check location access for Safari or your current browser.'
+          : 'まず「設定」→「プライバシーとセキュリティ」→「位置情報サービス」をオンにし、Safariまたは使用中のブラウザの許可も確認してください。';
+      }
+    }
+    var steps = data.steps.map(function (step) { return '<li>' + escapeHtml(step) + '</li>'; }).join('');
+    var system = data.systemSettingsUrl
+      ? '<a class="gh-btn gh-btn--sm gh-location-help__system" href="' + escapeHtml(data.systemSettingsUrl) + '" data-gh-location-system-settings>' + escapeHtml(data.systemSettingsLabel) + '</a>'
+      : '';
+    container.innerHTML =
+      '<div class="gh-location-help__head"><span aria-hidden="true">📍</span><div>' +
+        '<strong>' + escapeHtml(data.title) + '</strong><p>' + escapeHtml(data.intro) + '</p>' +
+      '</div></div>' +
+      '<ol class="gh-location-help__steps">' + steps + '</ol>' +
+      '<p class="gh-location-help__note">' + escapeHtml(data.note) + '</p>' +
+      '<div class="gh-location-help__actions">' +
+        '<button type="button" class="gh-btn gh-btn--primary gh-btn--sm" data-gh-location-retry>' +
+          (en ? 'I changed the setting — try again' : '設定できたので、もう一度試す') +
+        '</button>' + system +
+        '<a class="gh-btn gh-btn--sm" href="' + escapeHtml(data.helpUrl) + '" target="_blank" rel="noopener noreferrer">' +
+          (en ? 'Open official instructions' : '公式の設定手順を見る') +
+        '</a>' +
+        '<button type="button" class="gh-btn gh-btn--sm" data-gh-location-search>' +
+          (en ? 'Search by city or station' : '駅名・エリア名で探す') +
+        '</button>' +
+      '</div>' +
+      '<p class="gh-location-help__limit">' +
+        (en
+          ? 'For security, a website cannot change this permission or open every browser’s settings automatically.'
+          : '安全上、Webサイトから許可を変更したり、すべての端末の設定画面を自動で開いたりすることはできません。') +
+      '</p>';
+    container.hidden = false;
+    if (typeof container.setAttribute === 'function') container.setAttribute('tabindex', '-1');
+    if (typeof container.scrollIntoView === 'function') {
+      try { container.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+    }
+    if (typeof container.focus === 'function') {
+      try { container.focus({ preventScroll: true }); } catch (e) { try { container.focus(); } catch (ignore) {} }
+    }
+    return data;
+  }
+
+  function hide(container) {
+    if (!container) return;
+    container.hidden = true;
+    container.innerHTML = '';
+  }
+
+  return {
+    environment: environment,
+    guide: guide,
+    permissionState: permissionState,
+    currentPosition: currentPosition,
+    requestPosition: requestPosition,
+    render: render,
+    hide: hide
+  };
+})();
+window.GHLocationAccess = GHLocationAccess;
+/* GH_LOCATION_ACCESS_END */
+
+/* ── GA4 runtime guard ──
+   運営者端末・非本番環境・計測対象外ページでは、gtag.jsを読み込む前に送信を止める。
+   運営者フラグはこのブラウザのlocalStorageだけに保存し、端末識別情報は保持しない。 */
+var GHAnalyticsControl = (function () {
+  var GA_ID = 'G-6KSGDTM1VJ';
+  var OWNER_KEY = 'gh-analytics-owner-excluded-v1';
+  var DISABLE_KEY = 'ga-disable-' + GA_ID;
+
+  function isProduction() {
+    return location.protocol === 'https:' && location.hostname === 'gacha-hiroba.com';
+  }
+  function isNoTrackingPage() {
+    return Boolean(document.body && document.body.hasAttribute('data-gh-no-tracking')) ||
+      /\/privacy\.html$/.test(location.pathname);
+  }
+  function getOwnerExclusion() {
+    try {
+      var raw = localStorage.getItem(OWNER_KEY);
+      if (!raw) return null;
+      if (raw === '1') return { excluded: true, setAt: null };
+      var parsed = JSON.parse(raw);
+      return parsed && parsed.excluded === true
+        ? { excluded: true, setAt: typeof parsed.setAt === 'string' ? parsed.setAt : null }
+        : null;
+    } catch (e) {
+      return null;
+    }
+  }
+  function isOwnerExcluded() {
+    return Boolean(getOwnerExclusion());
+  }
+  function setRuntimeDisabled(disabled) {
+    window[DISABLE_KEY] = Boolean(disabled);
+  }
+  function isRuntimeDisabled() {
+    return window[DISABLE_KEY] === true;
+  }
+  function clearAnalyticsCookies() {
+    var names = ['_ga', '_gid', '_gat'];
+    try {
+      document.cookie.split(';').forEach(function (part) {
+        var name = part.split('=')[0].trim();
+        if (/^_ga(?:_|$)/.test(name) && names.indexOf(name) === -1) names.push(name);
+      });
+      names.forEach(function (name) {
+        var expired = name + '=; Max-Age=0; Path=/; SameSite=Lax';
+        document.cookie = expired;
+        if (location.hostname === 'gacha-hiroba.com') {
+          document.cookie = expired + '; Domain=gacha-hiroba.com';
+          document.cookie = expired + '; Domain=.gacha-hiroba.com';
+        }
+      });
+    } catch (e) { /* Cookieが使えなくても送信停止フラグは維持する。 */ }
+  }
+  function shouldBlock() {
+    return !isProduction() || isNoTrackingPage() || isOwnerExcluded();
+  }
+  function stop() {
+    setRuntimeDisabled(true);
+    clearAnalyticsCookies();
+  }
+  function prepare() {
+    var blocked = shouldBlock();
+    setRuntimeDisabled(blocked);
+    return !blocked;
+  }
+  function setOwnerExcluded(excluded) {
+    try {
+      if (excluded) {
+        localStorage.setItem(OWNER_KEY, JSON.stringify({ excluded: true, setAt: new Date().toISOString() }));
+        if (!isOwnerExcluded()) throw new Error('owner exclusion was not persisted');
+        stop();
+        return true;
+      }
+      localStorage.removeItem(OWNER_KEY);
+      if (isOwnerExcluded()) throw new Error('owner exclusion was not removed');
+      prepare();
+      return true;
+    } catch (e) {
+      stop();
+      return false;
+    }
+  }
+
+  /* localStorageは同一ブラウザの別タブにも即時反映し、開いたままのページからの送信も止める。 */
+  window.addEventListener('storage', function (event) {
+    if (event.key === OWNER_KEY && isOwnerExcluded()) stop();
+  });
+
+  prepare();
+  return {
+    measurementId: GA_ID,
+    storageKey: OWNER_KEY,
+    isProduction: isProduction,
+    isNoTrackingPage: isNoTrackingPage,
+    getOwnerExclusion: getOwnerExclusion,
+    isOwnerExcluded: isOwnerExcluded,
+    setOwnerExcluded: setOwnerExcluded,
+    shouldBlock: shouldBlock,
+    isRuntimeDisabled: isRuntimeDisabled,
+    clearAnalyticsCookies: clearAnalyticsCookies,
+    stop: stop,
+    prepare: prepare
+  };
+})();
+window.GHAnalyticsControl = GHAnalyticsControl;
+
+/* ── Google Analytics 4 ──
+   通常の本番アクセスではConsent Mode v2を既定拒否で初期化する。未選択・拒否時は
+   解析Cookieを保存せずCookieを使わない測定信号だけを送り、許可後だけ解析Cookieを使う。
+   運営者端末・非本番・計測対象外ページではタグ自体を読み込まない。 */
+(function () {
+  var GA_ID = GHAnalyticsControl.measurementId;
+  var CONSENT_KEY = 'gh-analytics-consent-v1';
+  var analyticsLoaded = false;
+  var consentDefaultQueued = false;
+  function choice() { try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; } }
+  function remember(value) { try { localStorage.setItem(CONSENT_KEY, value); } catch (e) {} }
+  function deniedConsent() {
+    return {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied'
+    };
+  }
+  function ensureGtag() {
+    window.dataLayer = window.dataLayer || [];
+    if (typeof window.gtag !== 'function') {
+      window.gtag = function () { window.dataLayer.push(arguments); };
+    }
+  }
+  function queueDefaultConsent() {
+    if (consentDefaultQueued) return;
+    ensureGtag();
+    var defaults = deniedConsent();
+    defaults.wait_for_update = 500;
+    window.gtag('consent', 'default', defaults);
+    window.gtag('set', 'ads_data_redaction', true);
+    consentDefaultQueued = true;
+  }
+  function updateConsent(value) {
+    if (GHAnalyticsControl.shouldBlock()) return;
+    queueDefaultConsent();
+    var next = deniedConsent();
+    if (value === 'accepted') next.analytics_storage = 'granted';
+    window.gtag('consent', 'update', next);
+    if (value !== 'accepted') GHAnalyticsControl.clearAnalyticsCookies();
+  }
+  function loadAnalytics() {
+    if (!GHAnalyticsControl.prepare()) return;
+    queueDefaultConsent();
+    if (analyticsLoaded) return;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+    window.gtag('js', new Date());
+    window.gtag('config', GA_ID, {
+      anonymize_ip: true,
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false
+    });
+    analyticsLoaded = true;
+  }
+  function closeBanner() {
+    var el = document.querySelector('[data-gh-consent]');
+    if (el) el.remove();
+  }
+  function showBanner() {
+    closeBanner();
+    if (GHAnalyticsControl.isOwnerExcluded()) return;
+    var english = /^en\b/i.test((document.documentElement && document.documentElement.lang) || '');
+    var box = document.createElement('aside');
+    box.className = 'gh-consent';
+    box.setAttribute('data-gh-consent', '');
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-label', english ? 'Analytics cookie settings' : 'アクセス解析のCookie設定');
+    box.innerHTML = english
+      ? '<div class="gh-consent__text"><strong>Analytics settings</strong>' +
+        '<span>We use Google Analytics to improve this site. Before permission, no analytics cookie is stored; only a cookieless measurement signal is sent. ' +
+        '<a href="/privacy.html">Privacy details (Japanese)</a></span></div>' +
+        '<div class="gh-consent__actions"><button type="button" class="gh-btn" data-gh-consent-reject>Continue without analytics cookies</button>' +
+        '<button type="button" class="gh-btn gh-btn--primary" data-gh-consent-accept>Allow analytics cookies</button></div>'
+      : '<div class="gh-consent__text"><strong>アクセス解析の設定</strong>' +
+        '<span>サイト改善のためGoogle Analyticsを利用します。許可前は解析Cookieを保存せず、Cookieを使わない測定信号だけを送信します。' +
+        '<a href="/privacy.html">詳しい説明</a></span></div>' +
+        '<div class="gh-consent__actions"><button type="button" class="gh-btn" data-gh-consent-reject>解析Cookieを使わない</button>' +
+        '<button type="button" class="gh-btn gh-btn--primary" data-gh-consent-accept>解析Cookieを許可</button></div>';
+    document.body.appendChild(box);
+    box.querySelector('[data-gh-consent-reject]').addEventListener('click', function () {
+      remember('rejected'); loadAnalytics(); updateConsent('rejected'); closeBanner();
+    });
+    box.querySelector('[data-gh-consent-accept]').addEventListener('click', function () {
+      remember('accepted'); loadAnalytics(); updateConsent('accepted'); closeBanner();
+    });
+  }
+  function initConsent() {
+    var english = /^en\b/i.test((document.documentElement && document.documentElement.lang) || '');
+    if (GHAnalyticsControl.isOwnerExcluded()) closeBanner();
+    else {
+      loadAnalytics();
+      if (choice() === 'accepted') updateConsent('accepted');
+      else if (choice() === 'rejected') updateConsent('rejected');
+      else if (!GHAnalyticsControl.isNoTrackingPage()) showBanner();
+    }
+    document.querySelectorAll('.gh-footer__links').forEach(function (links) {
+      if (links.querySelector('[data-gh-consent-settings]')) return;
+      var groups = Array.from(links.children);
+      var support = groups.find(function (group) {
+        var heading = group.querySelector && group.querySelector('strong');
+        return heading && heading.textContent.trim() === 'サポート';
+      }) || groups[groups.length - 1] || links;
+      if (GHAnalyticsControl.isOwnerExcluded()) {
+        var ownerStatus = document.createElement('span');
+        ownerStatus.className = 'gh-footer__consent gh-footer__consent--owner';
+        ownerStatus.setAttribute('data-gh-consent-settings', '');
+        ownerStatus.textContent = english ? 'Owner traffic excluded' : '運営者アクセス除外中';
+        support.appendChild(ownerStatus);
+      } else {
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'gh-footer__consent';
+        button.setAttribute('data-gh-consent-settings', '');
+        button.textContent = english ? 'Cookie settings' : 'Cookie設定';
+        button.addEventListener('click', showBanner);
+        support.appendChild(button);
+      }
+    });
+  }
+  /* 別タブで同意・運営者除外を変更した場合も、開いている全タブへ即時反映する。 */
+  window.addEventListener('storage', function (event) {
+    if (event.key === null) {
+      if (GHAnalyticsControl.shouldBlock()) GHAnalyticsControl.stop();
+      else { loadAnalytics(); updateConsent('rejected'); }
+      closeBanner();
+      if (!GHAnalyticsControl.isNoTrackingPage()) showBanner();
+      return;
+    }
+    if (event.key === GHAnalyticsControl.storageKey) {
+      if (GHAnalyticsControl.isOwnerExcluded()) {
+        GHAnalyticsControl.stop();
+        closeBanner();
+      } else {
+        loadAnalytics();
+        updateConsent(choice() === 'accepted' ? 'accepted' : 'rejected');
+        if (!choice() && !GHAnalyticsControl.isNoTrackingPage()) showBanner();
+      }
+      return;
+    }
+    if (event.key !== CONSENT_KEY) return;
+    if (event.newValue === 'rejected') {
+      loadAnalytics();
+      updateConsent('rejected');
+      closeBanner();
+    } else if (event.newValue === 'accepted') {
+      loadAnalytics();
+      updateConsent('accepted');
+      closeBanner();
+    } else if (event.newValue === null) {
+      if (!GHAnalyticsControl.shouldBlock()) {
+        loadAnalytics();
+        updateConsent('rejected');
+      }
+      if (!GHAnalyticsControl.isOwnerExcluded() && !GHAnalyticsControl.isNoTrackingPage()) showBanner();
+    }
+  });
+  if (document.body) initConsent();
+  else document.addEventListener('DOMContentLoaded', initConsent, { once: true });
+})();
+
+/* ── GA4 event helper ──
+   流入後に「検索→店舗詳細→経路」まで進めたかを判定するための最小イベント。 */
+function ghTrack(name, params) {
+  if (GHAnalyticsControl.shouldBlock() || GHAnalyticsControl.isRuntimeDisabled() ||
+      typeof window.gtag !== 'function') return;
+  window.gtag('event', name, params || {});
+}
+function ghSpotUrl(id, hash) {
+  return '/spot.html?id=' + encodeURIComponent(id || '') + (hash || '');
+}
+
+/* ── Hamburger menu ── */
+const hamburger = document.querySelector('.gh-hamburger');
+const navTabs   = document.querySelector('.gh-nav-tabs');
+if (hamburger && navTabs) {
+  hamburger.addEventListener('click', () => {
+    const open = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', String(!open));
+    navTabs.classList.toggle('gh-nav-tabs--open', !open);
+  });
+  navTabs.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.setAttribute('aria-expanded', 'false');
+      navTabs.classList.remove('gh-nav-tabs--open');
+    });
+  });
+}
+
+/* 掲示板は全ページの共通ナビから到達できるようにする。
+   古い静的ページにも共通JSだけで導線を補い、既にあるページでは重複させない。 */
+document.querySelectorAll('.gh-nav-tabs').forEach(function (nav) {
+  if (nav.querySelector('a[href$="board.html"]')) return;
+  var link = document.createElement('a');
+  link.href = '/board.html';
+  link.textContent = '掲示板';
+  var storesLink = nav.querySelector('a[href$="stores.html"]');
+  if (storesLink) storesLink.insertAdjacentElement('afterend', link);
+  else nav.insertBefore(link, nav.children[1] || null);
+});
+
+/* ── Always-visible language switch on Japanese pages ──
+   Language selection is explicit; browser language and IP never force a redirect. */
+(function () {
+  if (/^en\b/i.test((document.documentElement && document.documentElement.lang) || '')) return;
+  var header = document.querySelector('.gh-header__inner');
+  if (!header || header.querySelector('[data-gh-language-switch]')) return;
+  var link = document.createElement('a');
+  link.className = 'gh-language-switch';
+  link.href = '/english.html';
+  link.hreflang = 'en';
+  link.lang = 'en';
+  link.setAttribute('data-gh-language-switch', 'en');
+  link.setAttribute('aria-label', 'Open the English store finder');
+  link.textContent = 'EN';
+  var menu = header.querySelector('.gh-hamburger');
+  header.insertBefore(link, menu || null);
+  link.addEventListener('click', function () {
+    ghTrack('language_switch', { language_from: 'ja', language_to: 'en' });
+  });
+})();
+
+/* ── Footer trust link fallback ──
+   古い静的ページでも運営情報・編集方針へ辿れるようにする。生成テンプレート側にも
+   同じリンクを持たせ、すでに存在するページでは重複させない。 */
+(function () {
+  document.querySelectorAll('.gh-footer__links').forEach(links => {
+    if (links.querySelector('a[href$="about.html"]')) return;
+    const groups = Array.from(links.children);
+    const infoGroup = groups.find(group => {
+      const heading = group.querySelector('strong');
+      return heading && heading.textContent.trim() === '情報';
+    }) || groups[groups.length - 1];
+    if (!infoGroup) return;
+    const about = document.createElement('a');
+    about.href = '/about.html';
+    about.textContent = '運営情報・編集方針';
+    infoGroup.appendChild(about);
+  });
+})();
+
+/* ── Prevent form submissions (no backend yet) ── */
+document.querySelectorAll('form').forEach(form => {
+  form.addEventListener('submit', e => e.preventDefault());
+});
+
+/* ── ヘッダー検索：入力語で店舗を検索（stores.html?q=…）── */
+document.querySelectorAll('.gh-search').forEach(form => {
+  const input = form.querySelector('.gh-search__input');
+  if (!input) return;
+  // 検索結果ページでは入力欄に検索語を残す
+  try {
+    const q = new URLSearchParams(location.search).get('q');
+    if (q && /stores\.html$/.test(location.pathname)) input.value = q;
+  } catch (e) {}
+  form.addEventListener('submit', () => {
+    const q = input.value.trim();
+    if (q) {
+      ghTrack('search_submit', { search_term: q, search_location: 'header' });
+      location.href = '/stores.html?q=' + encodeURIComponent(q);
+    }
+    else input.focus();
+  });
+});
+
+/* ── サイドバーの「エリア・駅名で検索」ウィジェット：都道府県で店舗一覧へ ── */
+document.querySelectorAll('.gh-widget__form').forEach(form => {
+  const sel = form.querySelector('.gh-select');
+  if (!sel) return;
+  form.addEventListener('submit', () => {
+    const pref = sel.value.trim();
+    if (pref) {
+      ghTrack('area_select', { area_name: pref, search_location: 'sidebar' });
+      location.href = window.GH_PREF_URL ? window.GH_PREF_URL(pref) : '/stores.html#pref=' + encodeURIComponent(pref);
+    }
+    else sel.focus();
+  });
+});
+
+/* ── Supabase 接続情報（publishable=公開キー。書き込みはRLS・関数で制御） ── */
+const GH_SUPA_URL = 'https://vyzdekctlynzuaowopso.supabase.co';
+const GH_SUPA_KEY = 'sb_publishable_1GOi0AxMP1emK7hOC_wMeQ_jqmEL47E';
+let ghSupaClient = null;
+function getGhSupaClient() {
+  if (!(window.supabase && typeof window.supabase.createClient === 'function')) return null;
+  if (!ghSupaClient) ghSupaClient = window.supabase.createClient(GH_SUPA_URL, GH_SUPA_KEY);
+  return ghSupaClient;
+}
+
+/* ── Ranking: 掲載根拠URLと確認日がある公表設置規模だけで描画 ──
+   閲覧数や広告の有無は順位に使わず、確認元URL・確認日・規模値がそろう店舗だけを対象にする。
+   元情報の単位は台・面・種類・設置ボックス数など異なるため、参考順として扱う。 */
+function renderRanking(key) {
+  const tbody = document.querySelector('#rankingTable tbody');
+  if (!tbody) return;
+  const spots = window.GH_SPOTS || [];
+  const esc = s => { const d = document.createElement('div'); d.textContent = (s == null ? '' : String(s)); return d.innerHTML; };
+  const machinesText = n => (n == null || n === '') ? '—' : '約' + Number(n).toLocaleString('ja-JP') + '（公表値）';
+  const rankCls = r => r === 1 ? 'gh-rank--1' : r === 2 ? 'gh-rank--2' : r === 3 ? 'gh-rank--3' : '';
+  const inTab = s => {
+    if (key === 'tokyo') return s.pref === '東京都';
+    if (key === 'osaka') return s.pref === '大阪府';
+    if (key === 'other') return s.pref !== '東京都' && s.pref !== '大阪府';
+    return true;                                   // national
+  };
+
+  /* オープン前の店舗（opensOn が未来日）は台数ランキングに載せない。
+     まだ1台も回せない店が上位に並ぶと順位の意味が壊れるため。 */
+  const jstToday = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+  const open = s => !(s.opensOn && s.opensOn > jstToday);
+
+  const verified = s => !!(s && s.sourceUrl && s.verifiedAt && s.machines != null);
+  const rows = spots.filter(s => inTab(s) && open(s) && verified(s))
+    .sort((a, b) => (b.machines || 0) - (a.machines || 0));
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--gh-muted);padding:22px">この地域の店舗は現在準備中です。</td></tr>';
+    return;
+  }
+
+  const table = tbody.closest('table');
+  const limit = table ? parseInt(table.dataset.limit || '0', 10) : 0;
+  /* ランキングページは初期30件だけ出し、残りはボタンで展開する
+     （289件を最初から並べると、上位を見たいだけの人が延々スクロールすることになる） */
+  const more = document.querySelector('[data-gh-rank-more]');
+  const shown = limit > 0 ? rows.slice(0, limit) : rows;
+  if (more) {
+    const rest = rows.length - shown.length;
+    more.hidden = rest <= 0;
+    more.textContent = rest > 0 ? '残り ' + rest + '件を表示 ▼' : '';
+    more.onclick = () => {
+      if (table) table.removeAttribute('data-limit');
+      more.hidden = true;
+      renderRanking(key);
+    };
+  }
+
+  tbody.innerHTML = shown.map((s, i) => {
+    const rank = i + 1;
+    const url = ghSpotUrl(s.id);
+    return `
+    <tr class="${rank === 1 ? 'gh-table__row--top' : ''}">
+      <td><span class="gh-rank ${rankCls(rank)}">${rank}</span></td>
+      <td><a href="${url}" class="gh-table__link">${esc(s.name)}</a></td>
+      <td>${esc(s.area)}</td>
+      <td class="gh-num">${machinesText(s.machines)}</td>
+      <td><a href="${url}" class="gh-btn gh-btn--xs">詳細</a></td>
+    </tr>`;
+  }).join('');
+}
+
+/* Ranking tab switch */
+document.querySelectorAll('[data-tab]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.closest('.gh-tab-group').querySelectorAll('.gh-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    renderRanking(btn.dataset.tab);
+  });
+});
+
+/* ── Detail page content tabs (詳細 / 掲示板) ── */
+const detailTabs = document.querySelectorAll('.gh-detail-tabs [data-panel]');
+detailTabs.forEach(btn => {
+  btn.addEventListener('click', () => {
+    detailTabs.forEach(t => {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+    });
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    const target = btn.dataset.panel;
+    document.querySelectorAll('.gh-tab-panel').forEach(p => {
+      p.hidden = p.dataset.panel !== target;
+    });
+    const hero = document.querySelector('.gh-quote');
+    if (hero) hero.hidden = (target === 'board');
+    document.body.classList.toggle('gh-board-mode', target === 'board');
+  });
+});
+if (location.hash === '#board') {
+  const boardTab = document.querySelector('.gh-detail-tabs [data-panel="board"]');
+  if (boardTab) boardTab.click();
+}
+
+/* ── 5ch-style bulletin board: Supabase (shared) with localStorage fallback (location.html) ── */
+(function () {
+  const list   = document.getElementById('bbsList');
+  const body   = document.getElementById('bbsBody');
+  const nameIn = document.getElementById('bbsName');
+  const submit = document.getElementById('bbsSubmit');
+  const count  = document.getElementById('bbsCount');
+  if (!list || !body || !submit) return;
+
+  /* Supabase 設定は共通定数（GH_SUPA_URL / GH_SUPA_KEY）を使用 */
+  const SPOT = (window.GH_SPOT_ID || 'yodobashi-akiba'); // 掲示板ID。データ方式の店舗ページは spots-ui.js が設定
+
+  const STORE_KEY = 'gh-bbs:' + SPOT;                 // オフライン時のフォールバック保存（スレッドごとに分離）
+  const days = ['日', '月', '火', '水', '木', '金', '土'];
+  const pad  = n => String(n).padStart(2, '0');
+
+  function fmtDate(d) {
+    return `${d.getFullYear()}/${pad(d.getMonth() + 1)}/${pad(d.getDate())}(${days[d.getDay()]}) ` +
+           `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  }
+  function nowStr() { return fmtDate(new Date()); }
+  function randomId() {
+    const c = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let s = ''; for (let i = 0; i < 8; i++) s += c[Math.floor(Math.random() * c.length)]; return s;
+  }
+  function idHash(str) {                               // 投稿ごとに安定した5ch風ID
+    let h = 2166136261 >>> 0;
+    for (let i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+    const c = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let s = '';
+    for (let i = 0; i < 8; i++) { h = (Math.imul(h, 1103515245) + 12345) >>> 0; s += c[(h >>> 16) % 62]; }
+    return s;
+  }
+  function escapeHtml(str) {
+    const div = document.createElement('div'); div.textContent = (str == null ? '' : String(str)); return div.innerHTML;
+  }
+  function renderBody(raw) {
+    return escapeHtml(raw)
+      .replace(/&gt;&gt;(\d+)/g, '<a href="#res$1" class="gh-bbs__anchor">&gt;&gt;$1</a>')
+      .replace(/\n/g, '<br>');
+  }
+  function makePost(p) {
+    const post = document.createElement('article');
+    post.className = 'gh-bbs__post';
+    post.id = 'res' + p.num;
+    post.innerHTML =
+      '<div class="gh-bbs__resline">' +
+        '<span class="gh-bbs__num">' + p.num + '</span>' +
+        '<span class="gh-bbs__name">' + escapeHtml(p.name) + '</span>' +
+        '<span class="gh-bbs__date">' + escapeHtml(p.date) + '</span>' +
+        '<span class="gh-bbs__id">ID:' + escapeHtml(p.id) + '</span>' +
+      '</div>' +
+      '<p class="gh-bbs__body">' + renderBody(p.body) + '</p>';
+    return post;
+  }
+
+  /* ── スパム対策（クライアント側の一次防御。本当の強制は Supabase トリガーで） ── */
+  const SPAM = {
+    cooldownMs: 15000,                  // 連続投稿の最短間隔（15秒）
+    maxBody: 500,                       // 本文の最大文字数
+    maxName: 20,                        // 名前の最大文字数
+    ngWords: ['死ね', '殺す', 'ぶっ殺']  // ★ NGワードはここに追加していけます
+  };
+  const LAST_KEY = 'gh-bbs-last-post';
+  function validate(name, text) {
+    if (!text) return { ok: false };                                              // 空 → フォーカスのみ
+    if ([...text].length > SPAM.maxBody) return { ok: false, msg: `本文は${SPAM.maxBody}文字以内で入力してください。` };
+    if (name && [...name].length > SPAM.maxName) return { ok: false, msg: `名前は${SPAM.maxName}文字以内にしてください。` };
+    const hay = name + '\n' + text;
+    for (const w of SPAM.ngWords) { if (w && hay.includes(w)) return { ok: false, msg: '不適切な語句が含まれているため投稿できません。' }; }
+    let last = 0; try { last = Number(localStorage.getItem(LAST_KEY)) || 0; } catch (e) {}
+    const wait = SPAM.cooldownMs - (Date.now() - last);
+    if (wait > 0) return { ok: false, msg: `連続投稿はできません。あと約${Math.ceil(wait / 1000)}秒お待ちください。` };
+    return { ok: true };
+  }
+  function markPosted() { try { localStorage.setItem(LAST_KEY, String(Date.now())); } catch (e) {} }
+
+  /* 送信は一度だけ配線し、実処理は currentHandler の差し替えで切り替える */
+  let currentHandler = function () {};
+  submit.addEventListener('click', () => currentHandler());
+  body.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); currentHandler(); }
+  });
+
+  if (window.fetch) startSharedBoard(); else startLocalBoard();
+
+  /* ---------- Supabase 共有モード（全員の投稿を共有） ---------- */
+  function startSharedBoard() {
+    const endpoint = GH_SUPA_URL + '/rest/v1/posts';
+    const authHeaders = {
+      apikey: GH_SUPA_KEY,
+      Authorization: 'Bearer ' + GH_SUPA_KEY
+    };
+    let total = 0;
+    const toView = (p, num) => ({
+      num, name: p.name || '名無しのガチャー', date: fmtDate(new Date(p.created_at)),
+      id: idHash(String(p.id) + p.created_at), body: p.body
+    });
+
+    currentHandler = async function post() {
+      const text = body.value.trim();
+      const name = (nameIn && nameIn.value.trim()) || '名無しのガチャー';
+      const v = validate(name, text);
+      if (!v.ok) { if (v.msg) alert(v.msg); else body.focus(); return; }
+      submit.disabled = true;
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: Object.assign({}, authHeaders, {
+            'Content-Type': 'application/json',
+            Prefer: 'return=representation'
+          }),
+          body: JSON.stringify({ spot: SPOT, name: name, body: text })
+        });
+        if (!response.ok) throw new Error('http ' + response.status);
+        const data = await response.json();
+        if (!Array.isArray(data) || !data[0]) throw new Error('empty response');
+        markPosted();
+        const empty = document.getElementById('bbsEmpty'); if (empty) empty.remove();
+        total += 1;
+        const el = makePost(toView(data[0], total));
+        list.insertBefore(el, list.firstElementChild);   // newest on top
+        if (count) count.textContent = String(total);
+        body.value = '';
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (err) {
+        console.error('board insert failed', err);
+        alert('投稿に失敗しました。通信環境を確認して、もう一度お試しください。');
+      } finally {
+        submit.disabled = false;
+      }
+    };
+
+    fetch(endpoint + '?select=*&spot=eq.' + encodeURIComponent(SPOT) + '&order=created_at.asc', {
+      headers: authHeaders
+    })
+      .then(response => {
+        if (!response.ok) throw new Error('http ' + response.status);
+        return response.json();
+      })
+      .then(data => {
+        list.innerHTML = '';
+        data.forEach((p, i) => list.insertBefore(makePost(toView(p, i + 1)), list.firstElementChild));
+        total = data.length;
+        if (count) count.textContent = String(total);
+        if (total === 0) {
+          const empty = document.createElement('p');
+          empty.className = 'gh-bbs__empty';
+          empty.id = 'bbsEmpty';
+          empty.textContent = 'まだ投稿がありません。最初の1件を書き込んでみましょう！';
+          list.appendChild(empty);
+        }
+      })
+      .catch(err => { console.warn('shared board load failed → local fallback', err); startLocalBoard(); });
+  }
+
+  /* ---------- localStorage フォールバック（Supabase未読込/オフライン時） ---------- */
+  function startLocalBoard() {
+    const loadSaved = () => { try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { return []; } };
+    const persist   = a  => { try { localStorage.setItem(STORE_KEY, JSON.stringify(a)); } catch (e) {} };
+
+    const saved = loadSaved();
+    if (saved.length) { const e = document.getElementById('bbsEmpty'); if (e) e.remove(); }
+    saved.forEach(p => list.insertBefore(makePost(p), list.firstElementChild));
+    if (count) count.textContent = String(list.querySelectorAll('.gh-bbs__post').length);
+
+    currentHandler = function post() {
+      const text = body.value.trim();
+      const name = (nameIn && nameIn.value.trim()) || '名無しのガチャー';
+      const v = validate(name, text);
+      if (!v.ok) { if (v.msg) alert(v.msg); else body.focus(); return; }
+      const p = {
+        num:  list.querySelectorAll('.gh-bbs__post').length + 1,
+        name: name,
+        body: text, date: nowStr(), id: randomId()
+      };
+      const empty = document.getElementById('bbsEmpty'); if (empty) empty.remove();
+      list.insertBefore(makePost(p), list.firstElementChild);
+      const arr = loadSaved(); arr.push(p); persist(arr);
+      markPosted();
+      if (count) count.textContent = String(p.num);
+      body.value = '';
+      const el = document.getElementById('res' + p.num);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+  }
+})();
+
+/* ── Chart bar tooltips ── */
+document.querySelectorAll('.gh-chart__bar').forEach(bar => {
+  bar.setAttribute('tabindex', '0');
+  const tip = bar.querySelector('.gh-chart__tip');
+  if (!tip) return;
+  bar.addEventListener('mouseenter', () => { tip.style.opacity = '1'; });
+  bar.addEventListener('mouseleave', () => { tip.style.opacity = '0'; });
+  bar.addEventListener('focus',      () => { tip.style.opacity = '1'; });
+  bar.addEventListener('blur',       () => { tip.style.opacity = '0'; });
+});
+
+/* ── Favourite button (detail tab) ── */
+const favBtn = document.getElementById('favoriteBtn');
+if (favBtn) {
+  const favStoreId = new URLSearchParams(location.search).get('id') || '';
+  const favStorageKey = 'gh-favorite-spots-v1';
+  const loadFavorites = () => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(favStorageKey));
+      return Array.isArray(saved) ? saved.filter(id => typeof id === 'string') : [];
+    } catch (e) { return []; }
+  };
+  const renderFavorite = on => {
+    favBtn.classList.toggle('is-faved', on);
+    favBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    favBtn.textContent = on ? '♥ お気に入り済み' : '♡ お気に入り登録';
+  };
+  renderFavorite(!!favStoreId && loadFavorites().includes(favStoreId));
+  favBtn.addEventListener('click', () => {
+    if (!favStoreId) return;
+    const favorites = loadFavorites();
+    const index = favorites.indexOf(favStoreId);
+    const on = index === -1;
+    if (on) favorites.push(favStoreId);
+    else favorites.splice(index, 1);
+    try { localStorage.setItem(favStorageKey, JSON.stringify(favorites)); } catch (e) {}
+    renderFavorite(on);
+  });
+}
+
+/* ── Copy URL ── */
+const copyBtn = document.getElementById('copyUrlBtn');
+if (copyBtn) {
+  copyBtn.addEventListener('click', async e => {
+    e.preventDefault();
+    try {
+      await navigator.clipboard.writeText(location.href);
+      const orig = copyBtn.textContent;
+      copyBtn.textContent = '✓ コピーしました';
+      setTimeout(() => { copyBtn.textContent = orig; }, 2000);
+    } catch { /* not available */ }
+  });
+}
+
+/* ── Region filter tabs (area.html) ── */
+document.querySelectorAll('[data-region]').forEach(btn => {
+  if (!btn.matches('button')) return;
+  btn.addEventListener('click', () => {
+    btn.closest('.gh-tab-group').querySelectorAll('.gh-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    const region = btn.dataset.region;
+    document.querySelectorAll('.gh-area-section').forEach(sec => {
+      sec.hidden = region !== 'all' && sec.dataset.region !== region;
+    });
+  });
+});
+
+/* ── News filter tabs (news.html) ── */
+document.querySelectorAll('[data-news]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.closest('.gh-tab-group').querySelectorAll('.gh-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.news;
+    document.querySelectorAll('#newsFeed .gh-news-article').forEach(art => {
+      art.hidden = cat !== 'all' && art.dataset.news !== cat;
+    });
+  });
+});
+
+/* ── Generic tab group (period switcher, etc.) ── */
+document.querySelectorAll('.gh-tab-group:not([data-tab-group-handled])').forEach(group => {
+  group.setAttribute('data-tab-group-handled', '1');
+  group.querySelectorAll('.gh-tab:not([data-tab]):not([data-filter]):not([data-region]):not([data-news])').forEach(btn => {
+    btn.addEventListener('click', () => {
+      group.querySelectorAll('.gh-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+});
+
+/* ── Initial ranking render (ranking.html has empty tbody) ── */
+renderRanking('national');
+
+/* ── 閲覧カウント（spot.html）: 裏側データとして記録。画面には出さない ──
+   同じタブでの再読み込み連打はカウントしない（sessionStorage ガード）。 */
+(function () {
+  if (!document.getElementById('spotDetail')) return;
+  const sid = (window.GH_SPOT_ID || '').replace(/^spot-/, '');
+  if (!sid) return;
+  const sb = getGhSupaClient();
+  if (!sb) return;
+  const SEEN = 'gh-viewed:' + sid;
+  try { if (sessionStorage.getItem(SEEN)) return; } catch (e) {}
+  try {
+    sb.rpc('increment_spot_view', { p_spot: sid }).then(({ error }) => {
+      if (!error) { try { sessionStorage.setItem(SEEN, '1'); } catch (e) {} }
+    }).catch(() => {});
+  } catch (e) {}
+})();
+
+/* ===========================================================================
+   現在地から探すマップ（map.html）
+   ★ このページの役目は「いまいる場所の近くにガチャがあるか」を一目で見せること。
+      現在地を取る → 半径で絞る → 地図と一覧を "同じ並び・同じ番号" で描く、の順。
+      番号を揃えているのは、地図のピンと一覧の行を目で往復できるようにするため。
+   ★ 正確な緯度・経度は当サイトで保存しない。地図表示時はOpenStreetMapへ
+      表示範囲のタイル要求が送信される。
+   ★ Leaflet（CDN）が読めない環境でも一覧だけは動くよう、地図処理はすべて任意扱い。
+   =========================================================================== */
+(function () {
+  var listBox = document.querySelector('[data-gh-map-list]');
+  var mapEl = document.getElementById('osmMap');
+  if (!listBox && !mapEl) return;                 /* map.html 以外では何もしない */
+
+  var esc = function (s) {
+    var d = document.createElement('div');
+    d.textContent = (s == null ? '' : String(s));
+    return d.innerHTML;
+  };
+  var machinesText = function (n) {
+    return (n == null || n === '') ? '—' : '約' + Number(n).toLocaleString('ja-JP') + '（公表値）';
+  };
+  var ALL = (window.GH_SPOTS || []).filter(function (s) {
+    return isVerified(s) && s.lat != null && s.lon != null;
+  });
+
+  var NEAR_LIMIT = 20;        /* 「範囲指定なし」で出す件数 */
+  var FAR_LIMIT = 100;        /* 現在地なしのとき、地図に出すピンの上限 */
+  var RADIUS_STEPS = [0.5, 1, 3, 5, 10];
+
+  /* 2点間の距離（km・ハーバサイン）。国内の距離なら十分な精度 */
+  function distKm(la1, lo1, la2, lo2) {
+    var r = Math.PI / 180, R = 6371;
+    var a = Math.pow(Math.sin((la2 - la1) * r / 2), 2) +
+            Math.cos(la1 * r) * Math.cos(la2 * r) * Math.pow(Math.sin((lo2 - lo1) * r / 2), 2);
+    return 2 * R * Math.asin(Math.sqrt(a));
+  }
+  /* 店舗の緯度経度は「施設のおよその位置」なので、1m単位まで出すと精度を偽ることになる。
+     10m単位に丸め、50m未満はまとめて「50m以内」と表示する。 */
+  function distText(km) {
+    var m = km * 1000;
+    if (m < 50) return '50m以内';
+    return km < 1 ? Math.round(m / 10) * 10 + 'm' : (Math.round(km * 10) / 10) + 'km';
+  }
+  function radiusText(km) {
+    return !km ? '範囲指定なし' : km < 1 ? Math.round(km * 1000) + 'm' : km + 'km';
+  }
+  /* 徒歩の目安（分速80m）。「1.2km」より「徒歩15分」のほうが行くかどうか決めやすい。
+     100m未満は距離表示だけで足りるので添えない */
+  function walkText(km) {
+    if (km * 1000 < 100) return '';
+    var min = Math.round(km * 1000 / 80);
+    return min <= 1 ? 'すぐ' : min <= 40 ? '徒歩' + min + '分' : '';
+  }
+
+  var JST_TODAY = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+  function isPreOpen(s) { return !!(s.opensOn && s.opensOn > JST_TODAY); }
+  function soonText(s) { return s.opensOn.slice(5).split('-').map(Number).join('/'); }
+  function isVerified(s) { return !!(s && s.sourceUrl && s.verifiedAt); }
+  function mapMachines(s) { return isVerified(s) ? machinesText(s.machines) : '未確認'; }
+  function mapHours(s) { return isVerified(s) ? (s.hours || '要確認') : '未確認'; }
+
+  /* 検索の正規化（全角→半角・小文字化・ハイフン/#除去）。「Cpla」「#C-pla」を同一視 */
+  function norm(s) {
+    s = String(s == null ? '' : s);
+    try { s = s.normalize('NFKC'); } catch (e) {}
+    return s.toLowerCase().replace(/[#\-‐‑–—−]/g, '');
+  }
+  var GENERIC = 'ガチャ ガチャガチャ ガチャポン ガシャポン カプセルトイ カプセル 専門店 店舗';
+
+  /* ── 画面の状態 ─────────────────────────────────────────── */
+  var st = {
+    here: null,        /* [lat, lon]。現在地が取れていなければ null */
+    acc: null,         /* 位置精度（m） */
+    radiusKm: 1,       /* 0 = 範囲指定なし（近い順に上位だけ） */
+    pref: '',
+    minMachines: 0,
+    query: '',
+    viewportMode: false, /* true = 検索語・半径よりも、いま見えている地図範囲を優先 */
+    selectedId: ''     /* 地図で開いている店舗。一覧側の強調表示にも使う */
+  };
+
+  /* ── 絞り込み ───────────────────────────────────────────── */
+  function filtered() {
+    var arr = ALL.filter(function (s) {
+      if (st.pref && s.pref !== st.pref) return false;
+      if (st.minMachines && !(isVerified(s) && Number(s.machines) >= st.minMachines)) return false;
+      /* 地図を自分で動かした後は、検索語を外して「見えている範囲」を優先する。 */
+      if (st.query && !st.viewportMode) {
+        var terms = norm(st.query).split(/\s+/).filter(Boolean);
+        var hay = norm([s.name, s.brand, s.area, s.pref, s.address, s.access]
+          .map(function (f) { return f == null ? '' : String(f); }).join(' ') + ' ' + GENERIC);
+        var flat = hay.replace(/\s+/g, '');
+        var ok = terms.every(function (t) {
+          return hay.indexOf(t) !== -1 || flat.indexOf(t.replace(/\s+/g, '')) !== -1;
+        });
+        if (!ok) return false;
+      }
+      return true;
+    });
+
+    /* 検索結果を入口に地図を広げたら、現在の表示範囲に入る全店舗を反映する。
+       都道府県・台数の明示的なセレクト条件だけはそのまま尊重する。 */
+    if (st.viewportMode && mapReady && map && typeof map.getBounds === 'function') {
+      var bounds = map.getBounds();
+      var inView = arr.filter(function (s) { return bounds.contains([s.lat, s.lon]); });
+      if (st.here) {
+        inView.sort(function (a, b) {
+          return distKm(st.here[0], st.here[1], a.lat, a.lon) -
+            distKm(st.here[0], st.here[1], b.lat, b.lon);
+        });
+      } else {
+        inView.sort(function (a, b) {
+          return (Number(isVerified(b)) - Number(isVerified(a))) ||
+            ((isVerified(b) ? b.machines || 0 : 0) - (isVerified(a) ? a.machines || 0 : 0));
+        });
+      }
+      return { rows: inView, total: inView.length, nearestOutside: null };
+    }
+
+    /* 現在地なし：公表設置規模の数値順。ピンが多すぎると読めないので上限を掛ける */
+    if (!st.here) {
+      var byMach = arr.slice().sort(function (a, b) {
+        return (Number(isVerified(b)) - Number(isVerified(a))) ||
+          ((isVerified(b) ? b.machines || 0 : 0) - (isVerified(a) ? a.machines || 0 : 0));
+      });
+      return { rows: byMach.slice(0, FAR_LIMIT), total: byMach.length, nearestOutside: null };
+    }
+
+    /* 現在地あり：距離順。半径の外は落とすが「1件も無い」で行き止まりにしないため
+       いちばん近い1件を控えておき、半径を広げる提案に使う */
+    var withDist = arr.map(function (s) {
+      return { s: s, km: distKm(st.here[0], st.here[1], s.lat, s.lon) };
+    }).sort(function (a, b) { return a.km - b.km; });
+
+    if (!st.radiusKm) {
+      return {
+        rows: withDist.slice(0, NEAR_LIMIT).map(function (x) { return x.s; }),
+        total: withDist.length, nearestOutside: null
+      };
+    }
+    var inside = withDist.filter(function (x) { return x.km <= st.radiusKm; });
+    return {
+      rows: inside.map(function (x) { return x.s; }),
+      total: inside.length,
+      nearestOutside: inside.length ? null : (withDist[0] || null)
+    };
+  }
+
+  /* いちばん近い店舗が収まる最小の既定半径。10kmでも届かなければ 0（指定なし） */
+  function suggestRadius(km) {
+    for (var i = 0; i < RADIUS_STEPS.length; i++) if (km <= RADIUS_STEPS[i]) return RADIUS_STEPS[i];
+    return 0;
+  }
+
+  /* ── 一覧 ───────────────────────────────────────────────── */
+  function directionsUrl(s) {
+    /* 出発地をURLへ埋め込まない。Google マップ側が端末の現在地を使うため、
+       このサイトから位置情報を外部へ渡さずに経路画面を開ける。 */
+    return 'https://www.google.com/maps/dir/?api=1&destination=' +
+      encodeURIComponent(String(s.lat) + ',' + String(s.lon));
+  }
+
+  function rowHtml(s, i) {
+    var km = st.here ? distKm(st.here[0], st.here[1], s.lat, s.lon) : null;
+    var walk = km == null ? '' : walkText(km);
+    var selected = st.selectedId === s.id;
+    return '<div class="gh-map-spot-row' + (selected ? ' gh-map-spot-row--selected' : '') + '" ' +
+      'data-gh-spot-row="' + esc(s.id) + '">' +
+      '<a href="' + ghSpotUrl(s.id) + '" class="gh-map-spot' +
+        (selected ? ' gh-map-spot--selected' : '') + '"' + (selected ? ' aria-current="location"' : '') + '>' +
+        '<div class="gh-map-spot__num' + (i === 0 ? ' gh-map-spot__num--1' : '') + '">' + (i + 1) + '</div>' +
+        '<div class="gh-map-spot__info">' +
+          '<strong class="gh-map-spot__name">' + esc(s.name) +
+            (isPreOpen(s) ? '<span class="gh-badge gh-badge--soon">' + esc(soonText(s)) + ' オープン予定</span>' : '') +
+          '</strong>' +
+          '<span class="gh-map-spot__area">' + esc(s.area) + '</span>' +
+          '<div class="gh-map-spot__meta">' +
+            (km == null ? '' : '<span class="gh-map-spot__dist">📍 ' + distText(km) +
+              (walk ? '（' + walk + '）' : '') + '</span>') +
+            '<span>🎰 ' + mapMachines(s) + '</span>' +
+            '<span>🕒 ' + esc(mapHours(s)) + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</a>' +
+      '<div class="gh-map-spot__actions">' +
+        (mapReady ? '<button type="button" class="gh-map-spot__pin" data-gh-focus="' + esc(s.id) + '" ' +
+          'aria-label="' + esc(s.name) + 'を地図で見る" aria-pressed="' + (selected ? 'true' : 'false') + '">地図</button>' : '') +
+        '<a class="gh-map-spot__route" href="' + esc(directionsUrl(s)) + '" target="_blank" rel="noopener" ' +
+          'aria-label="' + esc(s.name) + 'までの経路をGoogle マップで開く">経路</a>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function renderList(res) {
+    if (!listBox) return;
+    var count = document.querySelector('.gh-map-list__count');
+    var heading = document.querySelector('.gh-map-list__header strong');
+    if (heading) heading.textContent = st.viewportMode ? '地図内のスポット' : (st.query ? '検索結果' : '周辺スポット');
+
+    if (!res.rows.length) {
+      var near = res.nearestOutside;
+      var wide = near ? suggestRadius(near.km) : null;
+      listBox.innerHTML = '<div class="gh-map-empty">' +
+        '<p class="gh-map-empty__title">' +
+          (st.viewportMode
+            ? '現在の地図範囲内に、条件に合う店舗はありませんでした。'
+            : st.here
+            ? '現在地から' + radiusText(st.radiusKm) + '以内に、条件に合う店舗はありませんでした。'
+            : '条件に合う店舗が見つかりませんでした。') +
+        '</p>' +
+        (near
+          ? '<p class="gh-map-empty__text">いちばん近いのは <a href="' + ghSpotUrl(near.s.id) + '">' +
+              esc(near.s.name) + '</a>（<strong>' + distText(near.km) + '</strong>・' + esc(near.s.area) + '）です。</p>' +
+            '<button type="button" class="gh-btn gh-btn--primary gh-btn--sm" data-gh-widen="' + wide + '">' +
+              (wide ? '半径' + radiusText(wide) + 'まで広げて表示' : '範囲をはずして近い順に表示') + '</button>'
+          : '<p class="gh-map-empty__text">キーワードや条件を変えてお試しください。</p>') +
+      '</div>';
+      if (count) count.textContent = '0件';
+      return;
+    }
+
+    listBox.innerHTML = res.rows.map(rowHtml).join('');
+    if (count) {
+      var capped = res.total > res.rows.length ? '（全' + res.total + '件中）' : '';
+      count.textContent = st.viewportMode
+        ? '表示範囲 ' + res.rows.length + '件'
+        : st.here
+        ? (st.radiusKm ? radiusText(st.radiusKm) + '以内 ' + res.rows.length + '件' : '近い順 ' + res.rows.length + '件' + capped)
+        : '公表設置規模の参考順 ' + res.rows.length + '件' + capped;
+    }
+  }
+
+  /* ── 結果サマリー（「一目でわかる」の要） ── */
+  function renderSummary(res) {
+    var box = document.querySelector('[data-gh-nearme-result]');
+    if (!box) return;
+    if (st.viewportMode) {
+      if (st.here) {
+        box.innerHTML = '地図を動かしたため、現在地の半径ではなく<strong>表示範囲内</strong>の店舗を表示しています。半径表示に戻すには範囲を選び直してください。';
+        box.hidden = false;
+      } else {
+        box.hidden = true;
+      }
+      return;
+    }
+    if (!st.here) { box.hidden = true; return; }
+    var n = res.rows.length;
+    var txt = st.radiusKm
+      ? '現在地から<strong>' + radiusText(st.radiusKm) + '以内</strong>に <strong class="gh-nearme__num">' + n + '件</strong>'
+      : '現在地から近い順に <strong class="gh-nearme__num">' + n + '件</strong>';
+    if (n) {
+      var top = res.rows[0];
+      var km = distKm(st.here[0], st.here[1], top.lat, top.lon);
+      txt += '。いちばん近いのは <a href="' + ghSpotUrl(top.id) + '">' + esc(top.name) +
+             '</a>（' + distText(km) + (walkText(km) ? '・' + walkText(km) : '') + '）';
+    }
+    box.innerHTML = txt;
+    box.hidden = false;
+  }
+
+  /* ── 地図 ───────────────────────────────────────────────── */
+  var map = null, mapReady = false;
+  var spotLayer = null, meLayer = null;
+  var markerById = {};
+
+  function initMap() {
+    if (!mapEl || typeof L === 'undefined') return false;
+    map = L.map(mapEl, { scrollWheelZoom: false });
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    spotLayer = L.layerGroup().addTo(map);
+    meLayer = L.layerGroup().addTo(map);
+    /* ページスクロールを奪わないよう、クリックで初めてホイールズームを許可 */
+    map.on('click', function () { map.scrollWheelZoom.enable(); });
+    mapReady = true;
+    return true;
+  }
+
+  function popupHtml(s, km) {
+    return '<strong>' + esc(s.name) + '</strong><br>' +
+      (isPreOpen(s) ? '<span style="color:#c2410c;font-weight:700">' + esc(soonText(s)) + ' オープン予定</span><br>' : '') +
+      (km == null ? '' : '<span style="color:#1d4ed8;font-weight:700">📍 現在地から' + distText(km) +
+        (walkText(km) ? '（' + walkText(km) + '）' : '') + '</span><br>') +
+      '<span style="color:#6b7280">' + esc(s.area) + '</span><br>' +
+      '🎰 ' + mapMachines(s) + ' ・ 🕒 ' + esc(mapHours(s)) + '<br>' +
+      '<div class="gh-map-popup__actions">' +
+        '<a href="' + ghSpotUrl(s.id) + '">店舗詳細</a>' +
+        '<a href="' + esc(directionsUrl(s)) + '" target="_blank" rel="noopener">経路を見る ↗</a>' +
+      '</div>';
+  }
+
+  /* しずく型のピンを SVG で描く。先端（下の頂点）が店舗の座標に刺さるよう、
+     iconAnchor を [幅/2, 高さ] にしている（丸ピンのように中心に置くと、
+     見た目の位置が実際の座標より上にずれる）。中の数字は一覧の番号と同じ。 */
+  function pinIcon(label, variant, big) {
+    var w = big ? 34 : 28;
+    var h = big ? 48 : 40;
+    var fill = variant === 'soon' ? '#ea580c' : variant === 'first' ? '#e94560' : '#1d4ed8';
+    var svg =
+      '<svg class="gh-pin__svg" width="' + w + '" height="' + h + '" viewBox="0 0 28 40" ' +
+        'aria-hidden="true" focusable="false">' +
+        '<path d="M14 1a13 13 0 0 0-13 13c0 9.9 13 25 13 25s13-15.1 13-25A13 13 0 0 0 14 1z" ' +
+          'fill="' + fill + '" stroke="#fff" stroke-width="2"/>' +
+        '<text x="14" y="19" text-anchor="middle" fill="#fff" ' +
+          'font-size="' + (String(label).length > 2 ? 11 : 13) + '" font-weight="700" ' +
+          'font-family="system-ui, -apple-system, sans-serif">' + esc(label) + '</text>' +
+      '</svg>';
+    return L.divIcon({
+      className: 'gh-pin-wrap' + (big ? ' gh-pin-wrap--first' : ''),
+      html: svg,
+      iconSize: [w, h],
+      iconAnchor: [Math.round(w / 2), h],     /* 先端を座標に合わせる */
+      popupAnchor: [0, -h + 4]
+    });
+  }
+
+  function drawSpots(rows) {
+    if (!mapReady) return [];
+    spotLayer.clearLayers();
+    markerById = {};
+    var pts = [];
+    rows.forEach(function (s, i) {
+      var km = st.here ? distKm(st.here[0], st.here[1], s.lat, s.lon) : null;
+      var variant = isPreOpen(s) ? 'soon' : (i === 0 ? 'first' : '');
+      var m = L.marker([s.lat, s.lon], {
+        icon: pinIcon(i + 1, variant, i === 0),
+        title: s.name,
+        /* 近い順の上位を手前に重ねる（ピンが密集する繁華街で1番が隠れないように） */
+        zIndexOffset: Math.max(0, 1000 - i)
+      }).addTo(spotLayer);
+      m.bindPopup(popupHtml(s, km));
+      /* ピンを選ぶと右の一覧でも同じ店舗を強調する。 */
+      m.on('click', function () { selectSpot(s.id, true); });
+      markerById[s.id] = m;
+      pts.push([s.lat, s.lon]);
+    });
+    return pts;
+  }
+
+  function drawMe() {
+    if (!mapReady) return;
+    meLayer.clearLayers();
+    if (!st.here) return;
+    /* 位置精度の円（薄い）→ 検索半径の円（破線）→ 現在地の点、の重ね順 */
+    if (st.acc && st.acc > 30) {
+      L.circle(st.here, { radius: st.acc, weight: 0, fillColor: '#1d4ed8', fillOpacity: .08, interactive: false })
+        .addTo(meLayer);
+    }
+    if (st.radiusKm && !st.viewportMode) {
+      L.circle(st.here, {
+        radius: st.radiusKm * 1000, color: '#1d4ed8', weight: 1.5, dashArray: '5,5',
+        fillColor: '#1d4ed8', fillOpacity: .04, interactive: false
+      }).addTo(meLayer);
+    }
+    L.circleMarker(st.here, { radius: 8, color: '#fff', weight: 3, fillColor: '#1d4ed8', fillOpacity: 1 })
+      .addTo(meLayer).bindPopup('現在地');
+  }
+
+  function fitView(pts) {
+    if (!mapReady) return;
+    var all = (pts || []).slice();
+    if (st.here) {
+      all.push(st.here);
+      /* 半径の円が画面に収まるよう、円の外周も範囲に入れる（約111km=1度で換算） */
+      if (st.radiusKm && !st.viewportMode) {
+        var latDelta = st.radiusKm / 111;
+        var lonDelta = st.radiusKm / (111 * Math.max(.2, Math.cos(st.here[0] * Math.PI / 180)));
+        all.push([st.here[0] + latDelta, st.here[1]]);
+        all.push([st.here[0] - latDelta, st.here[1]]);
+        all.push([st.here[0], st.here[1] + lonDelta]);
+        all.push([st.here[0], st.here[1] - lonDelta]);
+      }
+    }
+    /* ピンは座標から上に伸びるので、上側の余白を厚めに取って頭が切れないようにする */
+    var fitOpts = { paddingTopLeft: [40, 56], paddingBottomRight: [40, 24], maxZoom: 17, animate: false };
+    suppressViewportRefresh = true;
+    if (all.length > 1) map.fitBounds(all, fitOpts);
+    else if (all.length === 1) map.setView(all[0], 15, { animate: false });
+    else map.setView([35.68, 139.76], 9, { animate: false });
+    suppressViewportRefresh = false;
+  }
+
+  function render(opts) {
+    var res = filtered();
+    if (st.selectedId && !res.rows.some(function (s) { return s.id === st.selectedId; })) {
+      st.selectedId = '';
+    }
+    renderList(res);
+    renderSummary(res);
+    var pts = drawSpots(res.rows);
+    drawMe();
+    if (!opts || opts.fit !== false) fitView(pts);
+  }
+
+  /* ── 現在地の取得 ── */
+  function setStatus(msg, kind) {
+    var el = document.querySelector('[data-gh-locate-status]');
+    if (!el) return;
+    el.textContent = msg || '';
+    el.className = 'gh-nearme__status' + (kind ? ' gh-nearme__status--' + kind : '');
+    el.hidden = !msg;
+  }
+
+  var locatePending = false;
+  var locationHelp = document.querySelector('[data-gh-location-help]');
+
+  function setLocateButton(loading, label) {
+    var btn = document.querySelector('[data-gh-locate]');
+    if (!btn) return;
+    btn.disabled = Boolean(loading);
+    var text = btn.querySelector('[data-gh-locate-label]');
+    if (text) text.textContent = label;
+    else btn.textContent = label;
+  }
+
+  function hideLocationHelp() {
+    if (window.GHLocationAccess) window.GHLocationAccess.hide(locationHelp);
+    else if (locationHelp) locationHelp.hidden = true;
+  }
+
+  function showLocationHelp(reason) {
+    if (!locationHelp || !window.GHLocationAccess) return;
+    var info = window.GHLocationAccess.render(locationHelp, 'ja', null, reason);
+    if (info) {
+      ghTrack('location_permission_help', {
+        location_platform: info.platform,
+        location_error: reason || 'denied'
+      });
+    }
+  }
+
+  function finishLocateRequest(label) {
+    locatePending = false;
+    setLocateButton(false, label || '現在地から探す');
+  }
+
+  function requestCurrentLocation() {
+    window.GHLocationAccess.requestPosition(navigator, {
+      permissionTimeout: 800,
+      positionOptions: {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 60000
+      },
+      onPermissionState: function (state) {
+        setStatus(state === 'prompt'
+          ? '表示された確認画面で、位置情報の利用を「許可」してください。'
+          : '現在地を取得しています…');
+      }
+    }).then(
+      function (pos) {
+        st.here = [pos.coords.latitude, pos.coords.longitude];
+        st.acc = pos.coords.accuracy;
+        finishLocateRequest('現在地を再取得');
+        hideLocationHelp();
+        setStatus('現在地を取得しました（誤差およそ' + Math.round(st.acc) + 'm）。位置情報は端末の中だけで使い、送信していません。', 'ok');
+        render();
+        var anchor = document.querySelector('[data-gh-nearme-result]');
+        if (anchor && anchor.scrollIntoView) {
+          try { anchor.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+        }
+      },
+      function (err) {
+        finishLocateRequest('現在地から探す');
+        if (err && err.code === 1) {
+          setStatus('位置情報が許可されていません。端末に合わせた設定手順をご確認ください。', 'warn');
+          showLocationHelp('permission_denied');
+          return;
+        }
+        if (err && err.code === 3) {
+          hideLocationHelp();
+          setStatus('位置情報の取得が時間切れになりました。屋外や窓の近くなど、電波の良い場所でもう一度お試しください。', 'warn');
+          return;
+        }
+        if (err && err.code === 2) {
+          setStatus('現在地を特定できませんでした。端末の位置情報がオンか確認して再試行するか、駅名・エリア名で検索してください。', 'warn');
+          showLocationHelp('position_unavailable');
+          return;
+        }
+        setStatus('現在地を特定できませんでした。端末の位置情報がオンか確認して再試行するか、駅名・エリア名で検索してください。', 'warn');
+        showLocationHelp('position_unavailable');
+      }
+    );
+  }
+
+  function locate() {
+    if (locatePending) return;
+    if (!navigator.geolocation) {
+      setStatus('このブラウザは位置情報に対応していません。駅名やエリア名での検索をお使いください。', 'warn');
+      return;
+    }
+    if (typeof window.isSecureContext === 'boolean' && !window.isSecureContext) {
+      setStatus('位置情報は安全なHTTPS接続でのみ利用できます。https://gacha-hiroba.com/map.html を開いてください。', 'warn');
+      return;
+    }
+    locatePending = true;
+    st.viewportMode = false;
+    ghTrack('nearby_search', { map_context: 'current_location' });
+    setLocateButton(true, '現在地を取得中…');
+    hideLocationHelp();
+    setStatus('ブラウザの位置情報を確認しています…');
+    requestCurrentLocation();
+  }
+
+  if (locationHelp) {
+    locationHelp.addEventListener('click', function (event) {
+      var target = event.target && event.target.closest ? event.target.closest('button,a') : null;
+      if (!target) return;
+      if (target.hasAttribute('data-gh-location-retry')) {
+        locate();
+        return;
+      }
+      if (target.hasAttribute('data-gh-location-search')) {
+        var searchInput = document.querySelector('.gh-map-search-input');
+        if (searchInput) {
+          try { searchInput.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+          searchInput.focus();
+        }
+        return;
+      }
+      if (target.hasAttribute('data-gh-location-system-settings')) {
+        ghTrack('location_settings_open', { location_platform: window.GHLocationAccess.guide('ja').platform });
+      }
+    });
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState !== 'visible' || !locationHelp || locationHelp.hidden || !window.GHLocationAccess) return;
+    window.GHLocationAccess.permissionState().then(function (state) {
+      if (state === 'granted') {
+        setStatus('位置情報が許可されました。「設定できたので、もう一度試す」を押してください。', 'ok');
+      }
+    });
+  });
+
+  /* ── 操作の配線 ─────────────────────────────────────────── */
+  var suppressViewportRefresh = false;
+  var ignoreNextMoveEnd = false;
+  initMap();
+
+  /* 検索で移動したときは結果を維持し、利用者自身が地図を動かしたときだけ
+     「表示範囲の店舗」へ切り替える。 */
+  function activateViewportMode() {
+    if (!mapReady || suppressViewportRefresh) return;
+    if (ignoreNextMoveEnd) { ignoreNextMoveEnd = false; return; }
+    st.viewportMode = true;
+    st.query = '';
+    var mapInput = document.querySelector('.gh-map-search-input');
+    if (mapInput) mapInput.value = '';
+    render({ fit: false });
+  }
+  if (mapReady) {
+    map.on('moveend', activateViewportMode);
+    /* ポップアップが端で自動的に地図をずらした場合は、利用者の地図操作として扱わない。 */
+    map.on('autopanstart', function () { ignoreNextMoveEnd = true; });
+  }
+
+  /* 都道府県セレクトは実データから作る（掲載の無い県を選べないようにする） */
+  (function buildPrefSelect() {
+    var sel = document.querySelector('[data-gh-pref]');
+    if (!sel) return;
+    var counts = {};
+    ALL.forEach(function (s) { counts[s.pref] = (counts[s.pref] || 0) + 1; });
+    var prefs = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; });
+    sel.innerHTML = '<option value="">都道府県：すべて</option>' + prefs.map(function (p) {
+      return '<option value="' + esc(p) + '">' + esc(p) + '（' + counts[p] + '件）</option>';
+    }).join('');
+  })();
+
+  var locBtns = document.querySelectorAll('[data-gh-locate]');
+  for (var i = 0; i < locBtns.length; i++) locBtns[i].addEventListener('click', locate);
+
+  var radiusSel = document.querySelector('[data-gh-radius]');
+  if (radiusSel) {
+    st.radiusKm = Number(radiusSel.value || 1);
+    radiusSel.addEventListener('change', function () {
+      st.viewportMode = false;
+      st.radiusKm = Number(radiusSel.value || 0);
+      render();
+    });
+  }
+  var prefSel = document.querySelector('[data-gh-pref]');
+  if (prefSel) prefSel.addEventListener('change', function () {
+    st.viewportMode = false;
+    st.pref = prefSel.value;
+    render();
+  });
+
+  var machSel = document.querySelector('[data-gh-min-machines]');
+  if (machSel) machSel.addEventListener('change', function () {
+    st.minMachines = Number(machSel.value || 0);
+    render({ fit: !st.viewportMode });
+  });
+
+  var form = document.querySelector('.gh-map-search-form');
+  var input = document.querySelector('.gh-map-search-input');
+  if (form && input) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      st.viewportMode = false;
+      st.query = input.value.trim();
+      if (st.query) ghTrack('search_submit', { search_term: st.query, search_location: 'map' });
+      render();
+    });
+  }
+
+  function focusSpot(id) {
+    var m = markerById[id];
+    if (!m || !mapReady) return;
+    selectSpot(id, false);
+    suppressViewportRefresh = true;
+    map.setView(m.getLatLng(), Math.max(map.getZoom(), 16), { animate: false });
+    suppressViewportRefresh = false;
+    m.openPopup();
+    if (mapEl && mapEl.scrollIntoView) {
+      try { mapEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+    }
+  }
+
+  function selectSpot(id, scrollList) {
+    st.selectedId = id || '';
+    if (!listBox) return;
+
+    var rows = listBox.querySelectorAll('[data-gh-spot-row]');
+    var selectedRow = null;
+    for (var i = 0; i < rows.length; i++) {
+      var active = rows[i].getAttribute('data-gh-spot-row') === st.selectedId;
+      rows[i].classList.toggle('gh-map-spot-row--selected', active);
+      var link = rows[i].querySelector('.gh-map-spot');
+      var pin = rows[i].querySelector('[data-gh-focus]');
+      if (link) {
+        link.classList.toggle('gh-map-spot--selected', active);
+        if (active) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      }
+      if (pin) pin.setAttribute('aria-pressed', active ? 'true' : 'false');
+      if (active) selectedRow = rows[i];
+    }
+
+    /* PCの一覧がスクロール領域になっている場合だけ、該当行を領域内へ移動する。
+       スマホではページ全体を勝手に下へ飛ばさない。 */
+    if (scrollList && selectedRow) {
+      var panel = selectedRow.closest('.gh-map-list');
+      if (panel && panel.scrollHeight > panel.clientHeight) {
+        var targetTop = panel.scrollTop + selectedRow.getBoundingClientRect().top -
+          panel.getBoundingClientRect().top - 48;
+        if (typeof panel.scrollTo === 'function') panel.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+        else panel.scrollTop = Math.max(0, targetTop);
+      }
+    }
+  }
+
+  /* 一覧の「地図」ボタン→該当ピンを開く。行そのものは詳細ページへのリンクのまま */
+  if (listBox) {
+    listBox.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || !t.closest) return;
+      var widen = t.closest('[data-gh-widen]');
+      if (widen) {
+        e.preventDefault();
+        st.viewportMode = false;
+        st.radiusKm = Number(widen.getAttribute('data-gh-widen') || 0);
+        if (radiusSel) radiusSel.value = String(st.radiusKm);
+        render();
+        return;
+      }
+      var pin = t.closest('[data-gh-focus]');
+      if (pin) {
+        e.preventDefault();
+        focusSpot(pin.getAttribute('data-gh-focus'));
+      }
+    });
+  }
+
+  /* 初期描画（現在地なし＝公表設置規模の参考順） */
+  render();
+
+  /* 他ページから ?near=1 で来たら、そのまま現在地取得へ進む */
+  try {
+    if (new URLSearchParams(location.search).get('near') === '1') locate();
+  } catch (e) {}
+})();
+
+/* 主要な回遊リンクは遷移直前にイベントを送る。委譲で動的描画にも対応。 */
+document.addEventListener('click', function (event) {
+  var target = event.target && event.target.closest ? event.target.closest('a[href]') : null;
+  if (!target) return;
+  var href = target.getAttribute('href') || '';
+  var url = null;
+  try { url = new URL(target.href || href, location.href); } catch (e) { /* 不正URLは計測しない。 */ }
+  var isInternal = Boolean(url && url.origin === location.origin);
+  var filterParams = url ? new URLSearchParams(String(url.hash || '').replace(/^#/, '')) : null;
+  var prefFilter = url && (url.searchParams.get('pref') || (filterParams && filterParams.get('pref')));
+  var brandFilter = url && (url.searchParams.get('brand') || (filterParams && filterParams.get('brand')));
+  if (isInternal && /\/spot\.html$/i.test(url.pathname) && url.searchParams.has('id')) {
+    ghTrack('store_detail_click', { link_url: href });
+  } else if (url && /google\.com\/maps|openstreetmap\.org/.test(url.href)) {
+    ghTrack('route_click', { link_url: target.href });
+  } else if (isInternal && /\/stores\.html$/i.test(url.pathname) && prefFilter) {
+    ghTrack('area_page_click', { link_url: href, area_name: prefFilter });
+  } else if (isInternal && /\/stores\.html$/i.test(url.pathname) && brandFilter) {
+    ghTrack('brand_page_click', { link_url: href, brand_name: brandFilter });
+  } else if (isInternal && /\/guide\/[a-z0-9-]+\.html$/i.test(url.pathname)) {
+    ghTrack('guide_page_click', { link_url: href });
+  } else if (isInternal && /\/releases\/\d{4}-\d{2}\.html$/i.test(url.pathname)) {
+    ghTrack('release_hub_click', { link_url: href });
+  } else if (target.hasAttribute('data-gh-share-link')) {
+    ghTrack('content_share', {
+      method: target.getAttribute('data-share-network') || 'link',
+      content_url: location.href
+    });
+  } else if (target.classList.contains('gh-official-source') || target.classList.contains('gh-rel__src')) {
+    ghTrack('official_source_click', { link_url: target.href });
+  }
+});
+
+/* 記事の共有：対応端末はOS共有、非対応端末はURLコピーに切り替える。 */
+document.addEventListener('click', async function (event) {
+  var button = event.target && event.target.closest ? event.target.closest('[data-gh-share-native]') : null;
+  if (!button) return;
+  var url = button.getAttribute('data-share-url') || location.href;
+  var title = button.getAttribute('data-share-title') || document.title;
+  var method = 'native';
+  try {
+    if (navigator.share) {
+      await navigator.share({ title: title, url: url });
+    } else {
+      method = 'copy';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(url);
+      } else {
+        var field = document.createElement('textarea');
+        field.value = url;
+        field.setAttribute('readonly', '');
+        field.style.position = 'fixed';
+        field.style.opacity = '0';
+        document.body.appendChild(field);
+        field.select();
+        if (!document.execCommand('copy')) throw new Error('copy failed');
+        field.remove();
+      }
+      var original = button.textContent;
+      button.textContent = 'コピーしました';
+      window.setTimeout(function () { button.textContent = original; }, 1800);
+    }
+    ghTrack('content_share', { method: method, content_url: url });
+  } catch (error) {
+    if (error && error.name === 'AbortError') return;
+    button.textContent = '共有できませんでした';
+  }
+});
+
+/* ── 言語ヒントバナー：非日本語ブラウザに英語ガイドを案内（英語ページ以外） ── */
+(function () {
+  try {
+    if (/english\.html/.test(location.pathname)) return;
+    if (/^ja/i.test(navigator.language || 'ja')) return;
+    if (localStorage.getItem('gh-lang-hint-closed')) return;
+    const bar = document.createElement('div');
+    bar.className = 'gh-langbar';
+    bar.innerHTML =
+      '<span>🌐 Visiting from abroad?</span>' +
+      '<a href="/english.html">Read our English guide to gachapon stores →</a>' +
+      '<button type="button" class="gh-langbar__close" aria-label="Close">×</button>';
+    bar.querySelector('.gh-langbar__close').addEventListener('click', () => {
+      bar.remove();
+      try { localStorage.setItem('gh-lang-hint-closed', '1'); } catch (e) {}
+    });
+    document.body.prepend(bar);
+  } catch (e) { /* no-op */ }
+})();
+
+/* ===========================================================================
+   利用者投稿ページのライブ更新モジュール
+   Supabase の posts を定期取得し、掲示板など検索対象外の投稿セクションを
+   まとめて描き直す。検索対象ページには未審査の投稿本文を転載しない。
+
+   ・掲示板フィード  [data-gh-community-feed]
+   ・急上昇ワード    [data-gh-trending]
+   ・最新画像        [data-gh-photos]
+   ・新着口コミ      [data-gh-recent-reviews]
+   ・今日話題の商品  [data-gh-hot-items]（発売情報×掲示板での言及数）
+   ・活発な掲示板    [data-gh-active-boards]
+   ・ライブ状況      [data-gh-live-status]
+
+   取得できないとき（オフライン・RLS変更など）は各セクションを非表示のままにし、
+   既存の他セクションには影響させない。
+   ※ posts に likes / image_url など列が増えた場合は自動で表示に反映される
+     （行に含まれていれば使い、無ければ出さない設計）。
+   =========================================================================== */
+(function () {
+  const $ = sel => document.querySelector(sel);
+  const feedBox   = $('[data-gh-community-feed]');
+  const trendBox  = $('[data-gh-trending]');
+  const photoBox  = $('[data-gh-photos]');
+  const reviewBox = $('[data-gh-recent-reviews]');
+  const hotBox    = $('[data-gh-hot-items]');
+  const activeBox = $('[data-gh-active-boards]');
+  const statusBox = $('[data-gh-live-status]');
+  const plazaBox  = $('[data-gh-plaza]');
+  const inviteBox = $('[data-gh-invite]');
+  const hasPostPoweredTarget = Boolean(
+    feedBox || trendBox || photoBox || reviewBox || activeBox || statusBox || plazaBox || inviteBox
+  );
+  if (!window.fetch) return;
+  if (!hasPostPoweredTarget && !hotBox) return;
+
+  const POLL_MS = 60000;   /* 投稿の再取得間隔 */
+  const TICK_MS = 15000;   /* 「○分前」の再計算間隔 */
+  const LIMIT   = 100;
+
+  const esc = s => { const d = document.createElement('div'); d.textContent = (s == null ? '' : String(s)); return d.innerHTML; };
+  const spots = () => (window.GH_SPOTS || []).filter(s => !!(s && s.sourceUrl && s.verifiedAt));
+
+  const ago = iso => {
+    const m = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
+    if (!(m >= 0)) return '';
+    if (m < 1) return 'たった今';
+    if (m < 60) return m + '分前';
+    const h = Math.floor(m / 60);
+    if (h < 24) return h + '時間前';
+    const d = Math.floor(h / 24);
+    return d < 30 ? d + '日前' : new Date(iso).toLocaleDateString('ja-JP');
+  };
+  /* 経過時間はあとから書き換えられるよう <time data-ts> で出す */
+  const agoTag = (iso, cls) =>
+    '<time class="' + cls + '" data-ts="' + esc(iso) + '" datetime="' + esc(iso) + '">' + esc(ago(iso)) + '</time>';
+  function tickTimes(root) {
+    (root || document).querySelectorAll('[data-ts]').forEach(el => {
+      const s = ago(el.getAttribute('data-ts'));
+      if (s && el.textContent !== s) el.textContent = s;
+    });
+  }
+
+  const dateLabel = iso => {
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    const days = ['日', '月', '火', '水', '木', '金', '土'];
+    const p = n => String(n).padStart(2, '0');
+    return (d.getMonth() + 1) + '/' + d.getDate() + '(' + days[d.getDay()] + ') ' + p(d.getHours()) + ':' + p(d.getMinutes());
+  };
+  const storeOf = spot => {
+    const sid = String(spot || '').replace(/^spot-/, '');
+    return spots().find(s => s.id === sid) || null;
+  };
+  const boardHref = store => (store ? ghSpotUrl(store.id, '#board') : '/board.html');
+  const spotHref  = store => (store ? ghSpotUrl(store.id) : '/board.html');
+
+  /* 投稿画像は専用列に保存されたHTTPS画像だけを扱う。
+     本文中の任意URLを画像として自動表示せず、UGCによる意図しない画像表示を防ぐ。 */
+  const IMG_RE = /https?:\/\/[^\s"'<>]+?\.(?:jpg|jpeg|png|gif|webp)(?:\?[^\s"'<>]*)?/ig;
+  function photosOf(p) {
+    const out = [];
+    if (p.image_url) out.push(String(p.image_url));
+    if (p.photo) out.push(String(p.photo));
+    return out.filter(u => /^https:\/\//i.test(u));
+  }
+  const hasPhoto = p => photosOf(p).length > 0;
+  /* 画像をサムネイルで見せるので、本文からは画像URLを取り除いて読みやすくする */
+  const textOf = p => String(p.body || '').replace(IMG_RE, '').replace(/[ \t]{2,}/g, ' ').trim();
+
+  /* 表示名から色と頭文字を決めるアバター。同じ名前なら常に同じ見た目になる。
+     （写真ではなく名前から作るだけなので、無い情報を作っていることにはならない） */
+  const AV_COLORS = ['#e94560', '#ff8c42', '#f59e0b', '#16a34a', '#0ea5e9',
+                     '#6366f1', '#a855f7', '#ec4899', '#14b8a6', '#64748b'];
+  function avatarHtml(name, cls) {
+    const s = String(name || '名無しのガチャー');
+    let h = 0;
+    for (let i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) >>> 0;
+    const ch = Array.from(s)[0] || '？';
+    return '<span class="gh-av ' + (cls || '') + '" style="background:' + AV_COLORS[h % AV_COLORS.length] + '"' +
+      ' aria-hidden="true">' + esc(ch) + '</span>';
+  }
+
+  /* 板ごとにレス番号を振り、本文の「>>番号」から返信数を数える。
+     取得できている範囲での実数。数が無ければ何も出さない（作らない）。 */
+  function replyIndex(rows) {
+    const byBoard = {};
+    rows.forEach(p => { (byBoard[p.spot] = byBoard[p.spot] || []).push(p); });
+    const num = {}, replies = {};
+    Object.keys(byBoard).forEach(spot => {
+      const list = byBoard[spot].slice()
+        .sort((a, b) => String(a.created_at).localeCompare(String(b.created_at)));
+      const byNum = {};
+      list.forEach((p, i) => { num[String(p.id)] = i + 1; byNum[i + 1] = p; });
+      list.forEach(p => {
+        const m = String(p.body || '').match(/(?:>>|＞＞|»)\s*(\d+)/g);
+        if (!m) return;
+        m.forEach(t => {
+          const n = Number(String(t).replace(/[^0-9]/g, ''));
+          const target = byNum[n];
+          if (target && String(target.id) !== String(p.id)) {
+            replies[String(target.id)] = (replies[String(target.id)] || 0) + 1;
+          }
+        });
+      });
+    });
+    return { num: num, replies: replies };
+  }
+
+  /* いいね：posts に likes 列があるときだけ有効になる。
+     列が無い間はボタンを出さない（押せないボタンを置かない）。 */
+  const likedKey = 'gh-liked';
+  function likedSet() {
+    try { return new Set(JSON.parse(localStorage.getItem(likedKey) || '[]')); }
+    catch (e) { return new Set(); }
+  }
+  function markLiked(id) {
+    try {
+      const set = likedSet(); set.add(String(id));
+      localStorage.setItem(likedKey, JSON.stringify(Array.from(set)));
+    } catch (e) {}
+  }
+
+  /* 5ch風の匿名ID（投稿ごとに安定） */
+  const shortId = str => {
+    let h = 2166136261 >>> 0;
+    const s = String(str);
+    for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+    const c = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let out = '';
+    for (let i = 0; i < 6; i++) { h = (Math.imul(h, 1103515245) + 12345) >>> 0; out += c[(h >>> 16) % 62]; }
+    return out;
+  };
+
+  /* ── 状態 ── */
+  const state = {
+    seen: new Set(),      /* 既に表示した投稿id（新着ハイライト判定に使う） */
+    first: true,          /* 初回描画かどうか */
+    total: null,          /* Supabase 側の総投稿数（Content-Range から取得） */
+    lastAt: null,         /* 最終取得時刻 */
+    newCount: 0           /* 前回取得以降に増えた件数 */
+  };
+
+  /* ── ① ライブ状況バー ── */
+  function renderStatus(rows) {
+    if (!statusBox) return;
+    const todayJst = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+    const today = rows.filter(p => {
+      const d = new Date(new Date(p.created_at).getTime() + 9 * 3600 * 1000);
+      return !isNaN(d.getTime()) && d.toISOString().slice(0, 10) === todayJst;
+    }).length;
+    const boards = new Set(rows.map(p => p.spot)).size;
+    const total = state.total == null ? rows.length : state.total;
+    statusBox.innerHTML =
+      '<span class="gh-live__dot" aria-hidden="true"></span>' +
+      '<span class="gh-live__label">みんなの投稿</span>' +
+      '<span class="gh-live__stat"><strong>' + total.toLocaleString('ja-JP') + '</strong>件</span>' +
+      '<span class="gh-live__sep" aria-hidden="true">/</span>' +
+      '<span class="gh-live__stat">本日 <strong>' + today + '</strong>件</span>' +
+      '<span class="gh-live__sep" aria-hidden="true">/</span>' +
+      '<span class="gh-live__stat">板 <strong>' + boards + '</strong></span>' +
+      (state.newCount > 0 ? '<span class="gh-live__new">新着 ' + state.newCount + '件</span>' : '') +
+      '<span class="gh-live__updated">更新 ' +
+        (state.lastAt ? agoTag(state.lastAt, 'gh-live__updated-time') : '—') + '</span>';
+    statusBox.hidden = false;
+  }
+
+  /* いちばん書き込みが多い板（投稿導線の行き先に使う） */
+  function busiestBoard(counts) {
+    const spot = Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
+    return spot ? storeOf(spot) : null;
+  }
+
+  /* ── 広場の顔ぶれ：直近に書き込んだ人のアイコンを並べる ── */
+  function renderPlaza(rows, counts) {
+    if (!plazaBox) return;
+    const seen = [];
+    rows.forEach(p => {
+      const n = String(p.name || '名無しのガチャー');
+      if (seen.length < 7 && seen.indexOf(n) === -1) seen.push(n);
+    });
+    if (!seen.length) return;
+    const store = busiestBoard(counts);
+    plazaBox.innerHTML =
+      '<span class="gh-plaza__faces">' + seen.map(n => avatarHtml(n, 'gh-av--face')).join('') + '</span>' +
+      '<span class="gh-plaza__text">' +
+        '<strong>' + esc(seen[0]) + '</strong> さんたちが書き込んでいます' +
+        '<small>入荷・在庫・混雑のひとことが、次に行く誰かの役に立ちます</small>' +
+      '</span>' +
+      '<a class="gh-plaza__cta" href="' + boardHref(store) + '">✏️ あなたも書き込む</a>';
+    plazaBox.hidden = false;
+  }
+
+  /* ── 投稿のお誘い（フィードの下） ── */
+  function renderInvite(rows, counts) {
+    if (!inviteBox) return;
+    const store = busiestBoard(counts);
+    inviteBox.innerHTML =
+      '<img class="gh-invite__icon" src="/assets/mascot-icon.png" alt="" width="44" height="44" />' +
+      '<span class="gh-invite__body">' +
+        '<strong class="gh-invite__title">あなたのガチャ活も教えてください</strong>' +
+        '<small class="gh-invite__note">' +
+          '「○○店に△△が入荷してた」「土曜の夕方は空いてた」だけでも助かります。' +
+          '登録不要・名前なしで書き込めます。</small>' +
+      '</span>' +
+      '<span class="gh-invite__actions">' +
+        '<a class="gh-btn gh-btn--primary gh-invite__go" href="' + boardHref(store) + '">' +
+          '✏️ <span>' + esc(store ? store.name : '掲示板') + '</span> の掲示板へ</a>' +
+        '<a class="gh-btn" href="/stores.html">よく行く店を探す</a>' +
+      '</span>';
+    inviteBox.hidden = false;
+  }
+
+  /* ── ② 掲示板フィード（トップの主役＝人） ── */
+  function renderFeed(rows, counts) {
+    if (!feedBox) return;
+    const list = rows.slice(0, 12);
+    const sec = feedBox.closest('.gh-community-sec');
+    if (!list.length) {
+      feedBox.innerHTML = '<p class="gh-bbs-preview__empty">現在表示できる書き込みはありません。店舗別掲示板から最初の投稿ができます。</p>';
+      if (sec) sec.hidden = false;
+      return;
+    }
+    const idx = replyIndex(rows);
+    const liked = likedSet();
+    /* likes 列を実際に持っている投稿（＝DB上の実投稿）にだけ、いいねを出す */
+    const hasLikes = p => p && Object.prototype.hasOwnProperty.call(p, 'likes');
+    feedBox.innerHTML = list.map(p => {
+      const store = storeOf(p.spot);
+      const where = store ? store.name : '総合掲示板';
+      const area = store ? store.area : '';
+      const href = boardHref(store);
+      const raw = textOf(p);
+      const body = raw.length > 120 ? raw.slice(0, 120) + '…' : raw;
+      const threadCount = counts[p.spot] || 1;
+      const likes = Number(p.likes);
+      const pics = photosOf(p);
+      const resNo = idx.num[String(p.id)];
+      const replyN = idx.replies[String(p.id)] || 0;
+      const isLiked = liked.has(String(p.id));
+      /* 初回表示では光らせない。2回目以降に増えた投稿だけをハイライトする */
+      const isNew = !state.first && !state.seen.has(String(p.id));
+      return '<article class="gh-post' + (isNew ? ' gh-post--new' : '') + '">' +
+        (isNew ? '<span class="gh-post__newbadge">NEW</span>' : '') +
+        '<div class="gh-post__head">' +
+          avatarHtml(p.name, 'gh-av--post') +
+          '<span class="gh-post__name">' + esc(p.name || '名無しのガチャー') + '</span>' +
+          (resNo ? '<span class="gh-post__no">' + resNo + '</span>' : '') +
+          '<span class="gh-post__date">' + esc(dateLabel(p.created_at)) + '</span>' +
+          '<span class="gh-post__id">ID:' + esc(shortId(String(p.id || '') + p.created_at)) + '</span>' +
+          agoTag(p.created_at, 'gh-post__ago') +
+        '</div>' +
+        '<a class="gh-post__body" href="' + href + '">' + esc(body) + '</a>' +
+        (pics.length
+          ? '<a class="gh-post__thumb" href="' + href + '"><img src="' + esc(pics[0]) +
+            '" alt="" loading="lazy" referrerpolicy="no-referrer" /></a>'
+          : '') +
+        '<div class="gh-post__foot">' +
+          '<a class="gh-post__store" href="' + spotHref(store) + '">' +
+            '🏬 ' + esc(where) + (area ? '<span class="gh-post__area">' + esc(area) + '</span>' : '') +
+          '</a>' +
+          '<span class="gh-post__stats">' +
+            (pics.length ? '<span class="gh-post__stat gh-post__stat--photo" title="写真あり">📷 ' + pics.length + '</span>' : '') +
+            (replyN ? '<a class="gh-post__stat gh-post__stat--link" href="' + href + '" title="この投稿への返信">↩ ' + replyN + '</a>' : '') +
+            (hasLikes(p)
+              ? '<button type="button" class="gh-post__like' + (isLiked ? ' is-liked' : '') + '" data-like="' + esc(String(p.id)) + '" ' +
+                'aria-pressed="' + (isLiked ? 'true' : 'false') + '" aria-label="いいね">' +
+                '<span aria-hidden="true">♥</span><span class="gh-post__like-n">' + (Number.isFinite(likes) ? likes : 0) + '</span></button>'
+              : '') +
+            '<a class="gh-post__stat gh-post__stat--link" href="' + href + '" title="この板の書き込み数">💬 ' + threadCount + '</a>' +
+            '<a class="gh-post__reply" href="' + href + '">返信する</a>' +
+          '</span>' +
+        '</div>' +
+      '</article>';
+    }).join('');
+    wireLikes();
+    /* 読めない画像はサムネごと消す（リンク切れの枠を残さない） */
+    dropBrokenImages(feedBox.querySelectorAll('.gh-post__thumb img'), img => {
+      const t = img.closest('.gh-post__thumb');
+      if (t) t.remove();
+    });
+    if (sec) sec.hidden = false;
+  }
+
+  /* いいね：クリックで Supabase の RPC を呼ぶ。押した記録はこの端末に残して
+     二重送信を防ぐ。RPC が無い環境では見た目を元に戻すだけで、数は作らない。 */
+  let likesWired = false;
+  function wireLikes() {
+    if (likesWired || !feedBox) return;
+    likesWired = true;
+    feedBox.addEventListener('click', ev => {
+      const btn = ev.target.closest('[data-like]');
+      if (!btn || btn.classList.contains('is-liked')) return;
+      ev.preventDefault();
+      const id = btn.getAttribute('data-like');
+      const nEl = btn.querySelector('.gh-post__like-n');
+      const before = Number(nEl.textContent) || 0;
+      btn.classList.add('is-liked');
+      btn.setAttribute('aria-pressed', 'true');
+      nEl.textContent = before + 1;
+      fetch(GH_SUPA_URL + '/rest/v1/rpc/gh_like_post', {
+        method: 'POST',
+        headers: {
+          apikey: GH_SUPA_KEY,
+          Authorization: 'Bearer ' + GH_SUPA_KEY,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ post_id: id })
+      })
+        .then(r => { if (!r.ok) throw new Error('http ' + r.status); markLiked(id); })
+        .catch(() => {                       /* 送れなかったら見た目を戻す */
+          btn.classList.remove('is-liked');
+          btn.setAttribute('aria-pressed', 'false');
+          nEl.textContent = before;
+        });
+    });
+  }
+
+  /* ── ③ 急上昇ワード（実投稿＋掲載データから算出。捏造しない） ── */
+  function renderTrending(rows, counts) {
+    if (!trendBox) return;
+    if (!rows.length) return;
+    const score = {};
+    const bump = (w, n) => { if (w && w.length >= 2) score[w] = (score[w] || 0) + n; };
+    Object.keys(counts).forEach(spot => {
+      const store = storeOf(spot);
+      if (!store) return;
+      const areaWord = (store.area || '').split('・')[1] || store.area;
+      bump(areaWord, counts[spot] * 3);
+      bump((store.brand || '').replace(/（.*?）/g, ''), counts[spot] * 2);
+    });
+    const known = new Set();
+    spots().forEach(s => {
+      const a = (s.area || '').split('・')[1] || s.area;
+      if (a) known.add(a);
+      const b = (s.brand || '').replace(/（.*?）/g, '');
+      if (b) known.add(b);
+    });
+    /* 発売中の商品名（data/releases.js）も候補に加える＝いま話題の語を拾う */
+    releaseKeywords().forEach(k => known.add(k.word));
+    rows.forEach(p => {
+      const body = String(p.body || '');
+      known.forEach(w => { if (w.length >= 2 && body.indexOf(w) !== -1) bump(w, 3); });
+    });
+    const areaCount = {};
+    spots().forEach(s => {
+      const a = (s.area || '').split('・')[1] || s.area;
+      if (a) areaCount[a] = (areaCount[a] || 0) + 1;
+    });
+    Object.keys(areaCount).forEach(a => bump(a, Math.min(areaCount[a], 4)));
+
+    const words = Object.keys(score).sort((a, b) => score[b] - score[a]).slice(0, 8);
+    if (!words.length) return;
+    trendBox.innerHTML = words.map((w, i) => {
+      const rankCls = i < 3 ? ' gh-trend__item--hot' : '';
+      return '<a class="gh-trend__item' + rankCls + '" href="/stores.html?q=' + encodeURIComponent(w) + '">' +
+        '<span class="gh-trend__rank">' + (i + 1) + '</span>' +
+        '<span class="gh-trend__word">' + esc(w) + '</span>' +
+      '</a>';
+    }).join('');
+    const sec = trendBox.closest('.gh-trend-sec');
+    if (sec) sec.hidden = false;
+  }
+
+  /* ── ④ 最新画像（投稿に含まれる画像だけ。無ければセクションごと非表示） ── */
+  function renderPhotos(rows) {
+    if (!photoBox) return;
+    const items = [];
+    rows.forEach(p => {
+      photosOf(p).forEach(u => {
+        if (items.length < 8 && !items.some(x => x.url === u)) items.push({ url: u, post: p });
+      });
+    });
+    if (!items.length) return;
+    photoBox.innerHTML = items.map(it => {
+      const store = storeOf(it.post.spot);
+      return '<a class="gh-photo" href="' + boardHref(store) + '" title="' + esc(store ? store.name : '総合掲示板') + '">' +
+        '<img src="' + esc(it.url) + '" alt="" loading="lazy" referrerpolicy="no-referrer" />' +
+        '<span class="gh-photo__meta">' + esc(store ? store.name : '総合掲示板') + '</span>' +
+      '</a>';
+    }).join('');
+    const sec = photoBox.closest('.gh-photo-sec');
+    /* 1枚でも実際に表示できたときだけセクションを出す。
+       全部リンク切れなら空の枠を出さない（ここが「動いていない」印象の元になるため） */
+    const show = () => { if (sec) sec.hidden = false; };
+    dropBrokenImages(photoBox.querySelectorAll('.gh-photo img'), img => {
+      const t = img.closest('.gh-photo');
+      if (t) t.remove();
+      if (!photoBox.querySelector('.gh-photo') && sec) sec.hidden = true;
+    }, show);
+  }
+
+  /* 画像の読み込み結果に応じて後始末する。
+     innerHTML 直後は既に error/load が済んでいる場合があるので complete も見る。 */
+  function dropBrokenImages(imgs, onBroken, onOk) {
+    Array.prototype.forEach.call(imgs, img => {
+      const broken = () => onBroken(img);
+      const ok = () => { if (onOk) onOk(img); };
+      if (img.complete) { (img.naturalWidth ? ok : broken)(); return; }
+      img.addEventListener('error', broken, { once: true });
+      img.addEventListener('load', ok, { once: true });
+    });
+  }
+
+  /* ── ⑤ 新着口コミ ── */
+  function renderReviews(rows) {
+    if (!reviewBox) return;
+    const list = rows.filter(p => textOf(p).length >= 30).slice(0, 4);
+    if (!list.length) return;
+    reviewBox.innerHTML = list.map(p => {
+      const store = storeOf(p.spot);
+      const where = store ? store.name : '総合掲示板';
+      const href = boardHref(store);
+      const raw = textOf(p);
+      const body = raw.length > 110 ? raw.slice(0, 110) + '…' : raw;
+      return '<a class="gh-review" href="' + href + '">' +
+        '<p class="gh-review__body">' + esc(body) + '</p>' +
+        '<span class="gh-review__meta">' +
+          avatarHtml(p.name, 'gh-av--sm') +
+          '<span class="gh-review__who">' +
+            '<strong>' + esc(where) + '</strong>' +
+            '<span>' + esc(p.name || '名無しのガチャー') + '・' + agoTag(p.created_at, 'gh-review__ago') + '</span>' +
+          '</span>' +
+        '</span>' +
+      '</a>';
+    }).join('');
+    const sec = reviewBox.closest('.gh-review-sec');
+    if (sec) sec.hidden = false;
+  }
+
+  /* ── ⑥ 今日話題の商品 ──
+     data/releases.js の発売情報に、掲示板での言及数を掛け合わせて並べ替える。
+     言及があるものは「掲示板で N件」を出し、無ければ出さない（数を作らない）。 */
+  function releaseKeywords() {
+    return (window.GH_RELEASES || [])
+      .filter(r => r && r.date && r.title)
+      .map(r => {
+        const t = String(r.title);
+        const q = t.match(/[『「]([^』」]+)[』」]/);       /* 『チェンソーマン レゼ篇』→ チェンソーマン */
+        const word = (q ? q[1] : t).split(/[\s　]/)[0];
+        return { release: r, word: word };
+      })
+      .filter(k => k.word && k.word.length >= 2);
+  }
+  function releaseHubPath(release) {
+    const month = String(release && release.date || '').slice(0, 7);
+    const monthReleases = (window.GH_RELEASES || []).filter(item =>
+      String(item && item.date || '').slice(0, 7) === month
+    ).slice().sort((a, b) =>
+      String(a.date).localeCompare(String(b.date), 'ja') ||
+      String(a.title).localeCompare(String(b.title), 'ja')
+    );
+    const index = monthReleases.indexOf(release);
+    return '/releases/' + month + '.html' +
+      (index >= 0 ? '#release-' + (index + 1) : '');
+  }
+  function renderHotItems(rows) {
+    if (!hotBox) return;
+    const bodies = rows.map(p => String(p.body || ''));
+    const now = new Date(Date.now() + 9 * 3600 * 1000);
+    const today = now.toISOString().slice(0, 10);
+    const dayMs = 86400000;
+    const diff = d => Math.round((new Date(d + 'T00:00:00+09:00').getTime() -
+      new Date(today + 'T00:00:00+09:00').getTime()) / dayMs);
+
+    const items = releaseKeywords().map(k => {
+      const mentions = bodies.reduce((n, b) => n + (b.indexOf(k.word) !== -1 ? 1 : 0), 0);
+      return { r: k.release, word: k.word, mentions: mentions, d: diff(k.release.date) };
+    });
+    if (!items.length) return;
+    const hasMentions = items.some(it => it.mentions > 0);
+    /* 言及が多い順 → 本日発売 → 直近の発売予定 → 少し前に出た新作。
+       発売がまだ先の商品が先頭に来ないよう、日付の降順ではなく今日からの近さで並べる。 */
+    const rank = it => (it.d === 0 ? [0, 0] : it.d > 0 ? [1, it.d] : [2, -it.d]);
+    items.sort((a, b) => {
+      if (b.mentions !== a.mentions) return b.mentions - a.mentions;
+      const x = rank(a), y = rank(b);
+      return (x[0] - y[0]) || (x[1] - y[1]);
+    });
+
+    /* 発売日が「○月第2週」のように週単位でしか公表されていない商品は、
+       date を並び順にだけ使い、バッジは label の表記をそのまま出す。 */
+    const badge = it => {
+      const cls = it.d === 0 ? ' gh-hot__badge--today' : it.d > 0 ? ' gh-hot__badge--soon' : '';
+      const text = it.r.label
+        ? it.r.label
+        : (it.d === 0 ? '本日発売' : it.r.date.slice(5).replace('-', '/') + ' 発売');
+      return '<span class="gh-hot__badge' + cls + '">' + esc(text) + '</span>';
+    };
+    const cell = (it, lead) => {
+      const hubPath = releaseHubPath(it.r);
+      const inner = badge(it) +
+        '<strong class="gh-hot__title"><a class="gh-release-page-link" data-gh-release-page-link href="' + esc(hubPath) + '">' +
+          '<span class="gh-release-page-link__title">' + esc(it.r.title) + '</span>' +
+          '<span class="gh-release-page-link__cue">月別ページで詳しく見る <span aria-hidden="true">→</span></span></a></strong>' +
+        '<small class="gh-hot__meta">' + esc(it.r.maker || '') +
+          (it.r.price ? '<span class="gh-hot__price">' + esc(it.r.price) + '</span>' : '') +
+          (it.mentions ? '<span class="gh-hot__mentions">💬 掲示板で' + it.mentions + '件</span>' : '') +
+          (lead && it.r.note ? '<span class="gh-hot__note">' + esc(it.r.note) + '</span>' : '') +
+          (it.r.source ? '<a class="gh-rel__src gh-official-source" href="' + esc(it.r.source) +
+            '" target="_blank" rel="noopener noreferrer">メーカー公式 ↗</a>' : '') +
+        '</small>';
+      const cls = 'gh-hot' + (lead ? ' gh-hot--lead' : ' gh-hot--row');
+      return '<article class="' + cls + '">' + inner + '</article>';
+    };
+    const shown = items.slice(0, 7);
+    hotBox.innerHTML = cell(shown[0], true) +
+      (shown.length > 1
+        ? '<div class="gh-hot-rest">' + shown.slice(1).map(x => cell(x, false)).join('') + '</div>'
+        : '');
+    const sec = hotBox.closest('.gh-hot-sec');
+    if (sec) {
+      const heading = sec.querySelector('.gh-section__title');
+      if (heading) {
+        const dot = heading.querySelector('.gh-live-dot');
+        const label = heading.querySelector('[data-gh-hot-heading]');
+        if (label) label.textContent = hasMentions ? '今日話題の商品' : '今週・近日発売の新作';
+        else heading.textContent = hasMentions ? '今日話題の商品' : '今週・近日発売の新作';
+        if (dot) {
+          dot.hidden = !hasMentions;
+          if (!label) heading.prepend(dot);
+        }
+      }
+      sec.hidden = false;
+    }
+  }
+
+  /* ── ⑦ サイドバー：いま書き込みが多い掲示板 ── */
+  function renderActiveBoards(rows, counts) {
+    if (!activeBox) return;
+    const listEl = activeBox.querySelector('.gh-active-boards');
+    if (!listEl) return;
+    const latest = {};
+    rows.forEach(p => {
+      const t = new Date(p.created_at).getTime();
+      if (!(latest[p.spot] > t)) latest[p.spot] = t;
+    });
+    const boards = Object.keys(counts)
+      .sort((a, b) => (counts[b] - counts[a]) || (latest[b] - latest[a]))
+      .slice(0, 6);
+    if (!boards.length) return;
+    listEl.innerHTML = boards.map(spot => {
+      const store = storeOf(spot);
+      const where = store ? store.name : '総合掲示板';
+      const area = store ? store.area : '';
+      return '<li class="gh-active-board"><a href="' + boardHref(store) + '">' +
+        '<span class="gh-active-board__name">' + esc(where) + '</span>' +
+        '<span class="gh-active-board__meta">' + esc(area) + (area ? '・' : '') +
+          '書き込み ' + counts[spot] + '件・' + agoTag(new Date(latest[spot]).toISOString(), 'gh-active-board__ago') +
+        '</span>' +
+      '</a></li>';
+    }).join('');
+    activeBox.hidden = false;
+  }
+
+  function render(rows) {
+    rows = Array.isArray(rows) ? rows : [];
+    const counts = {};
+    rows.forEach(p => { counts[p.spot] = (counts[p.spot] || 0) + 1; });
+    renderStatus(rows);
+    renderPlaza(rows, counts);
+    renderFeed(rows, counts);
+    renderInvite(rows, counts);
+    renderTrending(rows, counts);
+    renderPhotos(rows);
+    renderReviews(rows);
+    renderHotItems(rows);
+    renderActiveBoards(rows, counts);
+    /* 次回の「新着」判定用に、いま表示した投稿を覚えておく */
+    rows.forEach(p => state.seen.add(String(p.id)));
+    state.first = false;
+    return true;
+  }
+
+  /* ── 取得 → 描画 ── */
+  function refresh() {
+    return fetch(GH_SUPA_URL + '/rest/v1/posts?select=*&order=created_at.desc&limit=' + LIMIT, {
+      headers: {
+        apikey: GH_SUPA_KEY,
+        Authorization: 'Bearer ' + GH_SUPA_KEY,
+        Prefer: 'count=exact'                      /* 総投稿数を Content-Range で受け取る */
+      }
+    })
+      .then(r => {
+        if (!r.ok) throw new Error('http ' + r.status);
+        const cr = r.headers.get('content-range');   /* 例: "0-59/123" */
+        const n = cr && cr.split('/')[1];
+        if (n && /^\d+$/.test(n)) state.total = Number(n);
+        return r.json();
+      })
+      .then(rows => {
+        const fresh = (rows || []).filter(p => !state.seen.has(String(p.id)));
+        state.newCount = state.first ? 0 : fresh.length;
+        state.lastAt = new Date().toISOString();
+        render(rows || []);
+      })
+      .catch(() => {
+        /* 投稿取得に失敗しても、発売情報など投稿に依存しない欄は表示する。 */
+        if (state.first) { state.lastAt = new Date().toISOString(); render([]); }
+      });
+  }
+
+  /* 発売情報はメーカー公式データだけでも表示できる。検索対象ページではここで完了し、
+     未審査投稿の取得・集計を行わない。 */
+  renderHotItems([]);
+  if (!hasPostPoweredTarget) return;
+  refresh();
+
+  /* 経過時間は取得を待たずに進める（「○分前」が止まって見えないように） */
+  setInterval(() => tickTimes(), TICK_MS);
+
+  /* タブが見えているときだけ再取得する（無駄な通信をしない） */
+  let timer = setInterval(() => { if (!document.hidden) refresh(); }, POLL_MS);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) { tickTimes(); refresh(); }
+  });
+  window.addEventListener('pagehide', () => clearInterval(timer));
+})();
+
+/* ===========================================================================
+   店舗ページ：掲示板プレビュー
+   詳細タブにも最新の書き込みを出し、タブを切り替えなくても人の気配が見えるようにする。
+   #bbsList の描画結果をそのまま流用するので、通信は増やさない。
+   =========================================================================== */
+(function () {
+  const box = document.querySelector('[data-gh-bbs-preview]');
+  const list = document.querySelector('[data-gh-bbs-preview-list]');
+  const src = document.getElementById('bbsList');
+  if (!box || !list || !src) return;
+
+  const countEl = document.querySelector('[data-gh-bbs-preview-count]');
+  const badge = document.querySelector('[data-gh-board-badge]');
+  const boardTab = document.querySelector('.gh-detail-tabs [data-panel="board"]');
+
+  /* 「すべて見る」「書き込む」は掲示板タブへ切り替える */
+  document.querySelectorAll('[data-gh-open-board]').forEach(a => {
+    a.addEventListener('click', ev => {
+      if (!boardTab) return;
+      ev.preventDefault();
+      boardTab.click();
+      const form = document.getElementById(a.classList.contains('gh-btn') ? 'bbsForm' : 'bbsList');
+      if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  function sync() {
+    const posts = src.querySelectorAll('.gh-bbs__post');
+    const n = posts.length;
+    if (badge) { badge.textContent = n ? String(n) : ''; badge.hidden = !n; }
+    if (countEl) countEl.textContent = n ? '書き込み ' + n + '件' : '';
+    if (!n) {                                   /* 0件でも「最初の1件を」と誘う */
+      list.innerHTML = '<p class="gh-bbs-preview__empty">まだ書き込みがありません。' +
+        'あなたの1件が、次に来る人の助けになります。</p>';
+      box.hidden = false;
+      return;
+    }
+    list.innerHTML = '';
+    Array.prototype.slice.call(posts, 0, 3).forEach(el => {
+      const clone = el.cloneNode(true);
+      clone.classList.add('gh-bbs__post--preview');
+      list.appendChild(clone);
+    });
+    box.hidden = false;
+  }
+
+  sync();
+  /* 掲示板の描画・投稿にあわせて追従する */
+  new MutationObserver(sync).observe(src, { childList: true });
+})();
+
+/* ── Spot exterior photo: upload + localStorage persistence (location.html) ── */
+(function () {
+  const input = document.getElementById('spotPhotoInput');
+  const img   = document.getElementById('spotPhoto');
+  const note  = document.getElementById('spotPhotoNote');
+  if (!input || !img) return;
+
+  const KEY = 'gh-spot-photo:' + location.pathname;   // per-spot photo
+
+  function showUserPhoto(dataUrl) {
+    img.src = dataUrl;
+    img.classList.add('is-user');
+    img.alt = 'アップロードされた店舗外観写真';
+    if (note) note.hidden = true;
+  }
+
+  // Restore a previously uploaded photo (survives reload, this browser only)
+  try { const saved = localStorage.getItem(KEY); if (saved) showUserPhoto(saved); } catch (e) {}
+
+  input.addEventListener('change', () => {
+    const file = input.files && input.files[0];
+    if (!file || !/^image\//.test(file.type)) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      // Downscale so the data URL fits comfortably in localStorage
+      const tmp = new Image();
+      tmp.onload = () => {
+        const MAX = 1000;
+        let w = tmp.width, h = tmp.height;
+        if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
+        let dataUrl;
+        try {
+          const c = document.createElement('canvas');
+          c.width = w; c.height = h;
+          c.getContext('2d').drawImage(tmp, 0, 0, w, h);
+          dataUrl = c.toDataURL('image/jpeg', 0.82);
+        } catch (e) {
+          dataUrl = reader.result;   // fallback: store original
+        }
+        showUserPhoto(dataUrl);
+        try { localStorage.setItem(KEY, dataUrl); } catch (e) { /* quota exceeded */ }
+      };
+      tmp.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+})();
+
+/* ── 未実装リンク（href="#"）でページ先頭に飛ばないようにするガード ── */
+document.addEventListener('click', e => {
+  const dead = e.target.closest('a[href="#"]');
+  if (dead) e.preventDefault();
+});
+
+/* ── シェアボタン：本物の共有リンクにする ── */
+(function () {
+  const x = document.querySelector('.gh-share__btn--x');
+  const line = document.querySelector('.gh-share__btn--line');
+  const url = encodeURIComponent(location.href);
+  const text = encodeURIComponent(document.title);
+  if (x) {
+    x.href = 'https://twitter.com/intent/tweet?text=' + text + '&url=' + url;
+    x.target = '_blank'; x.rel = 'noopener';
+  }
+  if (line) {
+    line.href = 'https://social-plugins.line.me/lineit/share?url=' + url;
+    line.target = '_blank'; line.rel = 'noopener';
+  }
+})();
+
+/* ── Daily random hashtags (index.html) ──
+   毎日5つをランダム表示。同じ日は固定、日付が変わると入れ替わる。
+   ★ ハッシュタグを増やすときは、下の HASHTAGS 配列に追記するだけ。 */
+(function () {
+  const box = document.getElementById('dailyHashtags');
+  if (!box) return;
+
+  const HASHTAGS = [
+    '#ガチャガチャ', '#ガチャ', '#カプセルトイ', '#ガシャポン', '#ガチャポン',
+    '#ガチャ活', '#ガチャガチャ好き', '#カプセルトイ好き', '#ガチャ好き', '#ガシャポン好き',
+    '#ミニチュア', '#フィギュア', '#ミニフィギュア', '#キャラクターグッズ', '#推し活',
+    '#オタ活', '#コレクション', '#コレクター', '#コンプリート', '#フルコンプ',
+    '#ガチャ結果', '#ガチャ開封', '#開封動画', '#購入品紹介', '#新作ガチャ',
+    '#最新ガチャ', '#再販ガチャ', '#人気ガチャ', '#おすすめガチャ', '#ガチャ巡り',
+    '#ガチャ探し', '#ガチャ設置場所', '#カプセルトイ専門店', '#ガチャガチャ専門店', '#ガチャガチャの森',
+    '#ガシャポンのデパート', '#バンダイガシャポン', '#ガチャガチャ沼', '#カプセルトイ沼', '#ミニチュア雑貨',
+    '#可愛いガチャ', '#かわいいガチャ', '#面白いガチャ', '#変なガチャ', '#癒しグッズ',
+    '#サンリオガチャ', '#ちいかわガチャ', '#ディズニーガチャ', '#ポケモンガチャ', '#アニメグッズ',
+    '#めじるしアクセサリー', '#めじるしアクセサリーガチャ', '#めじるしチャーム', '#傘マーカー', '#アンブレラマーカー',
+    '#ペットボトルマーカー'
+  ];
+
+  // 日付をシードにした擬似乱数（mulberry32）で「その日の並び」を決定
+  const d = new Date();
+  let seed = (d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate()) >>> 0;
+  const rand = () => {
+    seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+    let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+
+  // 日付シードでシャッフルして先頭5つを採用
+  const arr = HASHTAGS.slice();
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  const pick = arr.slice(0, 5);
+
+  box.innerHTML = pick.map(tag =>
+    '<a class="gh-hashtag" href="https://twitter.com/search?q=' + encodeURIComponent(tag) +
+    '&src=hashtag_click" target="_blank" rel="noopener">' + tag + '</a>'
+  ).join('');
+})();
+
+
+
+/* ===========================================================================
+   オープン予定表示の鮮度合わせ
+   ★ spot/ の静的HTMLは生成した時点の状態を持っている。開業日を過ぎたあとも
+      ページを作り直すまで「オープン予定」と出続けてしまうので、開業日を過ぎた
+      [data-gh-preopen] はここで取り除き、通常の営業中店舗として見せる。
+      （逆に開業前なら何もしない＝JSが動かない環境でも予定表示は残る）
+   =========================================================================== */
+(function () {
+  var nodes = document.querySelectorAll('[data-gh-preopen]');
+  if (!nodes.length) return;
+  var today = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);  /* JST */
+  for (var i = 0; i < nodes.length; i++) {
+    var on = nodes[i].getAttribute('data-gh-preopen');
+    if (on && on <= today && nodes[i].parentNode) nodes[i].parentNode.removeChild(nodes[i]);
+  }
+})();
+
+/* ===========================================================================
+   新作一覧への遷移を明示する
+   商品リンクは別ページの該当商品へ直接着地するため、クリック直後に移動先を
+   表示する。月別ページでは対象カードも強調し、単なるページ内スクロールとの
+   見分けがつくようにする。
+   =========================================================================== */
+(function () {
+  var transition = document.createElement('div');
+  transition.className = 'gh-release-transition';
+  transition.setAttribute('role', 'status');
+  transition.setAttribute('aria-live', 'polite');
+  transition.setAttribute('aria-atomic', 'true');
+  transition.setAttribute('aria-hidden', 'true');
+  transition.innerHTML = '<span class="gh-release-transition__spinner" aria-hidden="true"></span>' +
+    '<span><strong>月別の新作詳細ページへ移動します</strong>' +
+    '<small>選んだ商品の位置を表示します</small></span>';
+  document.body.appendChild(transition);
+
+  var leaving = false;
+  document.addEventListener('click', function (event) {
+    var link = event.target && event.target.closest
+      ? event.target.closest('a[data-gh-release-page-link]') : null;
+    if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey ||
+        event.shiftKey || event.altKey || link.hasAttribute('download') ||
+        (link.getAttribute('target') && link.getAttribute('target') !== '_self')) return;
+
+    var url;
+    try { url = new URL(link.href, location.href); } catch (error) { return; }
+    if (url.origin !== location.origin || !/\/releases\/\d{4}-\d{2}\.html$/i.test(url.pathname)) return;
+
+    event.preventDefault();
+    if (leaving) return;
+    leaving = true;
+    transition.removeAttribute('aria-hidden');
+    document.body.classList.add('gh-page-is-leaving');
+
+    var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.setTimeout(function () { location.assign(url.href); }, reduced ? 0 : 220);
+  });
+
+  window.addEventListener('pageshow', function () {
+    leaving = false;
+    document.body.classList.remove('gh-page-is-leaving');
+    transition.setAttribute('aria-hidden', 'true');
+  });
+
+  function markReleaseTarget() {
+    document.querySelectorAll('.gh-release-arrival').forEach(function (note) { note.remove(); });
+    var id = String(location.hash || '').slice(1);
+    if (!/^release-\d+$/.test(id)) return;
+    var card = document.getElementById(id);
+    if (!card || !card.classList.contains('gh-rel')) return;
+    var note = document.createElement('p');
+    note.className = 'gh-release-arrival';
+    note.setAttribute('role', 'status');
+    note.textContent = '月別の新作詳細ページで、選んだ商品を表示しています。';
+    card.insertBefore(note, card.firstChild);
+  }
+
+  markReleaseTarget();
+  window.addEventListener('hashchange', markReleaseTarget);
+})();

@@ -1,0 +1,24 @@
+# ガチャひろば (gacha-hiroba.com)
+
+> 全国のガチャガチャ（カプセルトイ）設置場所・専門店を探せる検索サイト。
+> 掲載根拠URLと確認日のそろう店舗について、住所・営業時間・公表設置規模・地図を掲載。
+> 未確認の候補は公開せず、設置規模の比較、メーカー公式情報に基づく新作一覧、独自ガイドを提供しています。
+
+## 主要ページ
+- [English gachapon store finder](https://gacha-hiroba.com/english.html): English search, travel guidance, source-specific published scale figures, review dates and directions for visitors to Japan
+- [店舗一覧](https://gacha-hiroba.com/stores.html): 全店舗を地方・都道府県・ブランドで絞り込み
+- [マップ検索](https://gacha-hiroba.com/map.html): 地図表示＋現在地から近い順
+- [新着情報・特集記事](https://gacha-hiroba.com/news.html): メーカー公式情報を確認した新作一覧と独自ガイド
+- [2026年9月の新作ガチャ](https://gacha-hiroba.com/releases/2026-09.html): メーカー公式ページで確認した発売時期・価格・種類数の月別一覧
+- [ランキング](https://gacha-hiroba.com/ranking.html): 単位差を明記した公表設置規模の参考順
+- [東京23区データレポート](https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html): 区別件数・ブランド別件数・項目充足率の独自集計
+- [カプセル楽局の東京店舗一覧](https://gacha-hiroba.com/guide/capsule-rakkyoku-tokyo.html): 確認済み61店を住所・営業時間・エリア別に比較
+- [シープラ（#C-pla）の店舗一覧](https://gacha-hiroba.com/guide/cpla-store-guide.html): 東京を中心に確認済み店舗の住所・営業時間・公表設置規模を比較
+- [新宿のガチャガチャ設置場所](https://gacha-hiroba.com/guide/shinjuku.html): 東口・西口・歌舞伎町・サブナードを目的別に案内
+- [上野・アメ横のガチャガチャ設置場所](https://gacha-hiroba.com/guide/ueno.html): 改札内・駅前・アメ横を分けた回り方
+- [大森駅周辺のガチャガチャ設置場所](https://gacha-hiroba.com/guide/omori.html): 現在の確認元がある3店と過去掲載情報の扱い
+- [データ確認方法](https://gacha-hiroba.com/methodology.html): 掲載条件・確認日・公表設置規模の読み方
+
+## データ
+- [sitemap](https://gacha-hiroba.com/sitemap.xml)
+- [RSS](https://gacha-hiroba.com/feed.xml)

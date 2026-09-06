@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="google-site-verification" content="YN5Q0DnCsIhwgitcXjcGqxlmfMec80Wl0uZskCNS11w" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="description" content="ガチャひろばの店舗データ作成・確認方法。掲載根拠URLと確認日の判定、検索掲載基準、ランキング集計、訂正履歴を公開します。" />
+  <title>データ作成・確認方法 | ガチャひろば</title>
+  <link rel="canonical" href="https://gacha-hiroba.com/methodology.html" />
+  <meta property="og:site_name" content="ガチャひろば" />
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:title" content="データ作成・確認方法 | ガチャひろば" />
+  <meta property="og:description" content="掲載根拠URLと確認日の判定、検索掲載基準、ランキング集計、訂正履歴を件数とともに公開します。" />
+  <meta property="og:url" content="https://gacha-hiroba.com/methodology.html" />
+  <meta property="og:image" content="https://gacha-hiroba.com/assets/ogp.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "ガチャひろばのデータ作成・確認方法",
+    "description": "店舗データの掲載根拠確認、検索掲載、ランキング集計、訂正の基準を公開するページです。",
+    "url": "https://gacha-hiroba.com/methodology.html",
+    "datePublished": "2026-08-14",
+    "dateModified": "2026-09-03",
+    "inLanguage": "ja",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "ガチャひろば",
+      "url": "https://gacha-hiroba.com/"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "ガチャひろば運営者",
+      "url": "https://gacha-hiroba.com/about.html"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="gh-header">
+    <div class="gh-header__top">
+      <div class="gh-container gh-header__inner">
+        <a class="gh-logo" href="/" aria-label="ガチャひろば トップへ">
+          <img class="gh-logo__icon" src="assets/mascot-icon.png" alt="ガチャひろばのマスコット" width="34" height="34" />
+          <span class="gh-logo__text">ガチャ<em>ひろば</em></span>
+        </a>
+        <form class="gh-search" role="search" action="/stores.html" method="get">
+          <input class="gh-search__input" type="search" name="q" placeholder="エリア・駅名・店名で検索" aria-label="ガチャ場所を検索" />
+          <button class="gh-search__btn" type="submit" aria-label="検索">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+        </form>
+        <button class="gh-hamburger" aria-label="メニューを開く" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="gh-subnav">
+      <div class="gh-container">
+        <nav class="gh-nav-tabs" aria-label="メインナビゲーション">
+          <a href="/">トップ</a><a href="stores.html">店舗一覧</a><a href="news.html">新着情報</a><a href="ranking.html">ランキング</a><a href="area.html">エリア別</a><a href="category.html">ブランド別</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="gh-main">
+    <div class="gh-container">
+      <nav class="gh-breadcrumb" aria-label="パンくずリスト">
+        <a href="/">トップ</a><span aria-hidden="true">›</span><a href="about.html">運営者・編集方針</a><span aria-hidden="true">›</span><span aria-current="page">データ作成・確認方法</span>
+      </nav>
+
+      <div class="gh-page-hero">
+        <h1 class="gh-page-hero__title">データ作成・確認方法</h1>
+        <p class="gh-page-hero__desc">どの情報を確認済みとし、何を検索対象・ランキング対象にするかを、件数と手順で公開します。</p>
+      </div>
+
+      <div class="gh-legal">
+        <div class="gh-prose">
+          <p class="gh-prose__updated">公開日：2026年8月14日／最終更新日：2026年9月3日</p>
+
+          <h2>現在の確認状況</h2>
+          <p>当サイトが管理する店舗候補は<span id="methodTotal">549</span>件です。このうち「掲載根拠URL・確認日あり」の<span id="methodVerified">404</span>件（<span id="methodVerifiedRate">73.6%</span>）だけを公開対象とし、「確認待ち」の<span id="methodPending">145</span>件（<span id="methodPendingRate">26.4%</span>）は公開検索・地図・個別ページに表示しません。この数字は管理データの監査結果であり、確認や訂正が完了すると変わります。項目別の欠損率と台数分布は<a href="guide/store-data-report.html">店舗データ監査レポート</a>で自動集計しています。</p>
+          <table>
+            <thead><tr><th>区分</th><th>件数</th><th>判定方法</th></tr></thead>
+            <tbody>
+              <tr><td>公開対象</td><td><span id="methodVerifiedTable">404</span>件</td><td>参照先URLと確認日の両方を記録</td></tr>
+              <tr><td>確認待ち・非公開</td><td><span id="methodPendingTable">145</span>件</td><td>参照先URLまたは確認日の一方以上が未登録</td></tr>
+              <tr><td>管理候補の合計</td><td><span id="methodTotalTable">549</span>件</td><td>公開対象と確認待ちを含む</td></tr>
+            </tbody>
+          </table>
+          <p>件数を多く見せることより、確認できた情報だけを利用者へ案内することを優先します。確認待ちの候補は削除せず調査用に保持し、参照先と確認日をそろえてから公開します。</p>
+
+          <h2>「掲載根拠URL・確認日あり」の定義</h2>
+          <p>店舗運営会社、カプセルトイブランド、商業施設、店舗の公式サイトを優先し、開業情報などではプレスリリースや報道ページを参照する場合があります。参照先URLと、運営者が内容を確認した日を記録できた場合に「掲載根拠URL・確認日あり」とします。参照先には公式以外も含まれるため、すべてを一律に一次情報とは呼びません。</p>
+          <p>確認日は、そのURLを確認した日です。現地調査日、商品の入荷日、現在庫の確認日ではありません。また、公式SNSだけでは長期的に参照しにくい投稿もあるため、可能な限り店舗一覧、施設フロア案内、店舗詳細ページなど継続して確認できる情報元を優先します。</p>
+          <p>第三者のまとめ記事、地図サービスの利用者編集欄、利用者投稿だけでは確認済みにしません。これらは調査の手掛かりには使いますが、掲載内容を確定する根拠とは分けて管理します。今後は参照先の種別もデータとして区別できるよう段階的に整備します。</p>
+
+          <h2>公開ページと検索掲載の基準</h2>
+          <p>店舗詳細、全国店舗一覧、地図、公表設置規模ランキング、都道府県・ブランド絞り込みには、掲載根拠URLと確認日の両方がある店舗だけを表示します。このうち、全国を横断した独自集計と確認方法を本文で説明する <code>stores.html</code> の基本URLと <code>ranking.html</code> は検索対象です。店舗詳細、地図、自由入力検索、都道府県・ブランド絞り込みは機能画面として検索対象外にしています。店舗ごと・地域ごとに似た静的ページは大量生成せず、店舗詳細は <code>spot.html?id=...</code>、絞り込みは <code>stores.html</code> の動的画面へ集約しています。</p>
+          <p>XMLサイトマップへ掲載するのは、トップ、新着情報、全国店舗一覧の基本URL、公表設置規模ランキング、運営者情報、当ページ、公開前の品質検査を通した実用ガイド・データ監査レポート、十分な確認済み商品と独自集計がある月別新作ページです。利用規約などの補助ページや、店舗名・地域名だけを差し替えた一覧、商品数が少ない月別ページは検索対象にしません。将来個別店舗ページを検索対象へ戻す場合は、店舗固有の公式情報、主要項目、独自の現地・経路情報など、テンプレート外の価値を個別に確認します。</p>
+          <p>当サイトの公開検索へ表示されることと、店舗が現在営業していることは別です。確認日は参照先を確認した日であり、来店前には店舗・施設の公式サイトで当日の営業案内を最終確認してください。</p>
+
+          <h2>公表設置規模とランキングの扱い</h2>
+          <p>設置規模は、掲載根拠URLで公表値を確認できた場合に記録します。情報元によって「台」「面」「種類」「設置ボックス数」など表現と数え方が異なるため、サイト上では一律の「台」に変換せず「公表値」と表示します。数値による順序は売り場規模を探すための参考で、厳密な同単位比較や合計には使いません。商品在庫数、取り扱い種類の現在数、人気、品質、満足度を表す数字でもありません。</p>
+          <p>ランキングの対象は、次の3条件をすべて満たす店舗だけです。</p>
+          <ol>
+            <li>掲載根拠URLが登録されている</li>
+            <li>その情報を確認した日が登録されている</li>
+            <li>同じ参照先または確認可能な公式情報で設置規模の公表値を確認できる</li>
+          </ol>
+          <p>情報元や確認日がない台数、利用者による推定、施設全体か店舗区画か判別できない数値はランキングへ入れません。広告出稿や紹介料の有無で順位を変更しません。</p>
+
+          <h2>誰が、どのように作成しているか</h2>
+          <p>ガチャひろば運営者が個人で調査・入力・更新しています。各店舗やメーカーの公式サイトではなく、公開された情報を目的別に探しやすく整理する独立サイトです。現地確認を行った情報は、その旨を明記しない限り掲載しません。</p>
+          <ol>
+            <li>店舗運営会社、ブランド、商業施設の公式ページから候補を見つける</li>
+            <li>店舗名、所在地、営業時間、アクセス、公表設置規模の記載範囲を項目ごとに確認する</li>
+            <li>掲載根拠となるURLと確認日をデータへ記録する</li>
+            <li>検索・地図の機能画面と、検索掲載する独自ガイドを分けて検査する</li>
+            <li>公式情報の更新や訂正連絡に応じて再確認し、履歴へ残す</li>
+          </ol>
+          <p>営業時間や台数が参照先に書かれていないときは、他店の例から補ったり、概算を作ったりしません。第三者から寄せられた情報だけを店舗データの確認根拠にはせず、確認できる参照先を照合してから反映します。</p>
+
+          <h2>記事の作り方</h2>
+          <p>ガイド記事は、公式情報の文章を言い換えて並べるのではなく、利用者が出発前に確認する順番、数字の読み方、未確認情報との付き合い方など、運営者が設計した手順を本文にします。事実を扱う箇所は公式情報を優先して確認し、確認できない発売日、入荷、在庫、店舗の特徴を推測しません。</p>
+          <p>公開前に独自本文量、見出し、FAQ、参考リンク、構造化データを検査します。店舗データを扱う記事は固定URLの監査レポートへ集約し、元データから欠損率や分布を再計算します。地域名や件数を増やすためだけに似た記事を量産せず、内容の更新を伴わない日付だけの変更も行いません。</p>
+
+          <h2>訂正の受け付けと品質改善履歴</h2>
+          <p>誤り、閉店、移転、リンク切れを見つけた場合は、該当ページのURL、訂正内容、確認できる公式URLを<a href="contact.html">お問い合わせ方法</a>に記載の窓口へお送りください。内容を確認し、データを訂正します。確認できない情報は推測で公開せず、管理上の確認待ちとして扱います。</p>
+          <table>
+            <thead><tr><th>日付</th><th>対象</th><th>変更内容</th></tr></thead>
+            <tbody>
+              <tr><td>2026年9月3日</td><td>広告・投稿の公開範囲</td><td>トップページのアフィリエイト導線を公開物から撤去し、未審査の利用者投稿本文・画像は検索対象ページへ転載せず、検索対象外の掲示板へ分離</td></tr>
+              <tr><td>2026年9月3日</td><td>新作・検索導線</td><td>メーカー公式情報で確認した9月新作を月別ページへ整理し、トップ・新着・XMLサイトマップ・RSSからクエリのない正規URLで案内。サイト運営者と新着一覧の構造化データも追加</td></tr>
+              <tr><td>2026年9月3日</td><td>利用者掲示板</td><td>投稿時のチェック操作を廃止し、送信ボタンの直前に利用規約・投稿ルールへの同意条件を常時表示。文字数、禁止語、連続投稿、通報の対策は継続</td></tr>
+              <tr><td>2026年8月31日</td><td>利用者掲示板</td><td>利用者投稿と運営確認情報を明確に分け、掲示板ハブ・店舗別投稿・トップの新着投稿を復旧。掲示板は検索対象外とし、投稿ルール、通報窓口、プライバシー開示を追加</td></tr>
+              <tr><td>2026年8月30日</td><td>新店舗・流入導線</td><td>2026年7〜8月開業の10店舗を、開店日・営業時間・公表設置規模・参照先で比較する独自記事を追加し、トップ・新着・店舗一覧・RSS・共有導線から案内</td></tr>
+              <tr><td>2026年8月30日</td><td>PR表示</td><td>トップページに楽天トラベルへのPRリンクを1枠だけ掲載。リンク先と広告であることを明示し、期間終了後は自動で非表示にする構成へ変更</td></tr>
+              <tr><td>2026年8月25日</td><td>東京都23区の独自集計</td><td>公開店舗を23区別・ブランド別に再集計し、項目充足率、最新確認日、公式参照先を同じページで検証できるデータレポートを追加</td></tr>
+              <tr><td>2026年8月25日</td><td>全国店舗一覧</td><td>JavaScriptを実行しない閲覧環境でも内容を確認できるよう、住所・営業時間・アクセス・参照先がそろう30店舗を本文へ掲載</td></tr>
+              <tr><td>2026年8月25日</td><td>公開記事・導線</td><td>内容が重なる短いガイドと投稿機能を公開物から除外し、独自データの検証・比較・来店前確認に使えるページへ案内を集約</td></tr>
+              <tr><td>2026年8月22日</td><td>東京都23区の店舗</td><td>第5回としてメーカー・運営会社・商業施設の現行公式情報を照合した50店舗を公開。駅や飲食店内などの設置場所は「ガチャコーナー」と明示し、同一売場の重複候補と閉店情報が衝突する候補を除外</td></tr>
+              <tr><td>2026年8月21日</td><td>東京都23区の店舗</td><td>第4回としてバンダイ・運営会社・施設の現行公式情報を照合した30店舗を公開。同一住所・同一売場の候補は重複させず、非公表項目を推測せず店舗一覧とマップを更新</td></tr>
+              <tr><td>2026年8月20日</td><td>東京都23区の店舗</td><td>第3回として運営会社・施設の現行公式ページを再確認した30店舗を公開。閉店確認済みの未公開候補1件も除外し、非公表項目を推測せず店舗一覧とマップを更新</td></tr>
+              <tr><td>2026年8月20日</td><td>東京都23区の店舗</td><td>第2回として現行の公式店舗ページと地図位置を確認した30店舗を公開。非公表の台数・営業時間・電話は補完せず、店舗一覧とマップだけを拡充</td></tr>
+              <tr><td>2026年8月20日</td><td>東京都23区の店舗</td><td>公式運営元の現行店舗情報を照合し、第1回として30店舗を公開。住所・営業時間・公表設置規模は公式掲載項目だけを反映</td></tr>
+              <tr><td>2026年8月20日</td><td>東京都内のカプセル楽局</td><td>公式店舗一覧を照合し、東京都内61店舗を公開。公式一覧に設置規模の記載がない店舗はランキングの対象外を維持</td></tr>
+              <tr><td>2026年8月17日</td><td>検索掲載</td><td>独自集計と説明がある全国店舗一覧・公表設置規模ランキング・月別新作ページだけを検索対象へ追加し、絞り込み・個別ページは対象外を維持</td></tr>
+              <tr><td>2026年8月14日</td><td>店舗候補全件</td><td>掲載根拠URLと確認日の有無を再監査し、公開対象と確認待ちへ区分</td></tr>
+              <tr><td>2026年8月14日</td><td>公開店舗</td><td>検索・地図・個別ページを掲載根拠URLと確認日の両方がある店舗だけに限定</td></tr>
+              <tr><td>2026年8月14日</td><td>検索掲載</td><td>店舗・都道府県・ブランドの量産静的ページを公開物から除外し、検索・地図の動的機能へ集約</td></tr>
+              <tr><td>2026年8月14日</td><td>独自コンテンツ</td><td>店舗データ監査レポートと予算プランナーを追加し、短い地域記事18本の元データを削除</td></tr>
+              <tr><td>2026年8月14日</td><td>ランキング</td><td>掲載根拠URL・確認日・公表設置規模の3条件を満たす店舗だけを集計する基準へ変更</td></tr>
+              <tr><td>2026年8月14日</td><td>広告表示</td><td>広告とアフィリエイト商品枠を公開物から停止し、編集本文・導線・広告要素の混入を再点検</td></tr>
+            </tbody>
+          </table>
+          <p>今後、個別店舗の重要な訂正や掲載基準の変更があった場合は、この表へ日付、対象、変更内容を追記します。</p>
+
+          <h2>収益化と編集の独立</h2>
+          <p>店舗情報の確認状態、独自集計、運営情報、ナビゲーションを先に整え、収益化のためだけのページや、本文より広告が目立つページは作りません。広告を掲載する場合も、十分な編集本文があるページに限り、広告であることを明示し、検索・地図の操作や店舗情報と誤認しない位置へ掲載します。</p>
+          <p>広告出稿や紹介料の有無は、通常の店舗掲載、確認判定、ランキング順位、記事内の評価に反映しません。掲載内容の訂正や削除は、広告契約の有無にかかわらず同じ確認手順で扱います。</p>
+
+          <h2>このページの更新について</h2>
+          <p>確認件数の大きな変化、検索掲載条件、ランキング条件、記事作成手順、収益化方針を変更したときに、このページの日付と履歴を更新します。運営主体とサイト全体の編集方針は<a href="about.html">運営者情報・編集方針</a>、個人情報の取り扱いは<a href="privacy.html">プライバシーポリシー</a>をご覧ください。</p>
+
+          <p style="margin-top:24px"><a href="about.html">運営者情報・編集方針</a> ／ <a href="contact.html">訂正を連絡</a> ／ <a href="guide/tokyo-ward-gacha-data-report.html">東京23区データレポート</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="gh-footer">
+    <div class="gh-container">
+      <div class="gh-footer__main">
+        <div class="gh-footer__brand">
+          <a class="gh-logo" href="/"><img class="gh-logo__icon" src="assets/mascot-icon.png" alt="ガチャひろばのマスコット" width="34" height="34" /><span class="gh-logo__text">ガチャ<em>ひろば</em></span></a>
+          <p>掲載根拠の確認状態を示し、<br />来店前の比較に役立つ情報を届けます。</p>
+        </div>
+        <div class="gh-footer__links">
+          <div><strong>サービス</strong><a href="/">トップ</a><a href="ranking.html">ランキング</a><a href="news.html">新着情報</a><a href="map.html">マップ検索</a></div>
+          <div><strong>情報</strong><a href="guide/store-data-report.html">データ監査レポート</a><a href="guide/tokyo-ward-gacha-data-report.html">東京23区データレポート</a><a href="about.html">運営者・編集方針</a><a href="methodology.html">データ作成・確認方法</a></div>
+          <div><strong>サポート</strong><a href="contact.html">お問い合わせ</a><a href="terms.html">利用規約</a><a href="privacy.html">プライバシー</a><a href="sitemap.html">サイトマップ</a><a href="english.html">English</a></div>
+        </div>
+      </div>
+      <div class="gh-footer__bottom"><span>© 2026 ガチャひろば (gacha-hiroba.com)</span><span>掲載情報は参考情報です。最新情報は各店舗にご確認ください。</span></div>
+    </div>
+  </footer>
+</body>
+</html>

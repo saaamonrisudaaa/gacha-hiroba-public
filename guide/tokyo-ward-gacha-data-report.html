@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="google-site-verification" content="YN5Q0DnCsIhwgitcXjcGqxlmfMec80Wl0uZskCNS11w" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="description" content="ガチャひろばで公開している東京都の店舗データを、23区内・23区外、区別、運営ブランド別に独自集計しました。数値は、掲載根拠URLと確認日の両方がある記録だけを対象に、data/spots.js からページ生成時に再計算します。" />
+  <title>東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計 | ガチャひろば</title>
+  <link rel="canonical" href="https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html" />
+  <meta property="og:site_name" content="ガチャひろば" />
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:title" content="東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計 | ガチャひろば" />
+  <meta property="og:description" content="ガチャひろばで公開している東京都の店舗データを、23区内・23区外、区別、運営ブランド別に独自集計しました。数値は、掲載根拠URLと確認日の両方がある記録だけを対象に、data/spots.js からページ生成時に再計算します。" />
+  <meta property="og:url" content="https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html" />
+  <meta property="og:image" content="https://gacha-hiroba.com/assets/ogp.png" />
+  <meta property="article:published_time" content="2026-08-25" />
+  <meta property="article:modified_time" content="2026-09-03" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計 | ガチャひろば" />
+  <meta name="twitter:description" content="ガチャひろばで公開している東京都の店舗データを、23区内・23区外、区別、運営ブランド別に独自集計しました。数値は、掲載根拠URLと確認日の両方がある記録だけを対象に、data/spots.js からページ生成時に再計算します。" />
+  <meta name="twitter:image" content="https://gacha-hiroba.com/assets/ogp.png" />
+  <link rel="icon" type="image/png" href="/assets/mascot-icon.png" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","@id":"https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html#article","headline":"東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計","description":"ガチャひろばで公開している東京都の店舗データを、23区内・23区外、区別、運営ブランド別に独自集計しました。数値は、掲載根拠URLと確認日の両方がある記録だけを対象に、data/spots.js からページ生成時に再計算します。","image":"https://gacha-hiroba.com/assets/ogp.png","datePublished":"2026-08-25","dateModified":"2026-09-03","inLanguage":"ja","mainEntityOfPage":{"@type":"WebPage","@id":"https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html"},"author":{"@type":"Organization","name":"ガチャひろば運営者","url":"https://gacha-hiroba.com/about.html"},"publisher":{"@type":"Organization","name":"ガチャひろば","url":"https://gacha-hiroba.com/","logo":{"@type":"ImageObject","url":"https://gacha-hiroba.com/assets/mascot-icon.png"}}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"トップ","item":"https://gacha-hiroba.com/"},{"@type":"ListItem","position":2,"name":"新着情報・特集記事","item":"https://gacha-hiroba.com/news.html"},{"@type":"ListItem","position":3,"name":"東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計","item":"https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"東京23区の全スポットを網羅していますか？","acceptedAnswer":{"@type":"Answer","text":"網羅を保証しません。当サイトが掲載根拠URLと確認日を登録できた店舗だけの集計です。未掲載店や公表情報の少ない売り場があります。"}},{"@type":"Question","name":"掲載数が多い区ほどおすすめですか？","acceptedAnswer":{"@type":"Answer","text":"いいえ。件数は当サイトの掲載構成です。目的の商品、移動時間、営業時間、店舗の公式入荷案内によって来店候補は変わります。"}},{"@type":"Question","name":"数値はどのように更新されますか？","acceptedAnswer":{"@type":"Answer","text":"店舗データの公開対象を追加・訂正した後、ページ生成時に区別・ブランド別の表を再計算します。更新日は本文または元データが変わったときだけ更新します。"}}]}</script>
+  <script src="/script.js" defer></script>
+</head>
+<body>
+  <header class="gh-header">
+    <div class="gh-header__top">
+      <div class="gh-container gh-header__inner">
+        <a class="gh-logo" href="/" aria-label="ガチャひろば トップへ">
+          <img class="gh-logo__icon" src="/assets/mascot-icon.png" alt="ガチャひろばのマスコット" width="34" height="34" />
+          <span class="gh-logo__text">ガチャ<em>ひろば</em></span>
+        </a>
+        <form class="gh-search" role="search" action="/stores.html" method="get">
+          <input class="gh-search__input" type="search" name="q" placeholder="エリア・駅名・店名で検索" aria-label="ガチャ場所を検索" />
+          <button class="gh-search__btn" type="submit" aria-label="検索">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+        </form>
+        <button class="gh-hamburger" aria-label="メニューを開く" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="gh-subnav">
+      <div class="gh-container">
+        <nav class="gh-nav-tabs" aria-label="メインナビゲーション">
+          <a href="/">トップ</a>
+          <a href="/stores.html">店舗一覧</a>
+          <a href="/news.html" class="active">新着情報</a>
+          <a href="/ranking.html">ランキング</a>
+          <a href="/area.html">エリア別</a>
+          <a href="/category.html">ブランド別</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="gh-main">
+    <div class="gh-container">
+      <nav class="gh-breadcrumb" aria-label="パンくずリスト">
+        <a href="/">トップ</a><span aria-hidden="true">›</span>
+        <a href="/news.html">特集記事</a><span aria-hidden="true">›</span>
+        <span aria-current="page">東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計</span>
+      </nav>
+
+      <div class="gh-main__layout">
+        <div class="gh-main__content">
+          <article class="gh-section gh-article">
+            <h1 class="gh-article__title">📊 東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計</h1>
+            <div class="gh-article__meta">最終更新：<time datetime="2026-09-03">2026-09-03</time>　・　保存版ガイド</div>
+            <p class="gh-detail-note">作成・確認：<a href="/about.html">ガチャひろば運営者（個人運営）</a> ／ <a href="/methodology.html">記事・データの作成方法</a></p>
+
+            <div class="gh-share" aria-label="この記事を共有">
+              <span class="gh-share__label">役立ったら共有</span>
+              <a class="gh-share__btn" href="https://twitter.com/intent/tweet?text=%E6%9D%B1%E4%BA%AC23%E5%8C%BA%E3%81%AE%E3%82%AC%E3%83%81%E3%83%A3%E3%82%B9%E3%83%9D%E3%83%83%E3%83%88%E6%8E%B2%E8%BC%89%E5%88%86%E5%B8%83%EF%BD%9C%E5%8C%BA%E5%88%A5%E3%83%BB%E3%83%96%E3%83%A9%E3%83%B3%E3%83%89%E5%88%A5%E3%81%AB%E7%8B%AC%E8%87%AA%E9%9B%86%E8%A8%88%20%7C%20%E3%82%AC%E3%83%81%E3%83%A3%E3%81%B2%E3%82%8D%E3%81%B0&amp;url=https%3A%2F%2Fgacha-hiroba.com%2Fguide%2Ftokyo-ward-gacha-data-report.html" target="_blank" rel="noopener noreferrer" data-gh-share-link data-share-network="x">Xで共有</a>
+              <a class="gh-share__btn" href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fgacha-hiroba.com%2Fguide%2Ftokyo-ward-gacha-data-report.html" target="_blank" rel="noopener noreferrer" data-gh-share-link data-share-network="line">LINEで送る</a>
+              <button class="gh-share__btn" type="button" data-gh-share-native data-share-title="東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計 | ガチャひろば" data-share-url="https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html">URLを共有</button>
+            </div>
+            <div class="gh-article__intro">
+              <p>ガチャひろばで公開している東京都の店舗データを、23区内・23区外、区別、運営ブランド別に独自集計しました。数値は、掲載根拠URLと確認日の両方がある記録だけを対象に、data/spots.js からページ生成時に再計算します。</p>
+              <p>この集計は東京の実店舗数や市場シェアではなく、当サイトが根拠とともに公開できた範囲を示します。掲載が多い区を「ガチャ店舗が必ず多い区」と断定せず、店舗候補を絞るためのデータとしてご利用ください。</p>
+            </div>
+            <section class="gh-audit" aria-labelledby="tokyo-audit-summary">
+              <h2 class="gh-article__h2" id="tokyo-audit-summary">集計結果（2026-09-03時点）</h2>
+              <div class="gh-metrics gh-audit__metrics">
+                <div class="gh-metric gh-metric--primary"><span class="gh-metric__label">東京都の公開店舗</span><strong class="gh-metric__value">266件</strong><span class="gh-metric__sub">根拠URL・確認日あり</span></div>
+                <div class="gh-metric"><span class="gh-metric__label">23区内</span><strong class="gh-metric__value">245件</strong><span class="gh-metric__sub">住所から区名を照合</span></div>
+                <div class="gh-metric"><span class="gh-metric__label">23区外</span><strong class="gh-metric__value">21件</strong><span class="gh-metric__sub">東京都の市・町村部</span></div>
+                <div class="gh-metric"><span class="gh-metric__label">掲載がある特別区</span><strong class="gh-metric__value">23 / 23区</strong><span class="gh-metric__sub">未掲載は0件と表示</span></div>
+              </div>
+              <p class="gh-detail-note">最新の根拠確認日は2026-09-03です。本表は当サイトの掲載カバー範囲であり、東京の実店舗総数・市場シェア・人気順位ではありません。</p>
+            </section>
+
+            <section class="gh-audit" aria-labelledby="tokyo-audit-wards">
+              <h2 class="gh-article__h2" id="tokyo-audit-wards">23区別の掲載分布</h2>
+              <div class="gh-table-wrap"><table class="gh-table"><thead><tr><th scope="col">特別区</th><th class="gh-num" scope="col">掲載</th><th class="gh-num" scope="col">23区内比</th><th class="gh-num" scope="col">ブランド数</th><th class="gh-num" scope="col">規模値あり</th><th scope="col">最新確認</th></tr></thead><tbody>
+                <tr><td><a href="/stores.html#q=%E6%B8%8B%E8%B0%B7%E5%8C%BA">渋谷区</a></td><td class="gh-num">27件</td><td class="gh-num">11.0%</td><td class="gh-num">11</td><td class="gh-num">9件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E8%B1%8A%E5%B3%B6%E5%8C%BA">豊島区</a></td><td class="gh-num">23件</td><td class="gh-num">9.4%</td><td class="gh-num">14</td><td class="gh-num">4件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E6%96%B0%E5%AE%BF%E5%8C%BA">新宿区</a></td><td class="gh-num">20件</td><td class="gh-num">8.2%</td><td class="gh-num">13</td><td class="gh-num">5件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E5%8D%83%E4%BB%A3%E7%94%B0%E5%8C%BA">千代田区</a></td><td class="gh-num">17件</td><td class="gh-num">6.9%</td><td class="gh-num">14</td><td class="gh-num">2件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E5%A4%A7%E7%94%B0%E5%8C%BA">大田区</a></td><td class="gh-num">15件</td><td class="gh-num">6.1%</td><td class="gh-num">9</td><td class="gh-num">5件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E5%8F%B0%E6%9D%B1%E5%8C%BA">台東区</a></td><td class="gh-num">14件</td><td class="gh-num">5.7%</td><td class="gh-num">9</td><td class="gh-num">2件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E5%93%81%E5%B7%9D%E5%8C%BA">品川区</a></td><td class="gh-num">14件</td><td class="gh-num">5.7%</td><td class="gh-num">5</td><td class="gh-num">3件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E5%8C%97%E5%8C%BA">北区</a></td><td class="gh-num">12件</td><td class="gh-num">4.9%</td><td class="gh-num">7</td><td class="gh-num">1件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E6%9D%89%E4%B8%A6%E5%8C%BA">杉並区</a></td><td class="gh-num">11件</td><td class="gh-num">4.5%</td><td class="gh-num">5</td><td class="gh-num">1件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E8%B6%B3%E7%AB%8B%E5%8C%BA">足立区</a></td><td class="gh-num">11件</td><td class="gh-num">4.5%</td><td class="gh-num">9</td><td class="gh-num">1件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E6%B1%9F%E6%88%B8%E5%B7%9D%E5%8C%BA">江戸川区</a></td><td class="gh-num">10件</td><td class="gh-num">4.1%</td><td class="gh-num">10</td><td class="gh-num">1件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E6%B1%9F%E6%9D%B1%E5%8C%BA">江東区</a></td><td class="gh-num">9件</td><td class="gh-num">3.7%</td><td class="gh-num">6</td><td class="gh-num">4件</td><td>2026-09-03</td></tr>
+                <tr><td><a href="/stores.html#q=%E4%B8%96%E7%94%B0%E8%B0%B7%E5%8C%BA">世田谷区</a></td><td class="gh-num">9件</td><td class="gh-num">3.7%</td><td class="gh-num">4</td><td class="gh-num">1件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E5%A2%A8%E7%94%B0%E5%8C%BA">墨田区</a></td><td class="gh-num">8件</td><td class="gh-num">3.3%</td><td class="gh-num">7</td><td class="gh-num">3件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E8%91%9B%E9%A3%BE%E5%8C%BA">葛飾区</a></td><td class="gh-num">8件</td><td class="gh-num">3.3%</td><td class="gh-num">5</td><td class="gh-num">1件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E6%B8%AF%E5%8C%BA">港区</a></td><td class="gh-num">7件</td><td class="gh-num">2.9%</td><td class="gh-num">4</td><td class="gh-num">3件</td><td>2026-08-21</td></tr>
+                <tr><td><a href="/stores.html#q=%E6%9D%BF%E6%A9%8B%E5%8C%BA">板橋区</a></td><td class="gh-num">7件</td><td class="gh-num">2.9%</td><td class="gh-num">6</td><td class="gh-num">1件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E4%B8%AD%E5%A4%AE%E5%8C%BA">中央区</a></td><td class="gh-num">5件</td><td class="gh-num">2.0%</td><td class="gh-num">4</td><td class="gh-num">2件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E7%9B%AE%E9%BB%92%E5%8C%BA">目黒区</a></td><td class="gh-num">5件</td><td class="gh-num">2.0%</td><td class="gh-num">5</td><td class="gh-num">0件</td><td>2026-08-21</td></tr>
+                <tr><td><a href="/stores.html#q=%E7%B7%B4%E9%A6%AC%E5%8C%BA">練馬区</a></td><td class="gh-num">5件</td><td class="gh-num">2.0%</td><td class="gh-num">5</td><td class="gh-num">1件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E4%B8%AD%E9%87%8E%E5%8C%BA">中野区</a></td><td class="gh-num">4件</td><td class="gh-num">1.6%</td><td class="gh-num">2</td><td class="gh-num">0件</td><td>2026-08-20</td></tr>
+                <tr><td><a href="/stores.html#q=%E6%96%87%E4%BA%AC%E5%8C%BA">文京区</a></td><td class="gh-num">2件</td><td class="gh-num">0.8%</td><td class="gh-num">2</td><td class="gh-num">0件</td><td>2026-08-22</td></tr>
+                <tr><td><a href="/stores.html#q=%E8%8D%92%E5%B7%9D%E5%8C%BA">荒川区</a></td><td class="gh-num">2件</td><td class="gh-num">0.8%</td><td class="gh-num">2</td><td class="gh-num">0件</td><td>2026-08-22</td></tr>
+              </tbody></table></div>
+              <p class="gh-detail-note">「規模値あり」は、公開店舗のうち参照元で設置規模の数値を確認できた件数です。参照元ごとに台・面・種類・設置ボックス数など単位が異なるため、合算値や在庫数ではありません。</p>
+            </section>
+
+            <section class="gh-audit" aria-labelledby="tokyo-audit-fields">
+              <h2 class="gh-article__h2" id="tokyo-audit-fields">東京都266件の情報充足状況</h2>
+              <div class="gh-table-wrap"><table class="gh-table"><thead><tr><th scope="col">項目</th><th class="gh-num" scope="col">確認できた件数</th><th class="gh-num" scope="col">充足率</th><th class="gh-num" scope="col">未確認・未掲載</th></tr></thead><tbody>
+                <tr><td>営業時間</td><td class="gh-num">189件</td><td class="gh-num">71.1%</td><td class="gh-num">77件</td></tr>
+                <tr><td>アクセス</td><td class="gh-num">35件</td><td class="gh-num">13.2%</td><td class="gh-num">231件</td></tr>
+                <tr><td>設置規模の数値</td><td class="gh-num">60件</td><td class="gh-num">22.6%</td><td class="gh-num">206件</td></tr>
+                <tr><td>電話番号</td><td class="gh-num">177件</td><td class="gh-num">66.5%</td><td class="gh-num">89件</td></tr>
+              </tbody></table></div>
+              <p class="gh-detail-note">未確認・未掲載は「なし」を意味しません。掲載元で確認できない、または当サイトで確認作業が済んでいない項目です。</p>
+            </section>
+
+            <section class="gh-audit" aria-labelledby="tokyo-audit-brands">
+              <h2 class="gh-article__h2" id="tokyo-audit-brands">東京都の運営ブランド別掲載（上位12）</h2>
+              <div class="gh-table-wrap"><table class="gh-table"><thead><tr><th scope="col">ブランド・運営区分</th><th class="gh-num" scope="col">掲載</th><th class="gh-num" scope="col">東京都内比</th></tr></thead><tbody>
+                <tr><td><a href="/stores.html#brand=%E3%82%AB%E3%83%97%E3%82%BB%E3%83%AB%E6%A5%BD%E5%B1%80">カプセル楽局</a></td><td class="gh-num">61件</td><td class="gh-num">22.9%</td></tr>
+                <tr><td><a href="/stores.html#brand=%E3%82%AC%E3%82%B7%E3%83%A3%E3%83%9D%E3%83%B3%EF%BC%88%E3%83%90%E3%83%B3%E3%83%80%E3%82%A4%EF%BC%89">ガシャポン（バンダイ）</a></td><td class="gh-num">36件</td><td class="gh-num">13.5%</td></tr>
+                <tr><td><a href="/stores.html#brand=%23C-pla%EF%BC%88%E3%82%B7%E3%83%BC%E3%83%97%E3%83%A9%EF%BC%89">#C-pla（シープラ）</a></td><td class="gh-num">25件</td><td class="gh-num">9.4%</td></tr>
+                <tr><td><a href="/stores.html#brand=GiGO">GiGO</a></td><td class="gh-num">18件</td><td class="gh-num">6.8%</td></tr>
+                <tr><td><a href="/stores.html#brand=gashacoco%EF%BC%88%E3%82%AC%E3%82%B7%E3%83%A3%E3%82%B3%E3%82%B3%EF%BC%89">gashacoco（ガシャココ）</a></td><td class="gh-num">12件</td><td class="gh-num">4.5%</td></tr>
+                <tr><td><a href="/stores.html#brand=%E3%82%AC%E3%82%B7%E3%83%A3%E3%83%9D%E3%83%B3%E3%81%AE%E3%83%87%E3%83%91%E3%83%BC%E3%83%88">ガシャポンのデパート</a></td><td class="gh-num">11件</td><td class="gh-num">4.1%</td></tr>
+                <tr><td><a href="/stores.html#brand=%E3%82%AC%E3%83%81%E3%83%A3%E3%82%AC%E3%83%81%E3%83%A3%E3%81%AE%E6%A3%AE">ガチャガチャの森</a></td><td class="gh-num">11件</td><td class="gh-num">4.1%</td></tr>
+                <tr><td><a href="/stores.html#brand=CAPSULE%20LAB%EF%BC%88%E3%82%AB%E3%83%97%E3%82%B3%E3%83%B3%EF%BC%89">CAPSULE LAB（カプコン）</a></td><td class="gh-num">6件</td><td class="gh-num">2.3%</td></tr>
+                <tr><td><a href="/stores.html#brand=%E3%82%B1%E3%83%B3%E3%82%A8%E3%83%AC%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%89">ケンエレスタンド</a></td><td class="gh-num">6件</td><td class="gh-num">2.3%</td></tr>
+                <tr><td><a href="/stores.html#brand=%E3%82%B9%E3%82%B7%E3%83%AD%E3%83%BC">スシロー</a></td><td class="gh-num">6件</td><td class="gh-num">2.3%</td></tr>
+                <tr><td><a href="/stores.html#brand=%E3%83%A8%E3%83%89%E3%83%90%E3%82%B7%E3%82%AB%E3%83%A1%E3%83%A9">ヨドバシカメラ</a></td><td class="gh-num">6件</td><td class="gh-num">2.3%</td></tr>
+                <tr><td><a href="/stores.html#brand=%E6%9D%B1%E4%BA%AC%E3%83%A1%E3%83%88%E3%83%AD">東京メトロ</a></td><td class="gh-num">6件</td><td class="gh-num">2.3%</td></tr>
+              </tbody></table></div>
+              <p class="gh-detail-note">ブランド名は店舗データの運営区分を集計しています。店舗数の公式総計や市場シェアではありません。</p>
+            </section>
+
+            <section class="gh-audit" aria-labelledby="tokyo-audit-sources">
+              <h2 class="gh-article__h2" id="tokyo-audit-sources">最近確認した東京都の記録</h2>
+              <div class="gh-table-wrap"><table class="gh-table"><thead><tr><th scope="col">店舗</th><th scope="col">地域</th><th scope="col">確認日</th><th scope="col">掲載根拠</th></tr></thead><tbody>
+                <tr><td><a href="/spot.html?id=caprak-monzen-nakacho">カプセル楽局 門前仲町店</a></td><td>江東区</td><td>2026-09-03</td><td><a class="gh-official-source" href="https://www.warehousenet.jp/capsule/" target="_blank" rel="noopener noreferrer">参照先を開く ↗</a></td></tr>
+                <tr><td><a href="/spot.html?id=cpla-2nd-sunamo">#C-pla 2nd SUNAMO店</a></td><td>江東区</td><td>2026-08-22</td><td><a class="gh-official-source" href="https://toshin.jpn.com/shop/c-pla-2nd-sunamo%E5%BA%97/" target="_blank" rel="noopener noreferrer">参照先を開く ↗</a></td></tr>
+                <tr><td><a href="/spot.html?id=cpla-sunamo">#C-pla SUNAMO店</a></td><td>江東区</td><td>2026-08-22</td><td><a class="gh-official-source" href="https://toshin.jpn.com/shop/sunamo%E5%BA%97/" target="_blank" rel="noopener noreferrer">参照先を開く ↗</a></td></tr>
+                <tr><td><a href="/spot.html?id=gashacoco-asakusa">gashacoco 浅草</a></td><td>台東区</td><td>2026-08-22</td><td><a class="gh-official-source" href="https://gashacoco.jp/shop-list/3215" target="_blank" rel="noopener noreferrer">参照先を開く ↗</a></td></tr>
+                <tr><td><a href="/spot.html?id=gigo-takadanobaba-gacha">GiGO高田馬場（ガチャコーナー）</a></td><td>新宿区</td><td>2026-08-22</td><td><a class="gh-official-source" href="https://www.takaratomy-arts.co.jp/items/shop.html?shohincd=4904790904479&amp;tenpocd=08698" target="_blank" rel="noopener noreferrer">参照先を開く ↗</a></td></tr>
+                <tr><td><a href="/spot.html?id=bandai-gigo-shibuya-miyamasuzaka">GiGO渋谷宮益坂（ガシャポンコーナー）</a></td><td>渋谷区</td><td>2026-08-22</td><td><a class="gh-official-source" href="https://gashapon.jp/news/campaign_260420/" target="_blank" rel="noopener noreferrer">参照先を開く ↗</a></td></tr>
+                <tr><td><a href="/spot.html?id=goron-ikebukuro1">GORON!池袋1号館</a></td><td>豊島区</td><td>2026-08-22</td><td><a class="gh-official-source" href="https://www.gigo.co.jp/cafe-and-goods/goron?area=13" target="_blank" rel="noopener noreferrer">参照先を開く ↗</a></td></tr>
+                <tr><td><a href="/spot.html?id=hana-yori-gacha-kitasenju">HANAよりGACHA 北千住店</a></td><td>足立区</td><td>2026-08-22</td><td><a class="gh-official-source" href="https://hanayorigacha.com/?p=69" target="_blank" rel="noopener noreferrer">参照先を開く ↗</a></td></tr>
+                <tr><td><a href="/spot.html?id=bandai-jr-gotanda-outside">JR五反田駅 改札外改札横（ガシャポンコーナー）</a></td><td>品川区</td><td>2026-08-22</td><td><a class="gh-official-source" href="https://gashapon.jp/shop/shop.php?shop_code=S90000208" target="_blank" rel="noopener noreferrer">参照先を開く ↗</a></td></tr>
+                <tr><td><a href="/spot.html?id=bandai-jr-ueno-iriya">JR上野駅 入谷改札口付近（ガシャポンコーナー）</a></td><td>台東区</td><td>2026-08-22</td><td><a class="gh-official-source" href="https://gashapon.jp/shop/shop.php?shop_code=S90000007" target="_blank" rel="noopener noreferrer">参照先を開く ↗</a></td></tr>
+                <tr><td><a href="/spot.html?id=bandai-jr-osaki-south-outside">JR大崎駅 南改札外（ガシャポンコーナー）</a></td><td>品川区</td><td>2026-08-22</td><td><a class="gh-official-source" href="https://gashapon.jp/shop/shop.php?shop_code=S90000205" target="_blank" rel="noopener noreferrer">参照先を開く ↗</a></td></tr>
+                <tr><td><a href="/spot.html?id=bandai-jr-osaki-north-outside">JR大崎駅 北改札外（ガシャポンコーナー）</a></td><td>品川区</td><td>2026-08-22</td><td><a class="gh-official-source" href="https://gashapon.jp/shop/shop.php?shop_code=S90000204" target="_blank" rel="noopener noreferrer">参照先を開く ↗</a></td></tr>
+              </tbody></table></div>
+              <p class="gh-detail-note">リンク先は店舗・ブランド・商業施設などの掲載根拠です。一律に店舗単位の一次情報とは表現しません。</p>
+            </section><div class="gh-article__intro">
+              <h2 class="gh-article-h2">1. 集計対象と「23区内」の判定</h2>
+              <p>対象は、都道府県が東京都で、掲載根拠URLと確認日がそろう店舗です。住所の「東京都○○区」を23区名と照合し、一致した記録を23区内として数えます。市部・町村部は「23区外」に分けます。</p>
+              <p>同じ建物内でも、別の運営主体・別フロアの売り場として公式案内される場合は別記録です。反対に名称の表記揺れだけの場合は、住所・フロア・ブランドを照合して重複を確認します。</p>
+              <h2 class="gh-article-h2">2. 区別件数は「掲載カバー範囲」</h2>
+              <p>区別の件数は、当サイトで公開できた店舗記録の分布です。ブランドの公式店舗一覧をまとめて確認できた地域は数が増えやすく、公式ページが店舗単位で分かれている地域は確認に時間がかかります。</p>
+              <p>そのため、件数が少ない区に実際の設置スポットが少ないとは限りません。未掲載店の公式ページや閉店・移転の根拠がある場合は、お問い合わせから訂正候補として送れます。</p>
+              <h2 class="gh-article-h2">3. ブランド別件数の読み方</h2>
+              <p>ブランド別表は、同じ確認条件で東京都の公開記録を数えたものです。専門店だけでなく、メーカー公式ショップ、家電量販店、駅構内のカプセルトイコーナーなど、店舗データで使用する運営区分をそのまま集計します。</p>
+              <p>件数は市場シェアや人気順位ではありません。一つのブランドでも売り場規模、展開商品、営業時間は店舗ごとに異なります。来店先はブランド名だけで決めず、建物名、フロア、確認元まで見てください。</p>
+              <h2 class="gh-article-h2">4. 営業時間・アクセス・公表設置規模の欠損</h2>
+              <p>根拠URLと確認日があっても、営業時間、駅からのアクセス、公表設置規模のすべてが確認できるとは限りません。表では、各区の公開記録のうち、設置規模の数値まで確認できた件数を別に示します。</p>
+              <p>数値がない店舗を0台とは扱いません。同様に、アクセス欄が空でも駅から遠いという意味ではありません。欠損は「なし」ではなく、参照元での非公表または当サイトでの未確認を示します。</p>
+              <h2 class="gh-article-h2">5. 候補店を絞るときの使い方</h2>
+              <p>まず生活圏や予定地の区を表から選び、店舗一覧で住所と建物名を確認します。公表設置規模は個別店舗の売り場規模を考える目安にはなりますが、目当ての商品の取扱いや現在庫を示しません。商品を探す日は、メーカー公式の商品情報と店舗公式の入荷案内を分けて見ます。</p>
+              <p>同じ区内でも駅間移動や大型施設内の移動に時間がかかります。候補は最大2〜3店に絞り、来店当日に確認元の最新営業時間と休館日を再確認してください。直線距離と実際の経路は異なるため、地図の近い順は候補作りに使います。</p>
+              <h2 class="gh-article-h2">6. 更新と訂正のルール</h2>
+              <p>店舗の追加、閉店、移転、ブランド変更を根拠とともに確認したとき、同じ固定URLの集計表を再生成します。月別・区別にほぼ同じページを量産せず、集計条件と限界をこの1ページで更新します。</p>
+              <p>閉店や移転の指摘は、店舗名、対象URL、公式案内などの確認根拠をお問い合わせから送れます。いただいた情報をそのまま掲載せず、運営者が参照先を確認し、日付を記録してから反映します。</p>
+            </div>
+            <div class="gh-article__tips">
+              <h2 class="gh-article__h2">実用メモ（確認のコツ）</h2>
+              <ul><li>区別件数は実店舗総数ではなく、当サイトの確認済み掲載数です。</li><li>設置規模未公表の店舗を0と扱わず、数値を確認できた件数も併記します。</li><li>ブランド別件数は市場シェア・人気・在庫量の順位ではありません。</li><li>来店前は、各店舗の参照元で営業時間と休館日を再確認します。</li></ul>
+            </div>
+            <div>
+              <h2 class="gh-article__h2">❓ よくある質問</h2>
+              <details class="gh-faq"><summary class="gh-faq__q">東京23区の全スポットを網羅していますか？</summary><p class="gh-faq__a">網羅を保証しません。当サイトが掲載根拠URLと確認日を登録できた店舗だけの集計です。未掲載店や公表情報の少ない売り場があります。</p></details>
+              <details class="gh-faq"><summary class="gh-faq__q">掲載数が多い区ほどおすすめですか？</summary><p class="gh-faq__a">いいえ。件数は当サイトの掲載構成です。目的の商品、移動時間、営業時間、店舗の公式入荷案内によって来店候補は変わります。</p></details>
+              <details class="gh-faq"><summary class="gh-faq__q">数値はどのように更新されますか？</summary><p class="gh-faq__a">店舗データの公開対象を追加・訂正した後、ページ生成時に区別・ブランド別の表を再計算します。更新日は本文または元データが変わったときだけ更新します。</p></details>
+            </div>
+            <p class="gh-detail-note">※本記事はガチャひろば運営者が、ガチャを探すときに役立つ手順や判断基準を独自に整理したものです。内容の訂正・改善提案はお問い合わせからお寄せください。<a href="/methodology.html">データ確認方法を見る</a></p>
+          </article>
+        </div>
+
+        <aside class="gh-sidebar">
+          <div class="gh-widget">
+            <h2 class="gh-widget__title">関連記事</h2>
+            <ul class="gh-category-list">
+              <li><a href="/guide/capsule-rakkyoku-tokyo.html" class="gh-category-item"><span class="gh-category-item__icon">💊</span><span>カプセル楽局・東京店舗一覧</span></a></li>
+              <li><a href="/guide/cpla-store-guide.html" class="gh-category-item"><span class="gh-category-item__icon">🟣</span><span>シープラ（#C-pla）店舗一覧</span></a></li>
+              <li><a href="/guide/shinjuku.html" class="gh-category-item"><span class="gh-category-item__icon">🌆</span><span>新宿ガチャガチャガイド</span></a></li>
+              <li><a href="/guide/ueno.html" class="gh-category-item"><span class="gh-category-item__icon">🐼</span><span>上野・アメ横ガチャガチャガイド</span></a></li>
+              <li><a href="/guide/omori.html" class="gh-category-item"><span class="gh-category-item__icon">🚉</span><span>大森ガチャガチャガイド</span></a></li>
+              <li><a href="/guide/kinshicho.html" class="gh-category-item"><span class="gh-category-item__icon">🎡</span><span>錦糸町ガチャガチャガイド</span></a></li>
+              <li><a href="/guide/tachikawa.html" class="gh-category-item"><span class="gh-category-item__icon">🚝</span><span>立川ガチャガチャガイド</span></a></li>
+              <li><a href="/guide/new-gacha-shops-2026-summer.html" class="gh-category-item"><span class="gh-category-item__icon">🆕</span><span>2026年夏の新店舗10店</span></a></li>
+              <li><a href="/guide/store-data-report.html" class="gh-category-item"><span class="gh-category-item__icon">📈</span><span>店舗データ監査レポート</span></a></li>
+              <li><a href="/guide/tokyo-large-gacha-guide.html" class="gh-category-item"><span class="gh-category-item__icon">🗼</span><span>東京の大型店ガイド</span></a></li>
+              <li><a href="/guide/gacha-budget-planner.html" class="gh-category-item"><span class="gh-category-item__icon">🧮</span><span>予算プランナー</span></a></li>
+              <li><a href="/guide/guide-find-new.html" class="gh-category-item"><span class="gh-category-item__icon">💡</span><span>新作の探し方</span></a></li>
+            </ul>
+          </div>
+          <div class="gh-widget gh-widget--accent">
+            <h2 class="gh-widget__title">店舗を探す</h2>
+            <p class="gh-widget__text">全国の登録店舗を一覧・マップ・ランキングから絞り込めます。来店前は確認元の最新情報もご覧ください。</p>
+            <div class="gh-app-btns">
+              <a href="/stores.html" class="gh-app-btn">🏬 店舗一覧を見る</a>
+              <a href="/ranking.html" class="gh-app-btn">📊 ランキングを見る</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="gh-footer">
+    <div class="gh-container">
+      <div class="gh-footer__main">
+        <div class="gh-footer__brand">
+          <a class="gh-logo" href="/"><img class="gh-logo__icon" src="/assets/mascot-icon.png" alt="ガチャひろばのマスコット" width="34" height="34" /><span class="gh-logo__text">ガチャ<em>ひろば</em></span></a>
+          <p>全国のガチャガチャ設置場所情報を掲載。<br />あなたのガチャライフをサポートします。</p>
+        </div>
+        <div class="gh-footer__links">
+          <div><strong>サービス</strong><a href="/">トップ</a><a href="/stores.html">店舗一覧</a><a href="/ranking.html">ランキング</a><a href="/map.html">マップ検索</a></div>
+          <div><strong>情報</strong><a href="/guide/tokyo-ward-gacha-data-report.html">東京23区レポート</a><a href="/guide/store-data-report.html">データ監査レポート</a><a href="/guide/gacha-budget-planner.html">予算プランナー</a><a href="/news.html">独自ガイド</a><a href="/about.html">運営情報・編集方針</a><a href="/methodology.html">データ確認方法</a></div>
+          <div><strong>サポート</strong><a href="/contact.html">お問い合わせ</a><a href="/terms.html">利用規約</a><a href="/privacy.html">プライバシー</a><a href="/sitemap.html">サイトマップ</a><a href="/english.html">English</a></div>
+        </div>
+      </div>
+      <div class="gh-footer__bottom"><span>© 2026 ガチャひろば (gacha-hiroba.com)</span><span>Powered by ガチャひろば</span></div>
+    </div>
+  </footer>
+</body>
+</html>

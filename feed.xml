@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+  <title>ガチャひろば｜新着・特集記事</title>
+  <link>https://gacha-hiroba.com/</link>
+  <description>メーカー公式情報で確認した新作ガチャと、ガチャひろば運営者が作成した実用ガイドの更新情報を配信します。</description>
+  <language>ja</language>
+  <lastBuildDate>Thu, 03 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <item>
+    <title>2026年8月の新作ガチャ20商品｜発売時期・価格・メーカー</title>
+    <link>https://gacha-hiroba.com/releases/2026-08.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/releases/2026-08.html</guid>
+    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+    <description>メーカー公式情報で確認した2026年8月発売の新作ガチャ20商品を、発売時期・価格・メーカー別に整理しました。</description>
+  </item>
+  <item>
+    <title>2026年9月の新作ガチャ9商品｜発売時期・価格・メーカー</title>
+    <link>https://gacha-hiroba.com/releases/2026-09.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/releases/2026-09.html</guid>
+    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+    <description>メーカー公式情報で確認した2026年9月発売の新作ガチャ9商品を、発売時期・価格・メーカー別に整理しました。</description>
+  </item>
+  <item>
+    <title>ガチャ店舗データ監査レポート｜確認状況・欠損率・情報充足率を公開</title>
+    <link>https://gacha-hiroba.com/guide/store-data-report.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/store-data-report.html</guid>
+    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+    <description>ガチャひろばが保有する店舗データについて、「何件あるか」だけでなく、掲載根拠URLと確認日がどこまでそろっているか、営業時間・公表設置規模・アクセスなど各項目をどの程度確認できているかを集計しました。ページ内の数値は data/spots.js から生成時に再計算しています。</description>
+  </item>
+  <item>
+    <title>カプセル楽局の東京店舗一覧｜住所・営業時間・エリア別検索【2026年】</title>
+    <link>https://gacha-hiroba.com/guide/capsule-rakkyoku-tokyo.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/capsule-rakkyoku-tokyo.html</guid>
+    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+    <description>カプセル楽局を東京で探す人向けに、運営元の公式店舗一覧で店名と所在地を確認でき、ガチャひろば側で確認日を記録した店舗だけをまとめました。2026年9月3日のページ生成時点では東京都内61店、51エリアを掲載しています。公式の全店舗数を転載した一覧ではなく、当サイトの公開条件を満たした掲載分です。</description>
+  </item>
+  <item>
+    <title>シープラ（#C-pla）の店舗一覧｜東京・全国の住所・営業時間・設置規模【2026年】</title>
+    <link>https://gacha-hiroba.com/guide/cpla-store-guide.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/cpla-store-guide.html</guid>
+    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+    <description>シープラ（#C-pla）の店舗を探す人向けに、店舗または施設の確認元URLと確認日がそろう掲載分を1ページで比較します。2026年9月3日の生成時点では全国46店で、そのうち東京都が25店です。北海道から九州まで12都道府県を含みますが、公式チェーン全体の完全な店舗一覧ではなく、ガチャひろばが根拠を確認できた範囲です。</description>
+  </item>
+  <item>
+    <title>錦糸町のガチャガチャ設置場所｜PARCO・マルイ・オリナスを南北比較【2026年】</title>
+    <link>https://gacha-hiroba.com/guide/kinshicho.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/kinshicho.html</guid>
+    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+    <description>錦糸町のガチャガチャ設置場所は、駅南口側のPARCO・マルイ・駅前・ヨドバシ周辺と、北口から向かうオリナス側に分けると回りやすくなります。このページは、店舗・施設・メーカーなどの根拠URLと確認日がある6店を、住所、営業時間、公表設置規模、売り場タイプで比較します。</description>
+  </item>
+  <item>
+    <title>上野・アメ横のガチャガチャ設置場所｜駅改札内・駅前の回り方【2026年】</title>
+    <link>https://gacha-hiroba.com/guide/ueno.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/ueno.html</guid>
+    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+    <description>上野でガチャガチャを探す場合は、JR上野駅の改札内、駅前の商業施設、アメ横方面を同じ場所と考えないことが大切です。このページでは、店舗・施設・メーカーなどの掲載根拠URLと確認日がある上野エリアの7店を比較し、乗換中に寄る場合と街歩きで回る場合を分けて案内します。</description>
+  </item>
+  <item>
+    <title>新宿のガチャガチャ設置場所｜東口・西口・歌舞伎町の大型店と深夜営業【2026年】</title>
+    <link>https://gacha-hiroba.com/guide/shinjuku.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/shinjuku.html</guid>
+    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+    <description>新宿でガチャガチャを探すときは、店舗数より先に「東口・新宿三丁目」「西口」「歌舞伎町・サブナード」のどこへ行くかを決めると迷いにくくなります。このページは、店舗・ブランド・施設などの根拠URLと確認日がある新宿エリアの掲載店を、住所、営業時間、公表設置規模で比較します。</description>
+  </item>
+  <item>
+    <title>大森駅周辺のガチャガチャ設置場所｜改札外・西友・イトーヨーカドーを確認【2026年】</title>
+    <link>https://gacha-hiroba.com/guide/omori.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/omori.html</guid>
+    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+    <description>大森駅周辺のガチャガチャ設置場所について、店舗・メーカーの確認元URLと確認日がそろう3店を掲載します。対象はJR大森駅改札外のNewDays付近、西友大森店3階のガシャポンバンダイオフィシャルショップ、イトーヨーカドー大森店のガチャコーナーです。駅名が同じでも、大田区側と品川区側の住所が含まれます。</description>
+  </item>
+  <item>
+    <title>東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計</title>
+    <link>https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html</guid>
+    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+    <description>ガチャひろばで公開している東京都の店舗データを、23区内・23区外、区別、運営ブランド別に独自集計しました。数値は、掲載根拠URLと確認日の両方がある記録だけを対象に、data/spots.js からページ生成時に再計算します。</description>
+  </item>
+  <item>
+    <title>立川のガチャガチャ設置場所｜駅前・立飛の大型店を比較【2026年】</title>
+    <link>https://gacha-hiroba.com/guide/tachikawa.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/tachikawa.html</guid>
+    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+    <description>立川のガチャガチャ掲載店は、JR立川駅前の3店と、多摩モノレール立飛駅前の1店に分かれます。このページでは、店舗・ブランドの公式ページで住所、営業時間、公表設置規模を確認できた4店だけを比較し、徒歩だけで回る場合とモノレールを使う場合の違いを整理します。</description>
+  </item>
+  <item>
+    <title>2026年7〜8月オープンのガチャガチャ専門店10店｜新店舗・営業時間・公表設置規模</title>
+    <link>https://gacha-hiroba.com/guide/new-gacha-shops-2026-summer.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/new-gacha-shops-2026-summer.html</guid>
+    <pubDate>Sun, 30 Aug 2026 00:00:00 GMT</pubDate>
+    <description>2026年7月17日から8月28日までにオープンしたガチャガチャ専門店のうち、運営ブランドの公式店舗ページと開店案内で所在地・営業時間を確認できた10店をまとめました。対象は#C-plaが7店、gashacocoが3店で、大阪府5店、北海道2店、兵庫県・岡山県・鹿児島県が各1店です。</description>
+  </item>
+  <item>
+    <title>東京の大型ガチャガチャスポット20選｜公表設置規模・エリア別の回り方【2026年版】</title>
+    <link>https://gacha-hiroba.com/guide/tokyo-large-gacha-guide.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/tokyo-large-gacha-guide.html</guid>
+    <pubDate>Sat, 22 Aug 2026 00:00:00 GMT</pubDate>
+    <description>東京都内でガチャガチャを探すとき、店舗数だけを並べても実際の行き先は決めにくいものです。このガイドでは、ガチャひろばの掲載店のうち、店舗・ブランド・商業施設などの確認元URLと確認日があり、設置規模の公表値を確認できた店舗を対象に、数値による参考順で20店を紹介します。表と店舗詳細は元データから生成し、店舗情報が更新されたときは固定URLのまま再計算します。</description>
+  </item>
+  <item>
+    <title>ガチャガチャの新作・設置場所の探し方｜確認順が分かる5つの手順</title>
+    <link>https://gacha-hiroba.com/guide/guide-find-new.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/guide-find-new.html</guid>
+    <pubDate>Fri, 14 Aug 2026 00:00:00 GMT</pubDate>
+    <description>「SNSで見たあのガチャ、どこで回せるの？」——カプセルトイは発売時期、取扱店、現在庫が別々に更新されるため、1つの投稿だけで来店先を決めると空振りになりがちです。このページでは、商品を特定してから探すのを終えるまでを5段階に分けます。</description>
+  </item>
+  <item>
+    <title>ガチャ予算プランナー｜回せる回数・残額をその場で計算</title>
+    <link>https://gacha-hiroba.com/guide/gacha-budget-planner.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/gacha-budget-planner.html</guid>
+    <pubDate>Fri, 14 Aug 2026 00:00:00 GMT</pubDate>
+    <description>ガチャを回す前に、使ってよい予算、残しておく金額、1回の価格を入力すると、最大で何回回せるかと残額を計算できます。計算はこのブラウザ内だけで行い、入力内容を送信・保存しません。</description>
+  </item>
+</channel>
+</rss>

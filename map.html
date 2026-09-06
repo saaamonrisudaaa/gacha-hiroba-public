@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="google-site-verification" content="YN5Q0DnCsIhwgitcXjcGqxlmfMec80Wl0uZskCNS11w" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,follow" />
+  <meta name="description" content="地図からガチャガチャスポットを検索。現在地・駅名・エリアから周辺のスポットを探せます。" />
+  <title>マップ検索 | ガチャひろば</title>
+  <link rel="canonical" href="https://gacha-hiroba.com/map.html" />
+  <meta property="og:site_name" content="ガチャひろば" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:title" content="マップ検索 | ガチャひろば" />
+  <meta property="og:description" content="地図からガチャガチャスポットを検索。現在地・駅名・エリアから周辺のスポットを探せます。" />
+  <meta property="og:url" content="https://gacha-hiroba.com/map.html" />
+  <meta property="og:image" content="https://gacha-hiroba.com/assets/ogp.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
+  <link rel="stylesheet" href="styles.css?v=20260903-location" />
+  <!-- OpenStreetMap (Leaflet) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
+  <script src="data/spots.js" defer></script>
+  <script src="script.js?v=20260903-location" defer></script>
+</head>
+<body>
+  <header class="gh-header">
+    <div class="gh-header__top">
+      <div class="gh-container gh-header__inner">
+        <a class="gh-logo" href="/" aria-label="ガチャひろば トップへ">
+          <img class="gh-logo__icon" src="assets/mascot-icon.png" alt="ガチャひろばのマスコット" width="34" height="34" />
+          <span class="gh-logo__text">ガチャ<em>ひろば</em></span>
+        </a>
+        <form class="gh-search" role="search" action="/stores.html" method="get">
+          <input class="gh-search__input" type="search" name="q" placeholder="エリア・駅名・店名で検索" aria-label="ガチャ場所を検索" />
+          <button class="gh-search__btn" type="submit" aria-label="検索">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+        </form>
+        <button class="gh-hamburger" aria-label="メニューを開く" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="gh-subnav">
+      <div class="gh-container">
+        <nav class="gh-nav-tabs" aria-label="メインナビゲーション">
+          <a href="/">トップ</a>
+          <a href="stores.html">店舗一覧</a>
+          <a href="news.html">新着情報</a>
+          <a href="ranking.html">ランキング</a>
+          <a href="area.html">エリア別</a>
+          <a href="category.html">ブランド別</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="gh-main">
+    <div class="gh-container">
+
+      <div class="gh-page-hero">
+        <h1 class="gh-page-hero__title">近くのガチャを探す</h1>
+        <p class="gh-page-hero__desc">現在地から近いガチャガチャスポットを、地図と一覧で距離順に表示します。駅名・エリア名での検索にも対応。</p>
+      </div>
+
+      <!-- 現在地から探す（このページの主役）。押した瞬間に地図・一覧・件数が現在地基準に切り替わる -->
+      <section class="gh-nearme">
+        <div class="gh-nearme__main">
+          <button type="button" class="gh-btn gh-btn--primary gh-nearme__btn" data-gh-locate>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+            <span data-gh-locate-label>現在地から探す</span>
+          </button>
+          <label class="gh-nearme__radius">
+            <span>この範囲で</span>
+            <select class="gh-select" data-gh-radius aria-label="現在地からの検索範囲">
+              <option value="1">半径 1km（徒歩圏）</option>
+              <option value="0.5">半径 500m</option>
+              <option value="3">半径 3km</option>
+              <option value="5">半径 5km</option>
+              <option value="10">半径 10km</option>
+              <option value="0">範囲指定なし（近い順に20件）</option>
+            </select>
+          </label>
+        </div>
+        <p class="gh-nearme__note">現在地の緯度・経度は端末内の距離計算に使い、当サイトでは保存しません。地図表示時はOpenStreetMapへ表示範囲のタイル要求が送信されます。</p>
+        <p class="gh-nearme__status" data-gh-locate-status role="status" aria-live="polite" hidden></p>
+        <div class="gh-location-help" data-gh-location-help role="alert" hidden></div>
+        <p class="gh-nearme__result" data-gh-nearme-result hidden></p>
+      </section>
+
+      <!-- キーワード検索・絞り込み -->
+      <section class="gh-section" style="margin-bottom:0">
+        <div class="gh-map-search-bar">
+          <form class="gh-map-search-form" action="/stores.html" method="get">
+            <div class="gh-map-search-input-wrap">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--gh-muted);pointer-events:none"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input class="gh-map-search-input" type="search" name="q" placeholder="駅名・スポット名・エリアで検索（例: 秋葉原）" aria-label="検索キーワード" />
+            </div>
+            <button type="submit" class="gh-btn gh-btn--primary">検索</button>
+          </form>
+
+          <!-- 絞り込み（都道府県の選択肢は data/spots.js から生成） -->
+          <div class="gh-map-filters">
+            <select class="gh-select" style="width:auto;min-width:150px" data-gh-pref aria-label="都道府県で絞り込む">
+              <option value="">都道府県：すべて</option>
+            </select>
+            <select class="gh-select" style="width:auto;min-width:150px" data-gh-min-machines aria-label="公表設置規模で絞り込む">
+              <option value="0">公表設置規模：すべて</option>
+              <option value="100">公表値100以上</option>
+              <option value="300">公表値300以上</option>
+              <option value="500">公表値500以上</option>
+              <option value="1000">公表値1,000以上</option>
+            </select>
+          </div>
+          <p class="gh-detail-note">設置規模の単位は情報元により台・面・種類・設置ボックス数など異なります。数値条件は候補を絞る参考で、厳密な同単位比較ではありません。</p>
+        </div>
+      </section>
+
+      <p class="gh-map-bounds-note">地図を移動・拡大縮小すると、表示範囲内の店舗へ自動で更新されます。</p>
+
+      <!-- マップ + リスト -->
+      <div class="gh-map-layout">
+
+        <!-- マップエリア (OpenStreetMap / Leaflet) -->
+        <div class="gh-map-area">
+          <div id="osmMap" class="gh-osm-map" role="application" aria-label="ガチャスポットの地図（OpenStreetMap）"></div>
+        </div>
+
+        <!-- リストパネル。番号は地図のピンと一致している -->
+        <div class="gh-map-list">
+          <div class="gh-map-list__header">
+            <strong>周辺スポット</strong>
+            <span class="gh-map-list__count" aria-live="polite">読み込み中…</span>
+          </div>
+
+          <!-- 店舗リストは script.js が data/spots.js から実データで描画 -->
+          <div data-gh-map-list></div>
+
+          <div class="gh-map-list__footer">
+            <a href="area.html" class="gh-btn gh-btn--block">エリア別に全店舗を見る</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="gh-footer">
+    <div class="gh-container">
+      <div class="gh-footer__main">
+        <div class="gh-footer__brand">
+          <a class="gh-logo" href="/"><img class="gh-logo__icon" src="assets/mascot-icon.png" alt="ガチャひろばのマスコット" width="34" height="34" /><span class="gh-logo__text">ガチャ<em>ひろば</em></span></a>
+          <p>全国のガチャガチャ設置場所情報を掲載。<br />確認できた情報を随時更新しています。</p>
+        </div>
+        <div class="gh-footer__links">
+          <div><strong>サービス</strong><a href="/">トップ</a><a href="ranking.html">ランキング</a><a href="news.html">新着情報</a><a href="map.html">マップ検索</a></div>
+          <div><strong>情報</strong><a href="guide/guide-find-new.html">新作・在庫の探し方</a><a href="guide/tokyo-ward-gacha-data-report.html">東京23区掲載レポート</a><a href="contact.html">スポットを登録</a><a href="methodology.html">データ確認方法</a></div>
+          <div><strong>サポート</strong><a href="contact.html">お問い合わせ</a><a href="terms.html">利用規約</a><a href="privacy.html">プライバシー</a><a href="sitemap.html">サイトマップ</a><a href="english.html">English</a><a href="about.html">運営方針</a></div>
+        </div>
+      </div>
+      <div class="gh-footer__bottom">
+        <span>© 2026 ガチャひろば (gacha-hiroba.com)</span>
+        <span>Powered by ガチャひろば</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

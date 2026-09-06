@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <base href="/" />
+  <script>
+  (function () {
+    var match = location.pathname.match(/^\/(spot|area|brand)\/([^/]+)\.html$/);
+    if (!match) return;
+    if (match[1] === 'spot') {
+      location.replace('/spot.html?id=' + encodeURIComponent(match[2]) + location.hash);
+      return;
+    }
+    var prefs = {
+      hokkaido:'北海道',aomori:'青森県',iwate:'岩手県',miyagi:'宮城県',akita:'秋田県',yamagata:'山形県',fukushima:'福島県',
+      ibaraki:'茨城県',tochigi:'栃木県',gunma:'群馬県',saitama:'埼玉県',chiba:'千葉県',tokyo:'東京都',kanagawa:'神奈川県',
+      niigata:'新潟県',toyama:'富山県',ishikawa:'石川県',fukui:'福井県',yamanashi:'山梨県',nagano:'長野県',gifu:'岐阜県',
+      shizuoka:'静岡県',aichi:'愛知県',mie:'三重県',shiga:'滋賀県',kyoto:'京都府',osaka:'大阪府',hyogo:'兵庫県',nara:'奈良県',
+      wakayama:'和歌山県',tottori:'鳥取県',shimane:'島根県',okayama:'岡山県',hiroshima:'広島県',yamaguchi:'山口県',
+      tokushima:'徳島県',kagawa:'香川県',ehime:'愛媛県',kochi:'高知県',fukuoka:'福岡県',saga:'佐賀県',nagasaki:'長崎県',
+      kumamoto:'熊本県',oita:'大分県',miyazaki:'宮崎県',kagoshima:'鹿児島県',okinawa:'沖縄県'
+    };
+    var brands = {
+      'gacha-no-mori':'ガチャガチャの森','gashapon-department-store':'ガシャポンのデパート','c-pla':'#C-pla（シープラ）',
+      'capsule-rakkyoku':'カプセル楽局','gashapon-bandai-official-shop':'ガシャポンバンダイオフィシャルショップ',
+      gashacoco:'gashacoco（ガシャココ）','dream-capsule':'ドリームカプセル','gashapon-bandai':'ガシャポン（バンダイ）',
+      'yodobashi-camera':'ヨドバシカメラ','kenele-stand':'ケンエレスタンド','capsule-lab':'CAPSULE LAB（カプコン）',
+      'gacha-station':'ガチャステ',gachadokoro:'がちゃ処','capsule-marche':'カプセルマルシェ','toys-spot-palo':'TOYS SPOT PALO',
+      'gacha-okoku':'ガチャ王国','capsule-park':'カプセルパーク'
+    };
+    var value = match[1] === 'area' ? prefs[match[2]] : brands[match[2]];
+    if (value) location.replace('/stores.html?' + (match[1] === 'area' ? 'pref=' : 'brand=') + encodeURIComponent(value));
+  })();
+  </script>
+  <meta name="google-site-verification" content="YN5Q0DnCsIhwgitcXjcGqxlmfMec80Wl0uZskCNS11w" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,follow" />
+  <meta name="description" content="お探しのページは見つかりませんでした。ガチャひろばのトップページや店舗一覧から目的のガチャガチャ設置店をお探しください。" />
+  <title>ページが見つかりません（404） | ガチャひろば</title>
+  <link rel="canonical" href="https://gacha-hiroba.com/404.html" />
+  <link rel="alternate" hreflang="ja" href="https://gacha-hiroba.com/" />
+  <link rel="alternate" hreflang="en" href="https://gacha-hiroba.com/english.html" />
+  <link rel="alternate" hreflang="x-default" href="https://gacha-hiroba.com/" />
+  <meta property="og:site_name" content="ガチャひろば" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:title" content="ガチャひろば｜全国のガチャガチャ設置場所・カプセルトイ専門店 検索" />
+  <meta property="og:description" content="ガチャガチャ（カプセルトイ・ガシャポン）の設置場所・専門店を探せる検索サイト。東京・関東の店舗一覧、公表設置規模ランキング、出典付き店舗情報、マップ検索を掲載しています。" />
+  <meta property="og:url" content="https://gacha-hiroba.com/" />
+  <meta property="og:image" content="https://gacha-hiroba.com/assets/ogp.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <!-- ※ 将来ふたたび広告を導入する場合も、このエラーページには配置しないこと。
+       コンテンツのないページ・エラーページへの広告掲載はポリシー違反にあたる。 -->
+  <link rel="alternate" type="application/rss+xml" title="ガチャひろば 新着・特集記事" href="https://gacha-hiroba.com/feed.xml" />
+  <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "ガチャひろば",
+    "alternateName": "gacha-hiroba",
+    "url": "https://gacha-hiroba.com/",
+    "description": "全国のガチャガチャ（カプセルトイ）設置場所・専門店を探せる検索サイト",
+    "inLanguage": "ja"
+  }
+  </script>
+</head>
+<body>
+
+  <header class="gh-header">
+    <div class="gh-header__top">
+      <div class="gh-container gh-header__inner">
+        <a class="gh-logo" href="/" aria-label="ガチャひろば トップへ">
+          <img class="gh-logo__icon" src="assets/mascot-icon.png" alt="ガチャひろばのマスコット" width="34" height="34" />
+          <span class="gh-logo__text">ガチャ<em>ひろば</em></span>
+        </a>
+        <form class="gh-search" role="search" action="/stores.html" method="get">
+          <input class="gh-search__input" type="search" name="q" placeholder="エリア・駅名・店名で検索" aria-label="ガチャ場所を検索" />
+          <button class="gh-search__btn" type="submit" aria-label="検索">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+        </form>
+        <button class="gh-hamburger" aria-label="メニューを開く" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="gh-subnav">
+      <div class="gh-container">
+        <nav class="gh-nav-tabs" aria-label="メインナビゲーション">
+          <a href="/" class="active">トップ</a>
+          <a href="stores.html">店舗一覧</a>
+          <a href="news.html">新着情報</a>
+          <a href="ranking.html">ランキング</a>
+          <a href="area.html">エリア別</a>
+          <a href="category.html">ブランド別</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="gh-main">
+    <div class="gh-container">
+      <div class="gh-page-hero" style="text-align:center">
+        <img src="assets/mascot-icon.png" alt="" width="88" height="88" style="border-radius:50%;margin-bottom:12px" />
+        <h1 class="gh-page-hero__title">ページが見つかりませんでした</h1>
+        <p class="gh-page-hero__desc">
+          お探しのページは移動または削除された可能性があります。<br />
+          閉店した店舗のページは自動的に非公開になることがあります。
+        </p>
+      </div>
+      <section class="gh-section">
+        <div class="gh-section__header"><h2 class="gh-section__title">こちらからお探しください</h2></div>
+        <div class="gh-category-list">
+          <a href="/" class="gh-category-item"><span class="gh-category-item__icon">🏠</span><span>トップページ</span></a>
+          <a href="stores.html" class="gh-category-item"><span class="gh-category-item__icon">🏬</span><span>店舗一覧から探す</span></a>
+          <a href="map.html" class="gh-category-item"><span class="gh-category-item__icon">🗺️</span><span>マップで探す</span></a>
+          <a href="ranking.html" class="gh-category-item"><span class="gh-category-item__icon">🏆</span><span>公表設置規模ランキング</span></a>
+          <a href="news.html" class="gh-category-item"><span class="gh-category-item__icon">📰</span><span>新作情報・独自ガイド</span></a>
+          <a href="guide/tokyo-ward-gacha-data-report.html" class="gh-category-item"><span class="gh-category-item__icon">📊</span><span>東京23区の掲載データを見る</span></a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="gh-footer">
+    <div class="gh-container">
+      <div class="gh-footer__main">
+        <div class="gh-footer__brand">
+          <a class="gh-logo" href="/"><img class="gh-logo__icon" src="assets/mascot-icon.png" alt="ガチャひろばのマスコット" width="34" height="34" /><span class="gh-logo__text">ガチャ<em>ひろば</em></span></a>
+          <p>全国のガチャガチャ設置場所情報を掲載。<br />確認できた情報を随時更新しています。</p>
+        </div>
+        <div class="gh-footer__links">
+          <div><strong>サービス</strong><a href="/">トップ</a><a href="ranking.html">ランキング</a><a href="news.html">新着情報</a><a href="map.html">マップ検索</a></div>
+          <div><strong>情報</strong><a href="area.html">エリア別</a><a href="category.html">ブランド別</a><a href="methodology.html">データ確認方法</a><a href="guide/tokyo-ward-gacha-data-report.html">東京23区掲載レポート</a></div>
+          <div><strong>サポート</strong><a href="contact.html">お問い合わせ</a><a href="terms.html">利用規約</a><a href="privacy.html">プライバシー</a><a href="sitemap.html">サイトマップ</a><a href="english.html">English</a><a href="about.html">運営方針</a></div>
+        </div>
+      </div>
+      <div class="gh-footer__bottom">
+        <span>© 2026 ガチャひろば (gacha-hiroba.com)</span>
+        <span>Powered by ガチャひろば</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

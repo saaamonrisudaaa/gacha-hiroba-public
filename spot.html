@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="google-site-verification" content="YN5Q0DnCsIhwgitcXjcGqxlmfMec80Wl0uZskCNS11w" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,follow" />
+  <meta name="description" content="ガチャガチャ設置店舗の詳細情報と利用者掲示板。住所・営業時間・公表設置規模・アクセス・掲載根拠と確認日を案内します。" />
+  <title>店舗詳細 | ガチャひろば</title>
+  <link rel="canonical" href="https://gacha-hiroba.com/spot.html" />
+  <meta property="og:site_name" content="ガチャひろば" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:title" content="店舗詳細 | ガチャひろば" />
+  <meta property="og:description" content="ガチャガチャ設置店舗の詳細情報と利用者掲示板。住所・営業時間・公表設置規模・アクセス・掲載根拠と確認日を案内します。" />
+  <meta property="og:url" content="https://gacha-hiroba.com/spot.html" />
+  <meta property="og:image" content="https://gacha-hiroba.com/assets/ogp.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
+  <link rel="stylesheet" href="styles.css?v=20260903-seo-board" />
+  <!-- 店舗データ → 描画 → 共通JSの順で読み込む。掲示板は公開REST APIへ直接接続する。 -->
+  <script src="data/spots.js" defer></script>
+  <script src="spots-ui.js?v=20260903-seo-board" defer></script>
+  <script src="script.js?v=20260903-seo-board" defer></script>
+</head>
+<body>
+
+  <header class="gh-header">
+    <div class="gh-header__top">
+      <div class="gh-container gh-header__inner">
+        <a class="gh-logo" href="/" aria-label="ガチャひろば トップへ">
+          <img class="gh-logo__icon" src="assets/mascot-icon.png" alt="ガチャひろばのマスコット" width="34" height="34" />
+          <span class="gh-logo__text">ガチャ<em>ひろば</em></span>
+        </a>
+        <form class="gh-search" role="search" action="/stores.html" method="get">
+          <input class="gh-search__input" type="search" name="q" placeholder="エリア・駅名・店名で検索" aria-label="ガチャ場所を検索" />
+          <button class="gh-search__btn" type="submit" aria-label="検索">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+        </form>
+        <button class="gh-hamburger" aria-label="メニューを開く" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="gh-subnav">
+      <div class="gh-container">
+        <nav class="gh-nav-tabs" aria-label="メインナビゲーション">
+          <a href="/">トップ</a>
+          <a href="stores.html">店舗一覧</a>
+          <a href="board.html">掲示板</a>
+          <a href="news.html">新着情報</a>
+          <a href="ranking.html">ランキング</a>
+          <a href="area.html">エリア別</a>
+          <a href="category.html">ブランド別</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="spotDetail" class="gh-main gh-main--detail">
+    <div class="gh-container" id="spotContent">
+
+      <!-- パンくず -->
+      <nav class="gh-breadcrumb" aria-label="パンくずリスト">
+        <a href="/">トップ</a>
+        <span aria-hidden="true">›</span>
+        <a href="stores.html">店舗一覧</a>
+        <span aria-hidden="true">›</span>
+        <a href="area.html" id="spotCrumbArea">エリア</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page" id="spotCrumbName">店舗詳細</span>
+      </nav>
+
+      <!-- お気に入り登録 / 詳細 / 掲示板 -->
+      <div class="gh-detail-tabs" role="tablist" aria-label="表示切り替え">
+        <button type="button" id="favoriteBtn" class="gh-detail-tabs__fav">♡ お気に入り登録</button>
+        <button type="button" class="active" data-panel="detail" role="tab" aria-selected="true">詳細</button>
+        <button type="button" data-panel="board" role="tab" aria-selected="false">掲示板<span class="gh-detail-tabs__badge" data-gh-board-badge hidden></span></button>
+      </div>
+
+      <!-- ヒーロー（数値は情報元で確認した公表設置規模） -->
+      <section class="gh-quote">
+        <div class="gh-quote__info">
+          <div class="gh-quote__head">
+            <div class="gh-quote__title-row">
+              <h1 class="gh-quote__name" id="spotName">店舗名</h1>
+              <span id="spotBadges"></span>
+            </div>
+            <div class="gh-quote__address" id="spotAddress"></div>
+          </div>
+
+          <div class="gh-quote__price-row">
+            <span class="gh-quote__label">公表設置規模</span>
+            <strong class="gh-quote__rating-num" id="spotMachines">—</strong>
+            <span class="gh-quote__updated" id="spotHours"></span>
+          </div>
+
+          <div class="gh-metrics" id="spotMetrics"></div>
+        </div>
+      </section>
+
+      <div class="gh-detail-layout">
+        <div class="gh-detail-content">
+
+          <!-- ============ 詳細 panel ============ -->
+          <section class="gh-tab-panel" data-panel="detail">
+
+            <section class="gh-section gh-bbs-preview" data-gh-bbs-preview hidden>
+              <div class="gh-section__header">
+                <h2 class="gh-section__title">
+                  <span class="gh-live-dot" aria-hidden="true"></span>この店の掲示板
+                  <span class="gh-bbs-preview__count" data-gh-bbs-preview-count></span>
+                </h2>
+                <a href="#board" class="gh-section__more" data-gh-open-board>すべて見る →</a>
+              </div>
+              <div class="gh-bbs-preview__list" data-gh-bbs-preview-list></div>
+              <div class="gh-bbs-preview__foot">
+                <a href="#board" class="gh-btn gh-btn--primary" data-gh-open-board>✏️ この店の情報を書き込む</a>
+                <span class="gh-bbs-preview__note">利用者投稿です。入荷・在庫・混雑は投稿時刻も確認してください。</span>
+              </div>
+            </section>
+
+            <!-- 詳細情報 -->
+            <section class="gh-section">
+              <div class="gh-section__header">
+                <h2 class="gh-section__title">詳細情報</h2>
+              </div>
+              <table class="gh-info-table gh-info-table--full">
+                <tbody id="spotInfoBody"></tbody>
+              </table>
+              <p class="gh-detail-note">※掲載情報は参考です。最新の営業時間・在庫・設置状況は店舗または公式サイトでご確認ください。</p>
+            </section>
+
+            <!-- アクセスマップ（OpenStreetMap） -->
+            <section class="gh-section" id="spotMapSection"></section>
+
+          </section>
+
+          <!-- ============ 利用者掲示板 panel ============ -->
+          <section class="gh-tab-panel" data-panel="board" hidden>
+            <section class="gh-section gh-bbs" aria-labelledby="bbsTitle">
+              <div class="gh-bbs__head">
+                <h2 class="gh-bbs__title" id="bbsTitle">この店の掲示板</h2>
+                <div class="gh-bbs__meta">レス <span id="bbsCount">0</span> / 1000 ・ 新着順（最新が上）</div>
+                <div class="gh-bbs__nav"><a href="#bbsForm">書き込む ↓</a></div>
+              </div>
+
+              <p class="gh-detail-note">ここから下は利用者による投稿で、運営者が確認した店舗本文ではありません。在庫・入荷・混雑は変わるため、投稿時刻と店舗名をご確認ください。問題のある投稿は<a href="contact.html">お問い合わせ</a>からご連絡ください。</p>
+
+              <div class="gh-bbs__list" id="bbsList" aria-live="polite">
+                <p class="gh-bbs__empty" id="bbsEmpty">まだ投稿がありません。最初の1件を書き込んでみましょう！</p>
+              </div>
+
+              <div class="gh-bbs__form" id="bbsForm">
+                <h3 class="gh-bbs__form-title">書き込む</h3>
+                <div class="gh-bbs__form-row">
+                  <label for="bbsName">名前</label>
+                  <input type="text" id="bbsName" maxlength="20" autocomplete="nickname" placeholder="名無しのガチャー（省略可）" />
+                </div>
+                <label class="sr-only" for="bbsBody">投稿本文</label>
+                <textarea id="bbsBody" class="gh-bbs__textarea" maxlength="500" placeholder="本文を入力（「&gt;&gt;番号」で返信。入荷情報・混雑・狙い目など）"></textarea>
+                <p class="gh-bbs__policy" id="bbsPostingPolicy">「書き込む」を押すと<a href="terms.html" target="_blank" rel="noopener">利用規約</a>と投稿ルールに同意したものとみなします。個人情報・誹謗中傷・広告は投稿しないでください。</p>
+                <div class="gh-bbs__form-foot">
+                  <span class="gh-bbs__note" id="bbsPostingNote">投稿は公開されます。本文500文字以内・連続投稿は15秒間隔です。（Ctrl+Enterで書き込み）</span>
+                  <button type="button" class="gh-btn gh-btn--primary" id="bbsSubmit" aria-describedby="bbsPostingPolicy bbsPostingNote">書き込む</button>
+                </div>
+              </div>
+            </section>
+          </section>
+
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="gh-sidebar">
+
+          <div class="gh-widget">
+            <h3 class="gh-widget__title">同じエリアの店舗</h3>
+            <div class="gh-nearby" id="spotNearby"></div>
+          </div>
+
+          <div class="gh-widget">
+            <h3 class="gh-widget__title">シェアする</h3>
+            <div class="gh-share">
+              <a href="#" class="gh-share__btn gh-share__btn--x">X (Twitter)</a>
+              <a href="#" class="gh-share__btn gh-share__btn--line">LINE</a>
+              <button type="button" class="gh-share__btn gh-share__btn--copy" id="copyUrlBtn">URLをコピー</button>
+            </div>
+          </div>
+
+          <div class="gh-widget gh-widget--accent">
+            <h3 class="gh-widget__title">未掲載店舗を連絡</h3>
+            <p class="gh-widget__text">まだ掲載されていないガチャ設置店や、掲載情報の誤りをご連絡ください。</p>
+            <div class="gh-app-btns">
+              <a href="contact.html" class="gh-app-btn">✉️ 情報提供の方法を見る</a>
+            </div>
+          </div>
+
+        </aside>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="gh-footer">
+    <div class="gh-container">
+      <div class="gh-footer__main">
+        <div class="gh-footer__brand">
+          <a class="gh-logo" href="/"><img class="gh-logo__icon" src="assets/mascot-icon.png" alt="ガチャひろばのマスコット" width="34" height="34" /><span class="gh-logo__text">ガチャ<em>ひろば</em></span></a>
+          <p>全国のガチャガチャ設置場所情報を掲載。<br />あなたのガチャライフをサポートします。</p>
+        </div>
+        <div class="gh-footer__links">
+          <div><strong>サービス</strong><a href="/">トップ</a><a href="stores.html">店舗一覧</a><a href="board.html">掲示板</a><a href="ranking.html">ランキング</a><a href="map.html">マップ検索</a></div>
+          <div><strong>情報</strong><a href="about.html">運営者・編集方針</a><a href="methodology.html">データ確認方法</a><a href="news.html">新着情報</a><a href="area.html">エリア別</a></div>
+          <div><strong>サポート</strong><a href="contact.html">お問い合わせ</a><a href="terms.html">利用規約</a><a href="privacy.html">プライバシー</a><a href="sitemap.html">サイトマップ</a><a href="english.html">English</a></div>
+        </div>
+      </div>
+      <div class="gh-footer__bottom">
+        <span>© 2026 ガチャひろば (gacha-hiroba.com)</span>
+        <span>Powered by ガチャひろば</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

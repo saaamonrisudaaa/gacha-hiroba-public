@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="google-site-verification" content="YN5Q0DnCsIhwgitcXjcGqxlmfMec80Wl0uZskCNS11w" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <script>
+    var ghStoreParams = new URLSearchParams(location.search);
+    var ghCuratedBrandGuides = {
+      'カプセル楽局': '/guide/capsule-rakkyoku-tokyo.html',
+      '#C-pla（シープラ）': '/guide/cpla-store-guide.html'
+    };
+    var ghBrandGuide = ghCuratedBrandGuides[ghStoreParams.get('brand')];
+    if (ghBrandGuide) {
+      location.replace(ghBrandGuide);
+    } else if (location.search) {
+      document.querySelector('meta[name="robots"]').setAttribute('content', 'noindex,follow');
+    }
+  </script>
+  <meta name="description" content="全国のガチャガチャ設置場所・カプセルトイ専門店を都道府県、駅名、店名、ブランドから検索。掲載根拠URLと確認日のある店舗について、住所・営業時間・公表設置規模を案内します。" />
+  <title>全国のガチャガチャ設置場所・専門店一覧｜都道府県・店名で検索 | ガチャひろば</title>
+  <link rel="canonical" href="https://gacha-hiroba.com/stores.html" />
+  <meta property="og:site_name" content="ガチャひろば" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:title" content="全国のガチャガチャ設置場所・専門店一覧｜都道府県・店名で検索 | ガチャひろば" />
+  <meta property="og:description" content="全国のガチャガチャ設置場所・カプセルトイ専門店を都道府県、駅名、店名、ブランドから検索。掲載根拠URLと確認日のある店舗について、住所・営業時間・公表設置規模を案内します。" />
+  <meta property="og:url" content="https://gacha-hiroba.com/stores.html" />
+  <meta property="og:image" content="https://gacha-hiroba.com/assets/ogp.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": "https://gacha-hiroba.com/stores.html#webpage",
+    "url": "https://gacha-hiroba.com/stores.html",
+    "name": "全国のガチャガチャ設置場所・専門店一覧",
+    "description": "掲載根拠URLと確認日のある全国のガチャガチャ設置場所・カプセルトイ専門店を探せる一覧です。",
+    "inLanguage": "ja-JP",
+    "isPartOf": { "@id": "https://gacha-hiroba.com/#website" },
+    "mainEntity": { "@id": "https://gacha-hiroba.com/stores.html#verified-store-dataset" }
+  }
+  </script>
+  <script type="application/ld+json" id="gh-stores-list-jsonld">{"@context":"https://schema.org","@type":"Dataset","@id":"https://gacha-hiroba.com/stores.html#verified-store-dataset","name":"ガチャひろば 掲載根拠確認済み店舗データ","description":"掲載根拠URLと確認日がそろうガチャガチャ設置店舗の住所・営業時間・公表設置規模・アクセスのデータです。設置規模の単位は情報元により異なります。","url":"https://gacha-hiroba.com/stores.html","dateModified":"2026-09-03","creator":{"@type":"Organization","name":"ガチャひろば","url":"https://gacha-hiroba.com/about.html"},"spatialCoverage":"日本国内44都道府県","measurementTechnique":"店舗・ブランド・商業施設・開業発表などの掲載根拠を確認し、参照先URLと確認日を記録","variableMeasured":["店舗名","住所","都道府県","運営ブランド","営業時間","公表設置規模","アクセス","掲載根拠URL","確認日"],"distribution":{"@type":"DataDownload","encodingFormat":"application/javascript","contentUrl":"https://gacha-hiroba.com/data/spots.js"}}</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "トップ", "item": "https://gacha-hiroba.com/" },
+      { "@type": "ListItem", "position": 2, "name": "全国の店舗一覧", "item": "https://gacha-hiroba.com/stores.html" }
+    ]
+  }
+  </script>
+  <script src="data/spots.js" defer></script>
+  <script src="data/articles.js" defer></script>
+  <script src="spots-ui.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="gh-header">
+    <div class="gh-header__top">
+      <div class="gh-container gh-header__inner">
+        <a class="gh-logo" href="/" aria-label="ガチャひろば トップへ">
+          <img class="gh-logo__icon" src="assets/mascot-icon.png" alt="ガチャひろばのマスコット" width="34" height="34" />
+          <span class="gh-logo__text">ガチャ<em>ひろば</em></span>
+        </a>
+        <form class="gh-search" role="search" action="/stores.html" method="get">
+          <input class="gh-search__input" type="search" name="q" placeholder="エリア・駅名・店名で検索" aria-label="ガチャ場所を検索" />
+          <button class="gh-search__btn" type="submit" aria-label="検索">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+        </form>
+        <button class="gh-hamburger" aria-label="メニューを開く" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="gh-subnav">
+      <div class="gh-container">
+        <nav class="gh-nav-tabs" aria-label="メインナビゲーション">
+          <a href="/">トップ</a>
+          <a href="stores.html" class="active">店舗一覧</a>
+          <a href="news.html">新着情報</a>
+          <a href="ranking.html">ランキング</a>
+          <a href="area.html">エリア別</a>
+          <a href="category.html">ブランド別</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="gh-main">
+    <div class="gh-container">
+
+      <div class="gh-page-hero">
+        <h1 class="gh-page-hero__title">全国のガチャガチャ設置場所・専門店一覧</h1>
+        <p class="gh-page-hero__desc">掲載根拠URLと確認日のある店舗を、都道府県・駅名・店名・ブランドから検索できます。各店舗ページで住所・営業時間・公表設置規模・地図を確認できます。規模の単位は情報元により異なります。</p>
+        <p class="gh-detail-note"><a href="/guide/new-gacha-shops-2026-summer.html">🆕 2026年7〜8月オープンの新店舗10店を比較する</a></p>
+      </div>
+
+      <div class="gh-tab-group gh-tab-group--lg" role="tablist" aria-label="地方で絞り込み" style="margin-bottom:20px">
+        <button class="gh-tab" role="tab" data-store-region="all">すべて</button>
+        <button class="gh-tab" role="tab" data-store-region="kanto">関東</button>
+        <button class="gh-tab" role="tab" data-store-region="kansai">関西</button>
+        <button class="gh-tab" role="tab" data-store-region="tokai">東海</button>
+        <button class="gh-tab" role="tab" data-store-region="kyushu">九州</button>
+        <button class="gh-tab" role="tab" data-store-region="tohoku">東北・北海道</button>
+        <button class="gh-tab" role="tab" data-store-region="chugoku">中国・四国</button>
+      </div>
+
+      <div data-gh-brand-chips style="margin-bottom:18px"></div>
+
+      <div id="storeList">
+        <!-- GH:STORE-FALLBACK:START -->
+          <section class="gh-section" aria-labelledby="verified-store-samples"><div class="gh-section__header"><h2 class="gh-section__title" id="verified-store-samples">来店情報を確認できた店舗</h2></div><p class="gh-detail-note">公開店舗のうち、住所・営業時間・アクセスと掲載根拠を確認できた記録から30件を表示します。設置規模は公表値がある場合だけ掲載し、未公表を0として扱いません。情報元により台・面・種類・設置ボックス数など単位が異なります。</p><div class="gh-table-wrap"><table class="gh-table"><thead><tr><th scope="col">店舗名</th><th scope="col">エリア</th><th scope="col">公表設置規模</th><th scope="col">営業時間</th><th scope="col">確認</th></tr></thead><tbody><tr><td><a class="gh-table__link" href="/spot.html?id=cpla-juso-east-exit">#C-pla 十三駅東口店</a><small class="gh-store-brand">#C-pla（シープラ）</small></td><td>大阪府・十三</td><td>約1,018（公表値）</td><td>10:00〜22:00</td><td><time datetime="2026-08-30">2026-08-30</time><small class="gh-store-brand"><a class="gh-official-source" href="https://toshin.jpn.com/shop/%E5%8D%81%E4%B8%89%E9%A7%85%E6%9D%B1%E5%8F%A3%E5%BA%97/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=cpla-kishiwada-cancan-west">#C-pla 岸和田カンカンベイサイドモールWEST店</a><small class="gh-store-brand">#C-pla（シープラ）</small></td><td>大阪府・岸和田</td><td>約778（公表値）</td><td>10:00〜20:00</td><td><time datetime="2026-08-30">2026-08-30</time><small class="gh-store-brand"><a class="gh-official-source" href="https://toshin.jpn.com/shop/%E5%B2%B8%E5%92%8C%E7%94%B0%E3%82%AB%E3%83%B3%E3%82%AB%E3%83%B3west%E5%BA%97/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=cpla-keihan-kyobashi">#C-pla 京阪京橋駅店</a><small class="gh-store-brand">#C-pla（シープラ）</small></td><td>大阪府・京橋</td><td>約772（公表値）</td><td>10:00〜22:00</td><td><time datetime="2026-08-30">2026-08-30</time><small class="gh-store-brand"><a class="gh-official-source" href="https://toshin.jpn.com/shop/%E4%BA%AC%E9%98%AA%E4%BA%AC%E6%A9%8B%E9%A7%85%E5%BA%97/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=cpla-aeon-otaru">#C-pla イオン小樽店</a><small class="gh-store-brand">#C-pla（シープラ）</small></td><td>北海道・小樽</td><td>約722（公表値）</td><td>9:00〜20:00</td><td><time datetime="2026-08-30">2026-08-30</time><small class="gh-store-brand"><a class="gh-official-source" href="https://toshin.jpn.com/shop/%E3%82%A4%E3%82%AA%E3%83%B3%E5%B0%8F%E6%A8%BD%E5%BA%97/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=cpla-bellflora-kawanishi">#C-pla ベルフローラかわにし店</a><small class="gh-store-brand">#C-pla（シープラ）</small></td><td>兵庫県・川西</td><td>約664（公表値）</td><td>10:00〜21:00</td><td><time datetime="2026-08-30">2026-08-30</time><small class="gh-store-brand"><a class="gh-official-source" href="https://toshin.jpn.com/shop/%E3%83%99%E3%83%AB%E3%83%95%E3%83%AD%E3%83%BC%E3%83%A9%E3%81%8B%E3%82%8F%E3%81%AB%E3%81%97%E5%BA%97/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=cpla-kishiwada-cancan-east">#C-pla 岸和田カンカンベイサイドモールEAST店</a><small class="gh-store-brand">#C-pla（シープラ）</small></td><td>大阪府・岸和田</td><td>約306（公表値）</td><td>10:00〜20:00</td><td><time datetime="2026-08-30">2026-08-30</time><small class="gh-store-brand"><a class="gh-official-source" href="https://toshin.jpn.com/shop/%E5%B2%B8%E5%92%8C%E7%94%B0%E3%82%AB%E3%83%B3%E3%82%AB%E3%83%B3east%E5%BA%97/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=cpla-2nd-aeon-obihiro">#C-pla 2nd イオン帯広店</a><small class="gh-store-brand">#C-pla（シープラ）</small></td><td>北海道・帯広</td><td>約239（公表値）</td><td>10:00〜21:00</td><td><time datetime="2026-08-30">2026-08-30</time><small class="gh-store-brand"><a class="gh-official-source" href="https://toshin.jpn.com/shop/c-pla-2nd-%E3%82%A4%E3%82%AA%E3%83%B3%E5%B8%AF%E5%BA%83%E5%BA%97/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=cpla-nagoya-osu">#C-pla 名古屋大須店</a><small class="gh-store-brand">#C-pla（シープラ）</small></td><td>愛知県・大須</td><td>約1,376（公表値）</td><td>10:00〜21:00</td><td><time datetime="2026-08-22">2026-08-22</time><small class="gh-store-brand"><a class="gh-official-source" href="https://toshin.jpn.com/shop/%E5%90%8D%E5%8F%A4%E5%B1%8B%E5%A4%A7%E9%A0%88%E5%BA%97/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=gashadepa-lalaport-tachihi">ガシャポンのデパートららぽーと立川立飛店</a><small class="gh-store-brand">ガシャポンのデパート</small></td><td>東京都・立川</td><td>約800（公表値）</td><td>平日 10:00〜20:00、土日祝 10:00〜21:00</td><td><time datetime="2026-08-22">2026-08-22</time><small class="gh-store-brand"><a class="gh-official-source" href="https://bandainamco-am.co.jp/others/capsule-toy-store/store/tachikawatachihi/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=ggmori-aeonmall-musashimurayama">ガチャガチャの森 イオンモールむさし村山店</a><small class="gh-store-brand">ガチャガチャの森</small></td><td>東京都・武蔵村山</td><td>約650（公表値）</td><td>10:00〜21:00</td><td><time datetime="2026-08-22">2026-08-22</time><small class="gh-store-brand"><a class="gh-official-source" href="https://www.gachagachanomori.com/shoplist/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=gashadepa-ario-kitasuna">ガシャポンのデパートイトーヨーカドーアリオ北砂店</a><small class="gh-store-brand">ガシャポンのデパート</small></td><td>東京都・北砂</td><td>約640（公表値）</td><td>10:00〜21:00</td><td><time datetime="2026-08-22">2026-08-22</time><small class="gh-store-brand"><a class="gh-official-source" href="https://bandainamco-am.co.jp/others/capsule-toy-store/store/iykitasuna/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=gachameijin-izumo">ガチャ名人 出雲店</a><small class="gh-store-brand">ガチャ名人</small></td><td>島根県・出雲</td><td>約258（公表値）</td><td>8:00〜20:00</td><td><time datetime="2026-08-22">2026-08-22</time><small class="gh-store-brand"><a class="gh-official-source" href="https://marusan-dream.co.jp/info-event/%E5%B3%B6%E6%A0%B9%E7%9C%8C%E5%87%BA%E9%9B%B2%E5%B8%82%E5%A1%A9%E5%86%B6%E6%9C%89%E5%8E%9F%E7%94%BA%E3%81%AB%E3%80%8C%E3%82%AC%E3%83%81%E3%83%A3%E5%90%8D%E4%BA%BA-%E5%87%BA%E9%9B%B2%E5%BA%97%E3%80%8D/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=gashadepa-ikebukuro-honten">ガシャポンのデパート池袋総本店</a><small class="gh-store-brand">ガシャポンのデパート</small></td><td>東京都・池袋</td><td>約3,775（公表値）</td><td>10:00〜21:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://bandainamco-am.co.jp/others/capsule-toy-store/store/ikebukuro/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=cpla-shibuya-center-gai">#C-pla 渋谷センター街店</a><small class="gh-store-brand">#C-pla（シープラ）</small></td><td>東京都・渋谷</td><td>約2,251（公表値）</td><td>10:00〜23:00（B1F・2Fは22:30まで）</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://toshin.jpn.com/shop/%E6%B8%8B%E8%B0%B7%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%E8%A1%97%E5%BA%97/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=cpla-adhoc-shinjuku">#C-pla アドホック新宿店</a><small class="gh-store-brand">#C-pla（シープラ）</small></td><td>東京都・新宿</td><td>約2,231（公表値）</td><td>10:00〜23:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://toshin.jpn.com/shop/%E6%96%B0%E5%AE%BF%E3%82%A2%E3%83%89%E3%83%9B%E3%83%83%E3%82%AF%E5%BA%97/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=gashadepa-tachikawa-takashimaya">ガシャポンのデパート立川髙島屋S.C.店</a><small class="gh-store-brand">ガシャポンのデパート</small></td><td>東京都・立川</td><td>約1,610（公表値）</td><td>10:00〜21:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://bandainamco-am.co.jp/others/capsule-toy-store/store/tachikawa_t/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=ggmori-ikebukuro-sunshine-alta">ガチャガチャの森 池袋サンシャインシティアルタ店</a><small class="gh-store-brand">ガチャガチャの森</small></td><td>東京都・池袋</td><td>約1,240（公表値）</td><td>11:00〜20:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://www.gachagachanomori.com/shoplist/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=ggmori-shinjuku-subnade">ガチャガチャの森 新宿サブナード店</a><small class="gh-store-brand">ガチャガチャの森</small></td><td>東京都・新宿</td><td>約1,050（公表値）</td><td>10:30〜21:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://www.gachagachanomori.com/shoplist/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=ggmori-odakyu-machida">ガチャガチャの森 小田急百貨店町田店</a><small class="gh-store-brand">ガチャガチャの森</small></td><td>東京都・町田</td><td>約880（公表値）</td><td>10:00〜20:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://www.gachagachanomori.com/shoplist/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=cpla-licopa-higashiyamato">#C-pla LICOPA東大和店</a><small class="gh-store-brand">#C-pla（シープラ）</small></td><td>東京都・東大和</td><td>約859（公表値）</td><td>9:00〜21:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://toshin.jpn.com/shop/licopa%E6%9D%B1%E5%A4%A7%E5%92%8C%E5%BA%97/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=cpla-harajuku-takeshita">#C-pla+ 原宿竹下通り店</a><small class="gh-store-brand">#C-pla（シープラ）</small></td><td>東京都・原宿</td><td>約854（公表値）</td><td>9:30〜21:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://toshin.jpn.com/shop/%EF%BC%83c-pla%EF%BC%8B%E5%8E%9F%E5%AE%BF%E7%AB%B9%E4%B8%8B%E9%80%9A%E3%82%8A%E5%BA%97/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=ggmori-hachioji-opa">ガチャガチャの森 八王子オーパ店</a><small class="gh-store-brand">ガチャガチャの森</small></td><td>東京都・八王子</td><td>約830（公表値）</td><td>10:00〜21:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://www.gachagachanomori.com/shoplist/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=ggmori-bic-tachikawa">ガチャガチャの森 ビックカメラ立川店</a><small class="gh-store-brand">ガチャガチャの森</small></td><td>東京都・立川</td><td>約770（公表値）</td><td>10:00〜21:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://www.gachagachanomori.com/shoplist/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=gashadepa-iy-oimachi">ガシャポンのデパートイトーヨーカドー大井町店</a><small class="gh-store-brand">ガシャポンのデパート</small></td><td>東京都・大井町</td><td>約750（公表値）</td><td>10:00〜22:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://bandainamco-am.co.jp/others/capsule-toy-store/store/iyooimachi/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=cpla-granduo-tachikawa">#C-pla グランデュオ立川店</a><small class="gh-store-brand">#C-pla（シープラ）</small></td><td>東京都・立川</td><td>約699（公表値）</td><td>10:00〜20:30（日祝は20:00まで）</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://toshin.jpn.com/shop/%E3%82%B0%E3%83%A9%E3%83%B3%E3%83%87%E3%83%A5%E3%82%AA%E7%AB%8B%E5%B7%9D%E5%BA%97/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=ggmori-olinas-kinshicho">ガチャガチャの森 オリナス錦糸町店</a><small class="gh-store-brand">ガチャガチャの森</small></td><td>東京都・錦糸町</td><td>約660（公表値）</td><td>10:00〜21:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://www.gachagachanomori.com/shoplist/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=cpla-coppice-kichijoji">#C-pla コピス吉祥寺店</a><small class="gh-store-brand">#C-pla（シープラ）</small></td><td>東京都・吉祥寺</td><td>約641（公表値）</td><td>日〜木 10:00〜20:00、金・土・祝前日 10:00〜21:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://toshin.jpn.com/shop/%E3%82%B3%E3%83%94%E3%82%B9%E5%90%89%E7%A5%A5%E5%AF%BA%E5%BA%97/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=cpla-aquacity-odaiba">#C-pla アクアシティお台場店</a><small class="gh-store-brand">#C-pla（シープラ）</small></td><td>東京都・お台場</td><td>約632（公表値）</td><td>平日 11:00〜20:00、土日祝 11:00〜21:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://toshin.jpn.com/shop/%E3%82%A2%E3%82%AF%E3%82%A2%E3%82%B7%E3%83%86%E3%82%A3%E3%81%8A%E5%8F%B0%E5%A0%B4/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=ggmori-jiyugaoka">ガチャガチャの森 自由が丘店</a><small class="gh-store-brand">ガチャガチャの森</small></td><td>東京都・自由が丘</td><td>約570（公表値）</td><td>11:00〜20:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://www.gachagachanomori.com/shoplist/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr><tr><td><a class="gh-table__link" href="/spot.html?id=gashadepa-akihabara">ガシャポンのデパート秋葉原店</a><small class="gh-store-brand">ガシャポンのデパート</small></td><td>東京都・秋葉原</td><td>約500（公表値）</td><td>10:00〜23:00</td><td><time datetime="2026-08-20">2026-08-20</time><small class="gh-store-brand"><a class="gh-official-source" href="https://bandainamco-am.co.jp/others/capsule-toy-store/store/akihabara/" target="_blank" rel="noopener noreferrer">根拠 ↗</a></small></td></tr></tbody></table></div></section>
+        <!-- GH:STORE-FALLBACK:END -->
+      </div>
+
+      <p class="gh-detail-note" style="margin-top:16px">
+        掲載してほしい店舗のリクエストや情報の修正は、<a href="contact.html">お問い合わせ</a>からお知らせください。
+        情報は店舗・ブランド・商業施設などの掲載根拠をもとに随時更新しています。
+      </p>
+
+      <!-- 都道府県インデックス（tools/gen-static-blocks.mjs が実データから生成して埋め込む。
+           一覧を JS で描画しているため、素のHTMLにも内部リンクと説明文を残しておく） -->
+      <section class="gh-section">
+        <div class="gh-section__header">
+          <h2 class="gh-section__title">都道府県からガチャガチャ設置店を探す</h2>
+        </div>
+        <!-- GH:PREF-INDEX:START -->
+  <div class="gh-prefindex">
+    <p class="gh-prefindex__lead">「ガチャひろば」では、掲載根拠URLと確認日のある全国44都道府県・404店舗を公開しています。ガチャガチャの森・ガシャポンのデパート・#C-pla・カプセル楽局などの専門店に加え、家電量販店や商業施設の設置コーナーも対象です。掲載根拠URLと確認日がそろう店舗では、住所・アクセス・営業時間・公表設置規模を参照先とともに案内します。規模の単位は情報元により台・面・種類・設置ボックス数など異なります。確認待ちの候補は公開検索から外し、根拠を確認できてから追加します。下記の都道府県から探すか、ページ上部の検索ボックスに駅名・エリア名・店名を入力してください。</p>
+    <div class="gh-prefindex__group">
+      <h3 class="gh-prefindex__region">関東<span>283店</span></h3>
+      <ul class="gh-prefindex__list">
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E6%9D%B1%E4%BA%AC%E9%83%BD">東京都</a><span class="gh-prefindex__count">266店</span><small class="gh-prefindex__top">ガシャポンのデパート池袋総本店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E7%A5%9E%E5%A5%88%E5%B7%9D%E7%9C%8C">神奈川県</a><span class="gh-prefindex__count">6店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップ みなとみらい東急スクエア店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E8%8C%A8%E5%9F%8E%E7%9C%8C">茨城県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップ駿河屋ひたちなかファッションクルーズ店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%B1%B1%E6%A2%A8%E7%9C%8C">山梨県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップよむよむプラザパークス甲府東店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E6%A0%83%E6%9C%A8%E7%9C%8C">栃木県</a><span class="gh-prefindex__count">2店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップビッグワンTSUTAYAさくら店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E7%BE%A4%E9%A6%AC%E7%9C%8C">群馬県</a><span class="gh-prefindex__count">2店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップBOOKOFF 17号前橋リリカ店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%9F%BC%E7%8E%89%E7%9C%8C">埼玉県</a><span class="gh-prefindex__count">1店</span><small class="gh-prefindex__top">ガチャガチャの森 樹モールプラザ店</small></li>
+      </ul>
+    </div>
+    <div class="gh-prefindex__group">
+      <h3 class="gh-prefindex__region">関西<span>19店</span></h3>
+      <ul class="gh-prefindex__list">
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%A4%A7%E9%98%AA%E5%BA%9C">大阪府</a><span class="gh-prefindex__count">7店</span><small class="gh-prefindex__top">#C-pla 十三駅東口店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E4%BA%AC%E9%83%BD%E5%BA%9C">京都府</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンのデパート アルプラザ宇治東店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E6%BB%8B%E8%B3%80%E7%9C%8C">滋賀県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップHYPER BOOKS×DELIGHT八日市店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%92%8C%E6%AD%8C%E5%B1%B1%E7%9C%8C">和歌山県</a><span class="gh-prefindex__count">2店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップ未来屋書店和歌山店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%A5%88%E8%89%AF%E7%9C%8C">奈良県</a><span class="gh-prefindex__count">2店</span><small class="gh-prefindex__top">ガシャポンのデパート ラスパ西大和店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%85%B5%E5%BA%AB%E7%9C%8C">兵庫県</a><span class="gh-prefindex__count">2店</span><small class="gh-prefindex__top">ガシャポンのデパート エディオンJR尼崎駅店</small></li>
+      </ul>
+    </div>
+    <div class="gh-prefindex__group">
+      <h3 class="gh-prefindex__region">東海<span>37店</span></h3>
+      <ul class="gh-prefindex__list">
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E6%84%9B%E7%9F%A5%E7%9C%8C">愛知県</a><span class="gh-prefindex__count">16店</span><small class="gh-prefindex__top">#C-pla 名古屋大須店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%B2%90%E9%98%9C%E7%9C%8C">岐阜県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">カプセルラボ・キャラカプ イオンモール土岐店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E7%A6%8F%E4%BA%95%E7%9C%8C">福井県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンのデパート PLANT-3 清水店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E4%B8%89%E9%87%8D%E7%9C%8C">三重県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップTSUTAYA桑名店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E9%9D%99%E5%B2%A1%E7%9C%8C">静岡県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップ谷島屋富士宮店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E9%95%B7%E9%87%8E%E7%9C%8C">長野県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップ未来屋書店上田店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%AF%8C%E5%B1%B1%E7%9C%8C">富山県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップTSUTAYA富山豊田店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E7%9F%B3%E5%B7%9D%E7%9C%8C">石川県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップTSUTAYA大桑店</small></li>
+      </ul>
+    </div>
+    <div class="gh-prefindex__group">
+      <h3 class="gh-prefindex__region">九州・沖縄<span>16店</span></h3>
+      <ul class="gh-prefindex__list">
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E6%B2%96%E7%B8%84%E7%9C%8C">沖縄県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップ那覇メインプレイス店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%AE%AE%E5%B4%8E%E7%9C%8C">宮崎県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンのデパート 宮交シティ店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E9%B9%BF%E5%85%90%E5%B3%B6%E7%9C%8C">鹿児島県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップ未来屋書店姶良店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%A4%A7%E5%88%86%E7%9C%8C">大分県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップTSUTAYA中津店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E4%BD%90%E8%B3%80%E7%9C%8C">佐賀県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">#C-pla 2nd モラージュ佐賀店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E9%95%B7%E5%B4%8E%E7%9C%8C">長崎県</a><span class="gh-prefindex__count">1店</span></li>
+      </ul>
+    </div>
+    <div class="gh-prefindex__group">
+      <h3 class="gh-prefindex__region">東北・北海道<span>22店</span></h3>
+      <ul class="gh-prefindex__list">
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%8C%97%E6%B5%B7%E9%81%93">北海道</a><span class="gh-prefindex__count">6店</span><small class="gh-prefindex__top">#C-pla ザ・ビッグ清田店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%B2%A9%E6%89%8B%E7%9C%8C">岩手県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップMORIOKA TSUTAYA店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E6%96%B0%E6%BD%9F%E7%9C%8C">新潟県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップ蔦屋書店 新潟中央インター店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E9%9D%92%E6%A3%AE%E7%9C%8C">青森県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップ青森ELM店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%B1%B1%E5%BD%A2%E7%9C%8C">山形県</a><span class="gh-prefindex__count">2店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップ八文字屋 北店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E7%A7%8B%E7%94%B0%E7%9C%8C">秋田県</a><span class="gh-prefindex__count">2店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップイオンタウン大館西店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E7%A6%8F%E5%B3%B6%E7%9C%8C">福島県</a><span class="gh-prefindex__count">2店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップブックエース上荒川店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%AE%AE%E5%9F%8E%E7%9C%8C">宮城県</a><span class="gh-prefindex__count">1店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップイオンシネマ石巻店</small></li>
+      </ul>
+    </div>
+    <div class="gh-prefindex__group">
+      <h3 class="gh-prefindex__region">中国・四国<span>27店</span></h3>
+      <ul class="gh-prefindex__list">
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%B1%B1%E5%8F%A3%E7%9C%8C">山口県</a><span class="gh-prefindex__count">5店</span><small class="gh-prefindex__top">ガチャガチャの森 おのだサンパーク店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%B2%A1%E5%B1%B1%E7%9C%8C">岡山県</a><span class="gh-prefindex__count">4店</span><small class="gh-prefindex__top">#C-pla+ 012 アリオ倉敷店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E9%B3%A5%E5%8F%96%E7%9C%8C">鳥取県</a><span class="gh-prefindex__count">3店</span></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%B3%B6%E6%A0%B9%E7%9C%8C">島根県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">カプセルラボ ゆめタウン出雲店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E9%A6%99%E5%B7%9D%E7%9C%8C">香川県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガチャガチャの森 マリタイムプラザ高松店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E9%AB%98%E7%9F%A5%E7%9C%8C">高知県</a><span class="gh-prefindex__count">3店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップTSUTAYA南国店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E6%84%9B%E5%AA%9B%E7%9C%8C">愛媛県</a><span class="gh-prefindex__count">2店</span><small class="gh-prefindex__top">本屋さんのガシャポンのデパートTSUTAYA中央店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%BA%83%E5%B3%B6%E7%9C%8C">広島県</a><span class="gh-prefindex__count">2店</span><small class="gh-prefindex__top">ガシャポンのデパート 広島紙屋町店</small></li>
+        <li class="gh-prefindex__item"><a href="/stores.html#pref=%E5%BE%B3%E5%B3%B6%E7%9C%8C">徳島県</a><span class="gh-prefindex__count">2店</span><small class="gh-prefindex__top">ガシャポンバンダイオフィシャルショップゆめタウン徳島店</small></li>
+      </ul>
+    </div>
+  </div>
+  <!-- GH:PREF-INDEX:END -->
+      </section>
+
+
+    </div>
+</main>
+
+  <footer class="gh-footer">
+    <div class="gh-container">
+      <div class="gh-footer__main">
+        <div class="gh-footer__brand">
+          <a class="gh-logo" href="/"><img class="gh-logo__icon" src="assets/mascot-icon.png" alt="ガチャひろばのマスコット" width="34" height="34" /><span class="gh-logo__text">ガチャ<em>ひろば</em></span></a>
+          <p>全国のガチャガチャ設置場所情報を掲載。<br />確認できた情報を随時更新しています。</p>
+        </div>
+        <div class="gh-footer__links">
+          <div><strong>サービス</strong><a href="/">トップ</a><a href="stores.html">店舗一覧</a><a href="ranking.html">ランキング</a><a href="map.html">マップ検索</a></div>
+          <div><strong>情報</strong><a href="guide/tokyo-ward-gacha-data-report.html">東京23区掲載レポート</a><a href="methodology.html">データ確認方法</a><a href="news.html">新着情報</a><a href="area.html">エリア別</a></div>
+          <div><strong>サポート</strong><a href="contact.html">お問い合わせ</a><a href="terms.html">利用規約</a><a href="privacy.html">プライバシー</a><a href="sitemap.html">サイトマップ</a><a href="english.html">English</a><a href="about.html">運営方針</a></div>
+        </div>
+      </div>
+      <div class="gh-footer__bottom">
+        <span>© 2026 ガチャひろば (gacha-hiroba.com)</span>
+        <span>Powered by ガチャひろば</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

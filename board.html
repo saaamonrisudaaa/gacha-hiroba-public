@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="google-site-verification" content="YN5Q0DnCsIhwgitcXjcGqxlmfMec80Wl0uZskCNS11w" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,follow" />
+  <meta name="description" content="ガチャひろばの掲示板。全国のガチャスポットごとの掲示板で、入荷情報・混雑状況・狙い目をリアルタイムに共有できます。投稿数・勢いランキングや新着投稿をチェック。" />
+  <title>掲示板 | ガチャひろば</title>
+  <link rel="canonical" href="https://gacha-hiroba.com/board.html" />
+  <meta property="og:site_name" content="ガチャひろば" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:title" content="掲示板 | ガチャひろば" />
+  <meta property="og:description" content="ガチャひろばの掲示板。全国のガチャスポットごとの掲示板で、入荷情報・混雑状況・狙い目をリアルタイムに共有できます。投稿数・勢いランキングや新着投稿をチェック。" />
+  <meta property="og:url" content="https://gacha-hiroba.com/board.html" />
+  <meta property="og:image" content="https://gacha-hiroba.com/assets/ogp.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
+  <link rel="stylesheet" href="styles.css?v=20260831-board-restore-2" />
+  <script src="data/spots.js" defer></script>
+  <script src="spots-ui.js?v=20260831-board-restore-2" defer></script>
+  <script src="script.js?v=20260831-board-restore-2" defer></script>
+</head>
+<body>
+  <header class="gh-header">
+    <div class="gh-header__top">
+      <div class="gh-container gh-header__inner">
+        <a class="gh-logo" href="/" aria-label="ガチャひろば トップへ">
+          <img class="gh-logo__icon" src="assets/mascot-icon.png" alt="ガチャひろばのマスコット" width="34" height="34" />
+          <span class="gh-logo__text">ガチャ<em>ひろば</em></span>
+        </a>
+        <form class="gh-search" role="search" action="/stores.html" method="get">
+          <input class="gh-search__input" type="search" name="q" placeholder="エリア・駅名・店名で検索" aria-label="ガチャ場所を検索" />
+          <button class="gh-search__btn" type="submit" aria-label="検索">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+        </form>
+        <button class="gh-hamburger" aria-label="メニューを開く" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="gh-subnav">
+      <div class="gh-container">
+        <nav class="gh-nav-tabs" aria-label="メインナビゲーション">
+          <a href="/">トップ</a>
+          <a href="stores.html">店舗一覧</a>
+          <a href="board.html" class="active">掲示板</a>
+          <a href="news.html">新着情報</a>
+          <a href="ranking.html">ランキング</a>
+          <a href="area.html">エリア別</a>
+          <a href="category.html">ブランド別</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="gh-main">
+    <div class="gh-container">
+
+      <nav class="gh-breadcrumb" aria-label="パンくずリスト">
+        <a href="/">トップ</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page">掲示板</span>
+      </nav>
+
+      <div class="gh-page-hero">
+        <h1 class="gh-page-hero__title">掲示板</h1>
+        <p class="gh-page-hero__desc">全国のガチャスポットごとの掲示板。入荷情報・混雑状況・狙い目をリアルタイムに共有・チェックできます。</p>
+      </div>
+
+      <section class="gh-section gh-sec--tight" aria-labelledby="board-safety-title">
+        <div class="gh-section__header"><h2 class="gh-section__title" id="board-safety-title">安心して利用するために</h2></div>
+        <div class="gh-prose">
+          <p>掲示板は利用者による情報交換の場です。投稿は運営者が確認した店舗本文ではなく、在庫・入荷・混雑状況の正確性を保証するものではありません。氏名・住所・連絡先などの個人情報、誹謗中傷、権利侵害、広告・スパムは投稿しないでください。</p>
+          <p>問題のある投稿を見つけた場合は、対象店舗ページのURLと投稿内容を添えて<a href="contact.html">お問い合わせ窓口</a>へご連絡ください。確認後、<a href="terms.html">利用規約</a>に基づき非表示・削除等を行います。</p>
+        </div>
+      </section>
+
+      <!-- Summary bar（実データから自動集計） -->
+      <div class="gh-summary-bar">
+        <div class="gh-summary-card">
+          <span class="gh-summary-card__label">掲示板数</span>
+          <span class="gh-summary-card__value" id="boardStatBoards">404板</span>
+          <span class="gh-summary-card__change">店舗ごとに1つ</span>
+        </div>
+        <div class="gh-summary-card">
+          <span class="gh-summary-card__label">対象エリア</span>
+          <span class="gh-summary-card__value" id="boardStatPrefs">44都道府県</span>
+          <span class="gh-summary-card__change">順次拡大中</span>
+        </div>
+        <div class="gh-summary-card">
+          <span class="gh-summary-card__label">規模値を公表する店舗</span>
+          <span class="gh-summary-card__value" id="boardStatMachines">148店舗</span>
+          <span class="gh-summary-card__change" id="boardStatMachinesNote">設置規模の公表値あり（単位差あり）</span>
+        </div>
+        <div class="gh-summary-card">
+          <span class="gh-summary-card__label">公表値上位（参考）</span>
+          <span class="gh-summary-card__value" id="boardStatTop">ガシャポンのデパート池袋総本店</span>
+          <span class="gh-summary-card__change" id="boardStatTopSub">約3,775（公表値）（参考順）</span>
+        </div>
+      </div>
+
+      <div class="gh-main__layout">
+        <div class="gh-main__content">
+
+          <!-- ライブ状況＋全板横断の新着書き込み（script.js のライブモジュールが描画）
+               掲示板ハブなのに書き込みが1件も見えない状態を解消する -->
+          <div class="gh-live" data-gh-live-status hidden></div>
+
+          <section class="gh-section gh-sec--main gh-community-sec" style="margin-bottom:16px" hidden>
+            <div class="gh-section__header">
+              <h2 class="gh-section__title gh-section__title--lg">
+                <span class="gh-live-dot" aria-hidden="true"></span>全掲示板の新着書き込み
+              </h2>
+            </div>
+            <div class="gh-plaza" data-gh-plaza hidden></div>
+            <div class="gh-post-list" data-gh-community-feed></div>
+            <div class="gh-invite" data-gh-invite hidden></div>
+          </section>
+
+          <!-- 掲示板検索 -->
+          <section class="gh-section" style="margin-bottom:16px">
+            <form class="gh-map-search-form" style="margin:0">
+              <div class="gh-map-search-input-wrap">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--gh-muted);pointer-events:none"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <input class="gh-map-search-input" id="boardSearch" type="search" placeholder="掲示板を検索（店名・エリアなど）" aria-label="掲示板を検索" />
+              </div>
+              <button type="submit" class="gh-btn gh-btn--primary">検索</button>
+            </form>
+          </section>
+
+          <!-- 店舗の掲示板一覧（公表設置規模の数値による参考順） -->
+          <section class="gh-section">
+            <div class="gh-section__header">
+              <h2 class="gh-section__title">掲示板一覧</h2>
+              <span style="font-size:12px;color:var(--gh-muted);font-weight:600">公表設置規模の参考順</span>
+            </div>
+            <div class="gh-table-wrap">
+              <table class="gh-table" data-board-limit="20">
+                <thead>
+                  <tr>
+                    <th style="width:44px">参考順</th>
+                    <th>掲示板（店舗）</th>
+                    <th>エリア</th>
+                    <th class="gh-num">公表設置規模</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody data-gh-board-table>
+                  <!-- GH:BOARD-LIST:START -->
+                    <tr class="gh-table__row--top"><td><span class="gh-rank gh-rank--1">1</span></td><td><a href="/spot.html?id=gashadepa-ikebukuro-honten#board" class="gh-table__link">ガシャポンのデパート池袋総本店</a></td><td>東京都・池袋</td><td class="gh-num">約3,775（公表値）</td><td><a href="/spot.html?id=gashadepa-ikebukuro-honten#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank gh-rank--2">2</span></td><td><a href="/spot.html?id=yodobashi-ikebukuro-gacha-jungle#board" class="gh-table__link">ヨドバシカメラ マルチメディア池袋 5F（カプセルトイコーナー）</a></td><td>東京都・池袋</td><td class="gh-num">約3,000（公表値）</td><td><a href="/spot.html?id=yodobashi-ikebukuro-gacha-jungle#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank gh-rank--3">3</span></td><td><a href="/spot.html?id=cpla-shibuya-center-gai#board" class="gh-table__link">#C-pla 渋谷センター街店</a></td><td>東京都・渋谷</td><td class="gh-num">約2,251（公表値）</td><td><a href="/spot.html?id=cpla-shibuya-center-gai#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">4</span></td><td><a href="/spot.html?id=cpla-adhoc-shinjuku#board" class="gh-table__link">#C-pla アドホック新宿店</a></td><td>東京都・新宿</td><td class="gh-num">約2,231（公表値）</td><td><a href="/spot.html?id=cpla-adhoc-shinjuku#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">5</span></td><td><a href="/spot.html?id=gashadepa-bigfun-heiwajima#board" class="gh-table__link">ガシャポンのデパートBIGFUN平和島店</a></td><td>東京都・平和島</td><td class="gh-num">約1,700（公表値）</td><td><a href="/spot.html?id=gashadepa-bigfun-heiwajima#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">6</span></td><td><a href="/spot.html?id=gashadepa-tachikawa-takashimaya#board" class="gh-table__link">ガシャポンのデパート立川髙島屋S.C.店</a></td><td>東京都・立川</td><td class="gh-num">約1,610（公表値）</td><td><a href="/spot.html?id=gashadepa-tachikawa-takashimaya#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">7</span></td><td><a href="/spot.html?id=cpla-mark-is-katsushika-kanamachi#board" class="gh-table__link">#C-pla MARK IS 葛飾かなまち店</a></td><td>東京都・金町</td><td class="gh-num">約1,581（公表値）</td><td><a href="/spot.html?id=cpla-mark-is-katsushika-kanamachi#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">8</span></td><td><a href="/spot.html?id=cpla-nagoya-osu#board" class="gh-table__link">#C-pla 名古屋大須店</a></td><td>愛知県・大須</td><td class="gh-num">約1,376（公表値）</td><td><a href="/spot.html?id=cpla-nagoya-osu#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">9</span></td><td><a href="/spot.html?id=cpla-tokyu-plaza-shibuya#board" class="gh-table__link">#C-pla 東急プラザ渋谷店</a></td><td>東京都・渋谷</td><td class="gh-num">約1,285（公表値）</td><td><a href="/spot.html?id=cpla-tokyu-plaza-shibuya#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">10</span></td><td><a href="/spot.html?id=cpla-sunamo#board" class="gh-table__link">#C-pla SUNAMO店</a></td><td>東京都・南砂町</td><td class="gh-num">約1,250（公表値）</td><td><a href="/spot.html?id=cpla-sunamo#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">11</span></td><td><a href="/spot.html?id=ggmori-ikebukuro-sunshine-alta#board" class="gh-table__link">ガチャガチャの森 池袋サンシャインシティアルタ店</a></td><td>東京都・池袋</td><td class="gh-num">約1,240（公表値）</td><td><a href="/spot.html?id=ggmori-ikebukuro-sunshine-alta#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">12</span></td><td><a href="/spot.html?id=cpla-premium-omokado#board" class="gh-table__link">#C-pla premium 東急プラザ表参道「オモカド」店</a></td><td>東京都・原宿</td><td class="gh-num">約1,164（公表値）</td><td><a href="/spot.html?id=cpla-premium-omokado#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">13</span></td><td><a href="/spot.html?id=cpla-kinshicho-parco#board" class="gh-table__link">#C-pla 錦糸町PARCO店</a></td><td>東京都・錦糸町</td><td class="gh-num">約1,090（公表値）</td><td><a href="/spot.html?id=cpla-kinshicho-parco#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">14</span></td><td><a href="/spot.html?id=ggmori-shinjuku-subnade#board" class="gh-table__link">ガチャガチャの森 新宿サブナード店</a></td><td>東京都・新宿</td><td class="gh-num">約1,050（公表値）</td><td><a href="/spot.html?id=ggmori-shinjuku-subnade#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">15</span></td><td><a href="/spot.html?id=gachagachanomori-makers-pier#board" class="gh-table__link">ガチャガチャの森 メイカーズピア店</a></td><td>愛知県・金城ふ頭</td><td class="gh-num">約1,050（公表値）</td><td><a href="/spot.html?id=gachagachanomori-makers-pier#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">16</span></td><td><a href="/spot.html?id=cpla-2nd-moraju-saga#board" class="gh-table__link">#C-pla 2nd モラージュ佐賀店</a></td><td>佐賀県・佐賀</td><td class="gh-num">約1,046（公表値）</td><td><a href="/spot.html?id=cpla-2nd-moraju-saga#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">17</span></td><td><a href="/spot.html?id=cpla-thebig-kiyota#board" class="gh-table__link">#C-pla ザ・ビッグ清田店</a></td><td>北海道・清田</td><td class="gh-num">約1,027（公表値）</td><td><a href="/spot.html?id=cpla-thebig-kiyota#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">18</span></td><td><a href="/spot.html?id=cpla-juso-east-exit#board" class="gh-table__link">#C-pla 十三駅東口店</a></td><td>大阪府・十三</td><td class="gh-num">約1,018（公表値）</td><td><a href="/spot.html?id=cpla-juso-east-exit#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">19</span></td><td><a href="/spot.html?id=gachagachanomori-okanoue-plaza#board" class="gh-table__link">ガチャガチャの森 丘の上プラザ店</a></td><td>東京都・多摩センター</td><td class="gh-num">約1,009（公表値）</td><td><a href="/spot.html?id=gachagachanomori-okanoue-plaza#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                    <tr><td><span class="gh-rank">20</span></td><td><a href="/spot.html?id=cpla-premium-marronniergate-ginza#board" class="gh-table__link">#C-pla premium マロニエゲート銀座1店</a></td><td>東京都・銀座</td><td class="gh-num">約1,000（公表値）</td><td><a href="/spot.html?id=cpla-premium-marronniergate-ginza#board" class="gh-btn gh-btn--xs">見る</a></td></tr>
+                  <!-- GH:BOARD-LIST:END -->
+                </tbody>
+              </table>
+            </div>
+            <p class="gh-detail-note" style="margin-top:12px">設置規模の単位は情報元により「台」「面」「種類」「設置ボックス数」など異なり、数値順は厳密な同単位比較ではありません。</p>
+            <p class="gh-board-more"><button type="button" class="gh-btn gh-btn--block" data-gh-board-more hidden></button></p>
+            <p class="gh-detail-note" style="margin-top:12px">「見る」を押すと、その店舗の掲示板に移動できます。入荷情報・混雑状況・狙い目をみんなで共有しましょう。</p>
+          </section>
+
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="gh-sidebar">
+
+          <div class="gh-widget">
+            <h3 class="gh-widget__title">規模値の参考上位</h3>
+            <ol class="gh-trending-list" data-gh-board-side>
+              <!-- GH:BOARD-SIDE:START -->
+                <li><a href="/spot.html?id=gashadepa-ikebukuro-honten#board">ガシャポンのデパート池袋総本店</a><span class="gh-category-item__count">約3,775（公表値）</span></li>
+                <li><a href="/spot.html?id=yodobashi-ikebukuro-gacha-jungle#board">ヨドバシカメラ マルチメディア池袋 5F（カプセルトイコーナー）</a><span class="gh-category-item__count">約3,000（公表値）</span></li>
+                <li><a href="/spot.html?id=cpla-shibuya-center-gai#board">#C-pla 渋谷センター街店</a><span class="gh-category-item__count">約2,251（公表値）</span></li>
+                <li><a href="/spot.html?id=cpla-adhoc-shinjuku#board">#C-pla アドホック新宿店</a><span class="gh-category-item__count">約2,231（公表値）</span></li>
+                <li><a href="/spot.html?id=gashadepa-bigfun-heiwajima#board">ガシャポンのデパートBIGFUN平和島店</a><span class="gh-category-item__count">約1,700（公表値）</span></li>
+              <!-- GH:BOARD-SIDE:END -->
+            </ol>
+          </div>
+
+          <div class="gh-widget">
+            <h3 class="gh-widget__title">店舗を探す</h3>
+            <ul class="gh-category-list">
+              <li><a href="stores.html" class="gh-category-item"><span class="gh-category-item__icon">🏬</span><span>店舗一覧から探す</span></a></li>
+              <li><a href="area.html" class="gh-category-item"><span class="gh-category-item__icon">🗾</span><span>エリアから探す</span></a></li>
+              <li><a href="map.html" class="gh-category-item"><span class="gh-category-item__icon">🗺️</span><span>マップから探す</span></a></li>
+            </ul>
+          </div>
+
+          <div class="gh-widget gh-widget--accent">
+            <h3 class="gh-widget__title">掲示板のルール</h3>
+            <p class="gh-widget__text">誹謗中傷・スパム・第三者の権利を侵害する投稿は禁止です。マナーを守ってご利用ください。</p>
+            <div class="gh-app-btns">
+              <a href="terms.html" class="gh-app-btn">📜 利用規約を読む</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="gh-footer">
+    <div class="gh-container">
+      <div class="gh-footer__main">
+        <div class="gh-footer__brand">
+          <a class="gh-logo" href="/"><img class="gh-logo__icon" src="assets/mascot-icon.png" alt="ガチャひろばのマスコット" width="34" height="34" /><span class="gh-logo__text">ガチャ<em>ひろば</em></span></a>
+          <p>全国のガチャガチャ設置場所情報を掲載。<br />確認できた情報を随時更新しています。</p>
+        </div>
+        <div class="gh-footer__links">
+          <div><strong>サービス</strong><a href="/">トップ</a><a href="board.html">掲示板</a><a href="news.html">新着情報</a><a href="ranking.html">ランキング</a></div>
+          <div><strong>情報</strong><a href="about.html">運営者・編集方針</a><a href="methodology.html">データ確認方法</a><a href="area.html">エリア別</a><a href="category.html">ブランド別</a></div>
+          <div><strong>サポート</strong><a href="contact.html">お問い合わせ・投稿通報</a><a href="terms.html">利用規約</a><a href="privacy.html">プライバシー</a><a href="sitemap.html">サイトマップ</a><a href="english.html">English</a></div>
+        </div>
+      </div>
+      <div class="gh-footer__bottom">
+        <span>© 2026 ガチャひろば (gacha-hiroba.com)</span>
+        <span>掲載情報は参考情報です。最新情報は各店舗にご確認ください。</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
