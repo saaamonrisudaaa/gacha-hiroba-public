@@ -227,7 +227,8 @@ window.GH_SPOTS = [
     "lat": 35.73152924,
     "lon": 139.71279907,
     "sourceUrl": "https://gashacoco.jp/shop-list/2482",
-    "verifiedAt": "2026-09-06"
+    "verifiedAt": "2026-09-07",
+    "access": "池袋菊邑ビルの1F・B1F。池袋サンシャイン通り店とは別店舗"
   },
   {
     "id": "gbo-tokyo-solamachi",
@@ -310,7 +311,8 @@ window.GH_SPOTS = [
     "lon": 139.77625165,
     "tel": "03-6231-7780",
     "sourceUrl": "https://www.ecute.jp/ueno/shop/1168",
-    "verifiedAt": "2026-08-20"
+    "verifiedAt": "2026-09-07",
+    "access": "JR上野駅の改札内3F・エキュート上野。東京メトロのEchika fit上野店とは別店舗"
   },
   {
     "id": "cpla-coppice-kichijoji",
@@ -1197,7 +1199,8 @@ window.GH_SPOTS = [
     "lon": 139.7006,
     "zip": "150-0041",
     "sourceUrl": "https://www.dreamcapsule.co.jp/shop/134",
-    "verifiedAt": "2026-09-06"
+    "verifiedAt": "2026-09-07",
+    "access": "MAGNET by SHIBUYA109の5F。道玄坂のSHIBUYA109とは別の建物"
   },
   {
     "id": "capsulelab-harajuku-takeshita",
@@ -1504,7 +1507,8 @@ window.GH_SPOTS = [
     "zip": "101-0021",
     "hours": "10:00〜21:00",
     "sourceUrl": "https://kenelephant.co.jp/kenelestand/",
-    "verifiedAt": "2026-09-06"
+    "verifiedAt": "2026-09-07",
+    "access": "JR秋葉原駅3F・改札内。総武線6番線ホーム裏コンコース"
   },
   {
     "id": "kenele-stand-jr-shimbashi",
@@ -1519,7 +1523,8 @@ window.GH_SPOTS = [
     "zip": "105-0004",
     "hours": "10:00〜21:00",
     "sourceUrl": "https://kenelephant.co.jp/kenelestand/",
-    "verifiedAt": "2026-08-20"
+    "verifiedAt": "2026-09-07",
+    "access": "JR新橋駅構内1F・北改札付近。構内の案内で売り場を確認"
   },
   {
     "id": "kenele-stand-gransta-yaekita",
@@ -1535,7 +1540,8 @@ window.GH_SPOTS = [
     "hours": "10:00〜21:00",
     "tel": "03-6268-0108",
     "sourceUrl": "https://kenelephant.co.jp/kenelestand/",
-    "verifiedAt": "2026-08-21"
+    "verifiedAt": "2026-09-07",
+    "access": "JR東京駅・八重洲北口の改札外。グランスタ八重北1F・八重北食堂内"
   },
   {
     "id": "yodobashi-yokohama-gacha",

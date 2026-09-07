@@ -35,6 +35,13 @@
     <description>カプセルパークを探すときは、最初に運営元の公式店舗一覧で地域を選び、店舗名に含まれる商業施設と売り場の階を確認します。このページでは、東京のキテラタウン調布・西友ひばりが丘、福島のアティ郡山、岩手の川徳の4店を比較できます。</description>
   </item>
   <item>
+    <title>カプセル楽局の東京店舗一覧｜住所・営業時間・エリア別検索【2026年】</title>
+    <link>https://gacha-hiroba.com/guide/capsule-rakkyoku-tokyo.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/capsule-rakkyoku-tokyo.html</guid>
+    <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
+    <description>来店前の確認：門前仲町店は公式一覧で「店内改装のため休業中」と案内されています（2026年9月6日再確認）。再開日はここでは断定せず、公式案内を確認してください。</description>
+  </item>
+  <item>
     <title>シープラ（#C-pla）の店舗一覧｜東京・全国の住所・営業時間・設置規模【2026年】</title>
     <link>https://gacha-hiroba.com/guide/cpla-store-guide.html</link>
     <guid isPermaLink="true">https://gacha-hiroba.com/guide/cpla-store-guide.html</guid>
@@ -49,6 +56,20 @@
     <description>横浜駅でガチャガチャを探すときは、まず西口か東口を選び、建物と売り場の階をセットで確認しましょう。西口の横浜ビブレとエディオンはどちらも7階ですが別の建物です。ヨドバシの確認できたコーナーは北幸のマルチメディア横浜6階、東口のガチャガチャコレクションはスカイビル7階にあります。</description>
   </item>
   <item>
+    <title>上野・アメ横のガチャガチャ設置場所｜駅改札内・駅前の回り方【2026年】</title>
+    <link>https://gacha-hiroba.com/guide/ueno.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/ueno.html</guid>
+    <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
+    <description>上野でガチャガチャを探す場合は、JR上野駅の改札内、駅前の商業施設、アメ横方面を同じ場所と考えないことが大切です。このページでは、店舗・施設・メーカーなどの掲載根拠URLと確認日がある上野エリアの7店を比較し、乗換中に寄る場合と街歩きで回る場合を分けて案内します。</description>
+  </item>
+  <item>
+    <title>新宿のガチャガチャ設置場所｜東口・西口・歌舞伎町の大型店と深夜営業【2026年】</title>
+    <link>https://gacha-hiroba.com/guide/shinjuku.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/shinjuku.html</guid>
+    <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
+    <description>新宿でガチャガチャを探すときは、店舗数より先に「東口・新宿三丁目」「西口」「歌舞伎町・サブナード」のどこへ行くかを決めると迷いにくくなります。このページは、店舗・ブランド・施設などの根拠URLと確認日がある新宿エリアの掲載店を、住所、営業時間、公表設置規模で比較します。</description>
+  </item>
+  <item>
     <title>東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計</title>
     <link>https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html</link>
     <guid isPermaLink="true">https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html</guid>
@@ -56,18 +77,18 @@
     <description>ガチャひろばで公開している東京都の店舗データを、23区内・23区外、区別、運営ブランド別に独自集計しました。数値は、掲載根拠URLと確認日の両方がある記録だけを対象に、data/spots.js からページ生成時に再計算します。</description>
   </item>
   <item>
+    <title>東京の大型ガチャガチャスポット20選｜公表設置規模・エリア別の回り方【2026年版】</title>
+    <link>https://gacha-hiroba.com/guide/tokyo-large-gacha-guide.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/tokyo-large-gacha-guide.html</guid>
+    <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
+    <description>東京都内でガチャガチャを探すとき、店舗数だけを並べても実際の行き先は決めにくいものです。このガイドでは、ガチャひろばの掲載店のうち、店舗・ブランド・商業施設などの確認元URLと確認日があり、設置規模の公表値を確認できた店舗を対象に、数値による参考順で20店を紹介します。表と店舗詳細は元データから生成し、店舗情報が更新されたときは固定URLのまま再計算します。</description>
+  </item>
+  <item>
     <title>欲しいガチャガチャはどこにある？設置場所・入荷の探し方と来店メモ</title>
     <link>https://gacha-hiroba.com/guide/guide-find-new.html</link>
     <guid isPermaLink="true">https://gacha-hiroba.com/guide/guide-find-new.html</guid>
     <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
     <description>「SNSで見たあのガチャ、どこで回せるの？」——カプセルトイは発売時期、取扱店、現在庫が別々に更新されるため、1つの投稿だけで来店先を決めると空振りになりがちです。このページでは、商品を特定してから探すのを終えるまでを5段階に分けます。</description>
-  </item>
-  <item>
-    <title>カプセル楽局の東京店舗一覧｜住所・営業時間・エリア別検索【2026年】</title>
-    <link>https://gacha-hiroba.com/guide/capsule-rakkyoku-tokyo.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/guide/capsule-rakkyoku-tokyo.html</guid>
-    <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
-    <description>来店前の確認：門前仲町店は公式一覧で「店内改装のため休業中」と案内されています（2026年9月6日再確認）。再開日はここでは断定せず、公式案内を確認してください。</description>
   </item>
   <item>
     <title>秋葉原のガチャガチャ設置場所｜駅改札内・電気街・末広町の3店比較</title>
@@ -98,20 +119,6 @@
     <description>錦糸町のガチャガチャ設置場所は、駅南口側のPARCO・マルイ・駅前・ヨドバシ周辺と、北口から向かうオリナス側に分けると回りやすくなります。このページは、店舗・施設・メーカーなどの根拠URLと確認日がある6店を、住所、営業時間、公表設置規模、売り場タイプで比較します。</description>
   </item>
   <item>
-    <title>上野・アメ横のガチャガチャ設置場所｜駅改札内・駅前の回り方【2026年】</title>
-    <link>https://gacha-hiroba.com/guide/ueno.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/guide/ueno.html</guid>
-    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
-    <description>上野でガチャガチャを探す場合は、JR上野駅の改札内、駅前の商業施設、アメ横方面を同じ場所と考えないことが大切です。このページでは、店舗・施設・メーカーなどの掲載根拠URLと確認日がある上野エリアの7店を比較し、乗換中に寄る場合と街歩きで回る場合を分けて案内します。</description>
-  </item>
-  <item>
-    <title>新宿のガチャガチャ設置場所｜東口・西口・歌舞伎町の大型店と深夜営業【2026年】</title>
-    <link>https://gacha-hiroba.com/guide/shinjuku.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/guide/shinjuku.html</guid>
-    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
-    <description>新宿でガチャガチャを探すときは、店舗数より先に「東口・新宿三丁目」「西口」「歌舞伎町・サブナード」のどこへ行くかを決めると迷いにくくなります。このページは、店舗・ブランド・施設などの根拠URLと確認日がある新宿エリアの掲載店を、住所、営業時間、公表設置規模で比較します。</description>
-  </item>
-  <item>
     <title>大森駅周辺のガチャガチャ設置場所｜改札外・西友・イトーヨーカドーを確認【2026年】</title>
     <link>https://gacha-hiroba.com/guide/omori.html</link>
     <guid isPermaLink="true">https://gacha-hiroba.com/guide/omori.html</guid>
@@ -131,13 +138,6 @@
     <guid isPermaLink="true">https://gacha-hiroba.com/guide/new-gacha-shops-2026-summer.html</guid>
     <pubDate>Sun, 30 Aug 2026 00:00:00 GMT</pubDate>
     <description>2026年7月17日から8月28日までにオープンしたガチャガチャ専門店のうち、運営ブランドの公式店舗ページと開店案内で所在地・営業時間を確認できた10店をまとめました。対象は#C-plaが7店、gashacocoが3店で、大阪府5店、北海道2店、兵庫県・岡山県・鹿児島県が各1店です。</description>
-  </item>
-  <item>
-    <title>東京の大型ガチャガチャスポット20選｜公表設置規模・エリア別の回り方【2026年版】</title>
-    <link>https://gacha-hiroba.com/guide/tokyo-large-gacha-guide.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/guide/tokyo-large-gacha-guide.html</guid>
-    <pubDate>Sat, 22 Aug 2026 00:00:00 GMT</pubDate>
-    <description>東京都内でガチャガチャを探すとき、店舗数だけを並べても実際の行き先は決めにくいものです。このガイドでは、ガチャひろばの掲載店のうち、店舗・ブランド・商業施設などの確認元URLと確認日があり、設置規模の公表値を確認できた店舗を対象に、数値による参考順で20店を紹介します。表と店舗詳細は元データから生成し、店舗情報が更新されたときは固定URLのまま再計算します。</description>
   </item>
   <item>
     <title>ガチャ予算プランナー｜回せる回数・残額をその場で計算</title>

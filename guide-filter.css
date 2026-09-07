@@ -1,0 +1,15 @@
+.gh-guide-filter { margin: 12px 0 18px; padding: 16px; background: #f2f7f5; border: 1px solid #ccded7; border-radius: 12px; }
+.gh-guide-filter label { display: block; font-weight: 700; margin-bottom: 8px; }
+.gh-guide-filter__fields { display: flex; flex-wrap: wrap; gap: 8px; }
+.gh-guide-filter input { flex: 1 1 220px; min-width: 0; width: 100%; padding: 10px 12px; border: 1px solid #738d83; border-radius: 8px; font: inherit; font-size: 16px; }
+.gh-guide-filter input:focus-visible { outline: 3px solid #167554; outline-offset: 2px; }
+.gh-guide-filter button { min-height: 44px; }
+.gh-guide-filter button:disabled { opacity: .55; cursor: default; }
+.gh-guide-filter p { margin: 8px 0 0; }
+[data-guide-filter][hidden], [data-guide-empty][hidden], #guide-store-table[hidden], #guide-store-table [hidden] { display: none; }
+@media (max-width: 600px) {
+  #guide-store-table.gh-guide-table--compact { min-width: 0; table-layout: fixed; }
+  #guide-store-table.gh-guide-table--compact th, #guide-store-table.gh-guide-table--compact td { white-space: normal; overflow-wrap: anywhere; padding: 10px 6px; }
+  #guide-store-table.gh-guide-table--compact th:first-child { width: 60%; }
+  #guide-store-table.gh-guide-table--compact th:last-child, #guide-store-table.gh-guide-table--compact td:last-child { display: none; }
+}

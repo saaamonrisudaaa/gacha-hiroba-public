@@ -89,13 +89,13 @@
             </div><nav class="gh-article-nav" aria-label="この記事の目次"><strong>この記事でわかること</strong><ul><li><a href="#store-comparison">店舗・営業時間を比較</a></li><li><a href="#visit-plans">回り方を選ぶ</a></li><li><a href="#store-details">住所・地図・公式情報</a></li><li><a href="#article-faq">よくある質問</a></li><li><a href="#shopping-title">持ち帰り用品（広告・PR）</a></li></ul></nav>
             <h2 class="gh-article__h2" id="store-comparison">掲載店舗の一覧・比較</h2>
             <div class="gh-table-wrap">
-              <table class="gh-table">
-                <thead><tr><th>店舗名</th><th class="gh-num">公表設置規模</th><th>営業時間</th><th></th></tr></thead>
+              <table class="gh-table" id="guide-store-table">
+                <thead><tr><th scope="col">店舗名</th><th scope="col" class="gh-num">公表設置規模</th><th scope="col">営業時間</th><th></th></tr></thead>
                 <tbody>
-                  <tr><td><a class="gh-table__link" href="#store-dreamcapsule-magnet-shibuya">ドリームカプセル MAGNET by SHIBUYA109店</a><small class="gh-store-brand">掲載根拠確認済み</small></td><td class="gh-num">—</td><td>10:00〜21:00</td><td><a href="#store-dreamcapsule-magnet-shibuya" class="gh-btn gh-btn--xs">詳細</a></td></tr>
-                  <tr><td><a class="gh-table__link" href="#store-cpla-shibuya109">#C-pla+ SHIBUYA109渋谷店</a><small class="gh-store-brand">掲載根拠確認済み</small></td><td class="gh-num">約601（公表値）</td><td>10:00〜21:00</td><td><a href="#store-cpla-shibuya109" class="gh-btn gh-btn--xs">詳細</a></td></tr>
-                  <tr><td><a class="gh-table__link" href="#store-cpla-shibuya-center-gai">#C-pla 渋谷センター街店</a><small class="gh-store-brand">掲載根拠確認済み</small></td><td class="gh-num">約2,251（公表値）</td><td>10:00〜23:00（B1F・2Fは22:30まで）</td><td><a href="#store-cpla-shibuya-center-gai" class="gh-btn gh-btn--xs">詳細</a></td></tr>
-                  <tr><td><a class="gh-table__link" href="#store-cpla-tokyu-plaza-shibuya">#C-pla 東急プラザ渋谷店</a><small class="gh-store-brand">掲載根拠確認済み</small></td><td class="gh-num">約1,285（公表値）</td><td>11:00〜22:00</td><td><a href="#store-cpla-tokyu-plaza-shibuya" class="gh-btn gh-btn--xs">詳細</a></td></tr>
+                  <tr><td><a class="gh-table__link" href="#store-dreamcapsule-magnet-shibuya">ドリームカプセル MAGNET by SHIBUYA109店</a><small class="gh-store-brand">東京都・渋谷 ／ 掲載根拠確認済み</small></td><td class="gh-num">—</td><td>10:00〜21:00</td><td><a href="#store-dreamcapsule-magnet-shibuya" class="gh-btn gh-btn--xs">詳細</a></td></tr>
+                  <tr><td><a class="gh-table__link" href="#store-cpla-shibuya109">#C-pla+ SHIBUYA109渋谷店</a><small class="gh-store-brand">東京都・渋谷 ／ 掲載根拠確認済み</small></td><td class="gh-num">約601（公表値）</td><td>10:00〜21:00</td><td><a href="#store-cpla-shibuya109" class="gh-btn gh-btn--xs">詳細</a></td></tr>
+                  <tr><td><a class="gh-table__link" href="#store-cpla-shibuya-center-gai">#C-pla 渋谷センター街店</a><small class="gh-store-brand">東京都・渋谷 ／ 掲載根拠確認済み</small></td><td class="gh-num">約2,251（公表値）</td><td>10:00〜23:00（B1F・2Fは22:30まで）</td><td><a href="#store-cpla-shibuya-center-gai" class="gh-btn gh-btn--xs">詳細</a></td></tr>
+                  <tr><td><a class="gh-table__link" href="#store-cpla-tokyu-plaza-shibuya">#C-pla 東急プラザ渋谷店</a><small class="gh-store-brand">東京都・渋谷 ／ 掲載根拠確認済み</small></td><td class="gh-num">約1,285（公表値）</td><td>11:00〜22:00</td><td><a href="#store-cpla-tokyu-plaza-shibuya" class="gh-btn gh-btn--xs">詳細</a></td></tr>
                 </tbody>
               </table>
             </div><section class="gh-visit-plans" aria-labelledby="visit-plans">
@@ -143,12 +143,13 @@
             <h2 class="gh-article__h2" id="store-details">各店舗の詳細</h2>
             <section class="gh-article-store" id="store-dreamcapsule-magnet-shibuya">
               <h3 class="gh-article-store__name">1. <a href="/spot.html?id=dreamcapsule-magnet-shibuya">ドリームカプセル MAGNET by SHIBUYA109店</a></h3>
-              <table class="gh-info-table gh-info-table--full"><tbody><tr><th>住所</th><td>〒150-0041　東京都渋谷区神南1-23-10 MAGNET by SHIBUYA109 5F</td></tr><tr><th>営業時間</th><td>10:00〜21:00</td></tr><tr><th>参照先の確認日</th><td><time datetime="2026-09-06">2026-09-06</time>（現地調査日・在庫確認日ではありません）</td></tr></tbody></table>
+              <table class="gh-info-table gh-info-table--full"><tbody><tr><th>住所</th><td>〒150-0041　東京都渋谷区神南1-23-10 MAGNET by SHIBUYA109 5F</td></tr><tr><th>営業時間</th><td>10:00〜21:00</td></tr><tr><th>アクセス</th><td>MAGNET by SHIBUYA109の5F。道玄坂のSHIBUYA109とは別の建物</td></tr><tr><th>参照先の確認日</th><td><time datetime="2026-09-07">2026-09-07</time>（現地調査日・在庫確認日ではありません）</td></tr></tbody></table>
               <div class="gh-article-store__actions">
                 <a href="https://www.google.com/maps/search/?api=1&amp;query=%E3%83%89%E3%83%AA%E3%83%BC%E3%83%A0%E3%82%AB%E3%83%97%E3%82%BB%E3%83%AB%20MAGNET%20by%20SHIBUYA109%E5%BA%97%20%E6%9D%B1%E4%BA%AC%E9%83%BD%E6%B8%8B%E8%B0%B7%E5%8C%BA%E7%A5%9E%E5%8D%971-23-10%20MAGNET%20by%20SHIBUYA109%205F" class="gh-btn gh-btn--primary gh-btn--sm" target="_blank" rel="noopener noreferrer">地図で場所を見る ↗</a>
                 <a href="/spot.html?id=dreamcapsule-magnet-shibuya" class="gh-btn gh-btn--sm">店舗の詳しい情報</a>
                 <a href="https://www.dreamcapsule.co.jp/shop/134" class="gh-btn gh-btn--sm gh-official-source" target="_blank" rel="noopener noreferrer">公式情報を確認 ↗</a>
               </div>
+              <p><a href="#store-comparison">店舗の比較一覧に戻る ↑</a></p>
             </section>
             <section class="gh-article-store" id="store-cpla-shibuya109">
               <h3 class="gh-article-store__name">2. <a href="/spot.html?id=cpla-shibuya109">#C-pla+ SHIBUYA109渋谷店</a></h3>
@@ -158,6 +159,7 @@
                 <a href="/spot.html?id=cpla-shibuya109" class="gh-btn gh-btn--sm">店舗の詳しい情報</a>
                 <a href="https://toshin.jpn.com/shop/shibuya109%E6%B8%8B%E8%B0%B7%E5%BA%97/" class="gh-btn gh-btn--sm gh-official-source" target="_blank" rel="noopener noreferrer">公式情報を確認 ↗</a>
               </div>
+              <p><a href="#store-comparison">店舗の比較一覧に戻る ↑</a></p>
             </section>
             <section class="gh-article-store" id="store-cpla-shibuya-center-gai">
               <h3 class="gh-article-store__name">3. <a href="/spot.html?id=cpla-shibuya-center-gai">#C-pla 渋谷センター街店</a></h3>
@@ -167,6 +169,7 @@
                 <a href="/spot.html?id=cpla-shibuya-center-gai" class="gh-btn gh-btn--sm">店舗の詳しい情報</a>
                 <a href="https://toshin.jpn.com/shop/%E6%B8%8B%E8%B0%B7%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC%E8%A1%97%E5%BA%97/" class="gh-btn gh-btn--sm gh-official-source" target="_blank" rel="noopener noreferrer">公式情報を確認 ↗</a>
               </div>
+              <p><a href="#store-comparison">店舗の比較一覧に戻る ↑</a></p>
             </section>
             <section class="gh-article-store" id="store-cpla-tokyu-plaza-shibuya">
               <h3 class="gh-article-store__name">4. <a href="/spot.html?id=cpla-tokyu-plaza-shibuya">#C-pla 東急プラザ渋谷店</a></h3>
@@ -176,6 +179,7 @@
                 <a href="/spot.html?id=cpla-tokyu-plaza-shibuya" class="gh-btn gh-btn--sm">店舗の詳しい情報</a>
                 <a href="https://toshin.jpn.com/shop/%E6%9D%B1%E6%80%A5%E3%83%97%E3%83%A9%E3%82%B6%E6%B8%8B%E8%B0%B7%E5%BA%97/" class="gh-btn gh-btn--sm gh-official-source" target="_blank" rel="noopener noreferrer">公式情報を確認 ↗</a>
               </div>
+              <p><a href="#store-comparison">店舗の比較一覧に戻る ↑</a></p>
             </section>
             <div>
               <h2 class="gh-article__h2" id="article-faq">❓ よくある質問</h2>
