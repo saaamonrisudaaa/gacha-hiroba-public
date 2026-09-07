@@ -21,18 +21,32 @@
     <description>メーカー公式情報で確認した2026年9月発売の新作ガチャ9商品を、発売時期・価格・メーカー別に整理しました。</description>
   </item>
   <item>
+    <title>ガチャ店舗データ監査レポート｜確認状況・欠損率・情報充足率を公開</title>
+    <link>https://gacha-hiroba.com/guide/store-data-report.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/store-data-report.html</guid>
+    <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
+    <description>ガチャひろばが保有する店舗データについて、「何件あるか」だけでなく、掲載根拠URLと確認日がどこまでそろっているか、営業時間・公表設置規模・アクセスなど各項目をどの程度確認できているかを集計しました。ページ内の数値は data/spots.js から生成時に再計算しています。</description>
+  </item>
+  <item>
+    <title>カプセルパークの店舗一覧・探し方｜東京・郡山・盛岡の4店を比較</title>
+    <link>https://gacha-hiroba.com/guide/capsule-park-store-guide.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/capsule-park-store-guide.html</guid>
+    <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
+    <description>カプセルパークを探すときは、最初に運営元の公式店舗一覧で地域を選び、店舗名に含まれる商業施設と売り場の階を確認します。このページでは、東京のキテラタウン調布・西友ひばりが丘、福島のアティ郡山、岩手の川徳の4店を比較できます。</description>
+  </item>
+  <item>
+    <title>東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計</title>
+    <link>https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html</guid>
+    <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
+    <description>ガチャひろばで公開している東京都の店舗データを、23区内・23区外、区別、運営ブランド別に独自集計しました。数値は、掲載根拠URLと確認日の両方がある記録だけを対象に、data/spots.js からページ生成時に再計算します。</description>
+  </item>
+  <item>
     <title>欲しいガチャガチャはどこにある？設置場所・入荷の探し方と来店メモ</title>
     <link>https://gacha-hiroba.com/guide/guide-find-new.html</link>
     <guid isPermaLink="true">https://gacha-hiroba.com/guide/guide-find-new.html</guid>
     <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
     <description>「SNSで見たあのガチャ、どこで回せるの？」——カプセルトイは発売時期、取扱店、現在庫が別々に更新されるため、1つの投稿だけで来店先を決めると空振りになりがちです。このページでは、商品を特定してから探すのを終えるまでを5段階に分けます。</description>
-  </item>
-  <item>
-    <title>ガチャ店舗データ監査レポート｜確認状況・欠損率・情報充足率を公開</title>
-    <link>https://gacha-hiroba.com/guide/store-data-report.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/guide/store-data-report.html</guid>
-    <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
-    <description>ガチャひろばが保有する店舗データについて、「何件あるか」だけでなく、掲載根拠URLと確認日がどこまでそろっているか、営業時間・公表設置規模・アクセスなど各項目をどの程度確認できているかを集計しました。ページ内の数値は data/spots.js から生成時に再計算しています。</description>
   </item>
   <item>
     <title>カプセル楽局の東京店舗一覧｜住所・営業時間・エリア別検索【2026年】</title>
@@ -68,13 +82,6 @@
     <guid isPermaLink="true">https://gacha-hiroba.com/guide/ikebukuro.html</guid>
     <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
     <description>池袋でガチャガチャを探すなら、まず「東口の駅周辺」「サンシャインシティ」「西口」のどこに行くかを決めましょう。大きな売り場で時間を使いたい日はサンシャインシティ、買い物の合間なら今いる出口側の店舗が候補になります。</description>
-  </item>
-  <item>
-    <title>東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計</title>
-    <link>https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html</guid>
-    <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
-    <description>ガチャひろばで公開している東京都の店舗データを、23区内・23区外、区別、運営ブランド別に独自集計しました。数値は、掲載根拠URLと確認日の両方がある記録だけを対象に、data/spots.js からページ生成時に再計算します。</description>
   </item>
   <item>
     <title>錦糸町のガチャガチャ設置場所｜PARCO・マルイ・オリナスを南北比較【2026年】</title>

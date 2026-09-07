@@ -124,7 +124,14 @@
     '熊本県':'kumamoto','大分県':'oita','宮崎県':'miyazaki','鹿児島県':'kagoshima','沖縄県':'okinawa'
   };
   function prefUrl(pref) { return '/stores.html#pref=' + encodeURIComponent(pref || ''); }
-  function brandUrl(brand) { return '/stores.html#brand=' + encodeURIComponent(brand || ''); }
+  function brandUrl(brand) {
+    var guides = {
+      'カプセル楽局': '/guide/capsule-rakkyoku-tokyo.html',
+      '#C-pla（シープラ）': '/guide/cpla-store-guide.html',
+      'カプセルパーク': '/guide/capsule-park-store-guide.html'
+    };
+    return Object.prototype.hasOwnProperty.call(guides, brand) ? guides[brand] : '/stores.html#brand=' + encodeURIComponent(brand || '');
+  }
   function guideUrl(slug) { return '/guide/' + encodeURIComponent(slug) + '.html'; }
   function spotUrl(id) { return '/spot.html?id=' + encodeURIComponent(id || ''); }
   function markNoindex() {

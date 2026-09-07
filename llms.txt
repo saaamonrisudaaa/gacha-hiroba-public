@@ -12,6 +12,7 @@
 - [公表設置規模の比較](https://gacha-hiroba.com/ranking.html): 公表値は情報元ごとに単位・定義が異なるため、合算や現在庫の推定には使いません
 
 ## ガイド
+- [カプセルパークの店舗案内](https://gacha-hiroba.com/guide/capsule-park-store-guide.html): カプセルパークの調布・ひばりヶ丘・アティ郡山・川徳の4店を公式情報で確認。住所、売り場の階、営業時間の確認先、公表面数と、全国の公式店舗一覧への入口をまとめました。
 - [池袋ガチャガチャガイド](https://gacha-hiroba.com/guide/ikebukuro.html): 池袋のガチャガチャ4店を公式情報で確認。東口のgashacoco2店、西口のカプセル楽局、サンシャインシティのガシャポンのデパートを、営業時間・建物・地図で比較します。
 - [秋葉原ガチャガチャガイド](https://gacha-hiroba.com/guide/akihabara.html): 秋葉原のガチャガチャを探す人向けに、JR改札内のケンエレスタンド、ガシャポンのデパート、ガチャポン会館を比較。営業時間、改札内外、地図、末広町への回り方がわかります。
 - [渋谷ガチャガチャガイド](https://gacha-hiroba.com/guide/shibuya.html): 渋谷のガチャガチャ4店を建物と階で比較。SHIBUYA109とMAGNETの違い、センター街の階別営業時間、フクラスへの回り方を公式情報と地図付きで案内します。

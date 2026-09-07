@@ -1508,6 +1508,20 @@ window.GH_SPOTS = [
     "verifiedAt": "2026-08-21"
   },
   {
+    "id": "capsulepark-ati-koriyama",
+    "brand": "カプセルパーク",
+    "name": "カプセルパーク アティ郡山店",
+    "region": "tohoku",
+    "pref": "福島県",
+    "area": "福島県・郡山駅",
+    "address": "福島県郡山市駅前1丁目16-7 アティ郡山 4F",
+    "hours": "10:00〜20:00（館の休業日に準ずる）",
+    "machines": 730,
+    "sourceUrl": "https://www.ati-koriyama.net/floor-guide/capsul-park/",
+    "verifiedAt": "2026-09-07",
+    "access": "JR郡山駅 西口から徒歩約1分（運営元の目安）。4階の2カ所に売り場"
+  },
+  {
     "id": "gashapon-bandai-bookoff-gifu-orchidpark",
     "brand": "ガシャポンバンダイオフィシャルショップ",
     "name": "ガシャポンバンダイオフィシャルショップBOOKOFF岐阜オーキッドパーク店",
@@ -1606,10 +1620,39 @@ window.GH_SPOTS = [
     "pref": "岩手県",
     "area": "岩手県・盛岡",
     "address": "岩手県盛岡市菜園1丁目10番1号 パルクアベニュー・カワトク 6F",
-    "sourceUrl": "https://gashapon.jp/shop/shop.php?shop_code=S90001409",
-    "verifiedAt": "2026-07-13",
+    "sourceUrl": "https://www.bja.co.jp/capsule-park/capsule-park川徳店/",
+    "verifiedAt": "2026-09-07",
+    "machines": 615,
+    "access": "JR盛岡駅から徒歩約10分、バス「菜園川徳前」から約1分（運営元の目安）",
     "lat": 39.70088891960067,
     "lon": 141.14691601353593
+  },
+  {
+    "id": "capsulepark-kitera-chofu",
+    "brand": "カプセルパーク",
+    "name": "カプセルパーク キテラタウン調布店",
+    "region": "kanto",
+    "pref": "東京都",
+    "area": "東京都・柴崎",
+    "address": "東京都調布市菊野台1丁目33-3 キテラタウン調布 1F",
+    "hours": "10:00〜21:00",
+    "machines": 740,
+    "sourceUrl": "https://www.bja.co.jp/capsule-park/capsule-parkキテラタウン調布店/",
+    "verifiedAt": "2026-09-07",
+    "access": "京王線 柴崎駅から徒歩約4分、つつじヶ丘駅から約8分（運営元の目安）"
+  },
+  {
+    "id": "capsulepark-seiyu-hibarigaoka",
+    "brand": "カプセルパーク",
+    "name": "カプセルパーク 西友ひばりが丘店",
+    "region": "kanto",
+    "pref": "東京都",
+    "area": "東京都・ひばりヶ丘",
+    "address": "東京都西東京市住吉町3丁目9-8 西友ひばりヶ丘 5F",
+    "machines": 810,
+    "sourceUrl": "https://www.bja.co.jp/capsule-park/capsule-park西友ひばりが丘店/",
+    "verifiedAt": "2026-09-07",
+    "access": "西武池袋線 ひばりヶ丘駅から徒歩約2分（運営元の目安）"
   },
   {
     "id": "gashapon-bandai-tsutaya-miyazaki-takachiho-dori",
