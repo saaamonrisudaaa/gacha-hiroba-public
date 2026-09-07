@@ -1335,6 +1335,36 @@ window.GH_SPOTS = [
     "access": "東京駅 八重洲口 東京駅一番街 B1F（東京キャラクターストリート内）・バンダイオフィシャルショップ併設"
   },
   {
+    "id": "gashadepa-edion-yokohama",
+    "brand": "ガシャポンのデパート",
+    "name": "ガシャポンのデパート エディオン横浜西口本店",
+    "region": "kanto",
+    "pref": "神奈川県",
+    "area": "神奈川県・横浜駅",
+    "address": "神奈川県横浜市西区南幸2-16 エディオン横浜西口本店 7F（ネバーランドフロア内）",
+    "hours": "10:00〜21:00",
+    "machines": 560,
+    "access": "横浜駅西口から徒歩5分（公式案内）。横浜ビブレ西隣・7Fネバーランドフロア内",
+    "sourceUrl": "https://bandainamco-am.co.jp/others/capsule-toy-store/store/E_yokohama/",
+    "tel": "045-410-2501",
+    "verifiedAt": "2026-09-07"
+  },
+  {
+    "id": "gashadepa-yokohama-vivre",
+    "brand": "ガシャポンのデパート",
+    "name": "ガシャポンのデパート 横浜ビブレ店",
+    "region": "kanto",
+    "pref": "神奈川県",
+    "area": "神奈川県・横浜駅",
+    "address": "神奈川県横浜市西区南幸2-15-13 横浜ビブレ 7F",
+    "hours": "11:00〜21:00（施設休館日に準じる）",
+    "machines": 580,
+    "access": "横浜駅西口から徒歩5分（公式案内）。横浜ビブレ7F",
+    "sourceUrl": "https://bandainamco-am.co.jp/others/capsule-toy-store/store/yokohama-vivre/",
+    "tel": "0570-087677",
+    "verifiedAt": "2026-09-07"
+  },
+  {
     "id": "gachaste-bigbox-takadanobaba",
     "brand": "ガチャステ（タイトー）",
     "name": "ガチャステ BIGBOX高田馬場店",
@@ -1506,6 +1536,20 @@ window.GH_SPOTS = [
     "tel": "03-6268-0108",
     "sourceUrl": "https://kenelephant.co.jp/kenelestand/",
     "verifiedAt": "2026-08-21"
+  },
+  {
+    "id": "yodobashi-yokohama-gacha",
+    "brand": "ヨドバシカメラ",
+    "name": "ヨドバシカメラ マルチメディア横浜 6F（カプセルトイコーナー）",
+    "region": "kanto",
+    "pref": "神奈川県",
+    "area": "神奈川県・横浜駅",
+    "address": "神奈川県横浜市西区北幸1-2-7 ヨドバシカメラ マルチメディア横浜 6Fゲームホビー",
+    "hours": "9:30〜22:00（ヨドバシカメラの営業時間）",
+    "access": "北幸のマルチメディア横浜6F。メーカー取扱店一覧で所在地を確認。別建物の横浜駅前ガチャガチャ館とは区別",
+    "sourceUrl": "https://gashapon.jp/anpanman/shop/",
+    "tel": "045-313-1010",
+    "verifiedAt": "2026-09-07"
   },
   {
     "id": "capsulepark-ati-koriyama",
@@ -2247,13 +2291,10 @@ window.GH_SPOTS = [
     "area": "神奈川県・横浜駅",
     "address": "神奈川県横浜市西区高島2-19-12 横浜スカイビル 7F",
     "tel": "070-3107-6970",
-    "hours": "10:30〜20:30（1月1日を除き無休）",
-    "machines": 300,
+    "hours": "10:30〜20:30（1月1日を除く）",
     "sourceUrl": "https://www.yokohama-sky.co.jp/shop/gachagacha",
-    "verifiedAt": "2026-08-22",
-    "lat": 35.4665,
-    "lon": 139.6248,
-    "access": "横浜駅東口すぐの横浜スカイビル7階。約300面。2022年4月オープン（旧マルイシティ横浜の建物）"
+    "verifiedAt": "2026-09-07",
+    "access": "横浜駅東口側・横浜スカイビル7F。施設公式でフロアと営業時間を確認"
   },
   {
     "id": "asobuild-yokohama-gacha",
@@ -2280,12 +2321,10 @@ window.GH_SPOTS = [
     "area": "神奈川県・横浜駅",
     "address": "神奈川県横浜市西区南幸1-10-1 相鉄南幸16ビル 1〜3F",
     "tel": "080-7945-1386",
-    "hours": "10:00〜23:00",
+    "hours": "10:00〜23:00（3F Oshi-plaは10:00〜21:00）",
     "sourceUrl": "https://toshin.jpn.com/shop/%E6%A8%AA%E6%B5%9C%E8%A5%BF%E5%8F%A3%E5%BA%97/",
-    "verifiedAt": "2026-08-04",
-    "lat": 35.465,
-    "lon": 139.6194,
-    "access": "横浜駅西口から徒歩約3分。3フロアで2,661種類。高額紙幣対応の両替機あり。23時まで営業しているので飲み会帰りにも寄れる"
+    "verifiedAt": "2026-09-07",
+    "access": "相鉄南幸16ビル。#C-plaと3階Oshi-plaは営業時間が異なるため、利用サービスを確認"
   },
   {
     "id": "gashapon-bos-surugaya-yokohama",
