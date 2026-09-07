@@ -547,6 +547,41 @@ window.GHAnalyticsControl = GHAnalyticsControl;
   else document.addEventListener('DOMContentLoaded', initConsent, { once: true });
 })();
 
+/* GH_OWNER_SETTINGS_START
+   計測しないプライバシーページから、既存の運営者除外を明示的に設定する。 */
+(function () {
+  var panel = document.querySelector('[data-gh-owner-settings]');
+  if (!panel) return;
+  var status = panel.querySelector('[data-gh-owner-status]');
+  var exclude = panel.querySelector('[data-gh-owner-exclude]');
+  var include = panel.querySelector('[data-gh-owner-include]');
+  if (!status || !exclude || !include) return;
+  function render() {
+    var excluded = GHAnalyticsControl.isOwnerExcluded();
+    status.textContent = excluded
+      ? 'このブラウザのアクセスは計測から除外されています。'
+      : 'このブラウザはまだ計測から除外されていません。';
+    exclude.hidden = excluded;
+    include.hidden = !excluded;
+    exclude.disabled = false;
+    include.disabled = false;
+  }
+  function save(excluded) {
+    if (!GHAnalyticsControl.setOwnerExcluded(excluded)) {
+      status.textContent = '設定を保存できませんでした。ブラウザのサイトデータ保存設定を確認して、もう一度お試しください。';
+      return;
+    }
+    render();
+  }
+  exclude.addEventListener('click', function () { save(true); });
+  include.addEventListener('click', function () { save(false); });
+  window.addEventListener('storage', function (event) {
+    if (event.key === GHAnalyticsControl.storageKey || event.key === null) render();
+  });
+  render();
+})();
+/* GH_OWNER_SETTINGS_END */
+
 /* ── GA4 event helper ──
    流入後に「検索→店舗詳細→経路」まで進めたかを判定するための最小イベント。 */
 function ghTrack(name, params) {
