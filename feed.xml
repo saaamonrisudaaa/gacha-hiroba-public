@@ -5,7 +5,28 @@
   <link>https://gacha-hiroba.com/</link>
   <description>メーカー公式情報で確認した新作ガチャと、ガチャひろば運営者が作成した実用ガイドの更新情報を配信します。</description>
   <language>ja</language>
-  <lastBuildDate>Sun, 06 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 07 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <item>
+    <title>2026年8月の新作ガチャ20商品｜発売時期・価格・メーカー</title>
+    <link>https://gacha-hiroba.com/releases/2026-08.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/releases/2026-08.html</guid>
+    <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
+    <description>メーカー公式情報で確認した2026年8月発売の新作ガチャ20商品を、発売時期・価格・メーカー別に整理しました。</description>
+  </item>
+  <item>
+    <title>2026年9月の新作ガチャ9商品｜発売時期・価格・メーカー</title>
+    <link>https://gacha-hiroba.com/releases/2026-09.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/releases/2026-09.html</guid>
+    <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
+    <description>メーカー公式情報で確認した2026年9月発売の新作ガチャ9商品を、発売時期・価格・メーカー別に整理しました。</description>
+  </item>
+  <item>
+    <title>欲しいガチャガチャはどこにある？設置場所・入荷の探し方と来店メモ</title>
+    <link>https://gacha-hiroba.com/guide/guide-find-new.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/guide-find-new.html</guid>
+    <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
+    <description>「SNSで見たあのガチャ、どこで回せるの？」——カプセルトイは発売時期、取扱店、現在庫が別々に更新されるため、1つの投稿だけで来店先を決めると空振りになりがちです。このページでは、商品を特定してから探すのを終えるまでを5段階に分けます。</description>
+  </item>
   <item>
     <title>ガチャ店舗データ監査レポート｜確認状況・欠損率・情報充足率を公開</title>
     <link>https://gacha-hiroba.com/guide/store-data-report.html</link>
@@ -56,20 +77,6 @@
     <description>ガチャひろばで公開している東京都の店舗データを、23区内・23区外、区別、運営ブランド別に独自集計しました。数値は、掲載根拠URLと確認日の両方がある記録だけを対象に、data/spots.js からページ生成時に再計算します。</description>
   </item>
   <item>
-    <title>2026年8月の新作ガチャ20商品｜発売時期・価格・メーカー</title>
-    <link>https://gacha-hiroba.com/releases/2026-08.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/releases/2026-08.html</guid>
-    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
-    <description>メーカー公式情報で確認した2026年8月発売の新作ガチャ20商品を、発売時期・価格・メーカー別に整理しました。</description>
-  </item>
-  <item>
-    <title>2026年9月の新作ガチャ9商品｜発売時期・価格・メーカー</title>
-    <link>https://gacha-hiroba.com/releases/2026-09.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/releases/2026-09.html</guid>
-    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
-    <description>メーカー公式情報で確認した2026年9月発売の新作ガチャ9商品を、発売時期・価格・メーカー別に整理しました。</description>
-  </item>
-  <item>
     <title>錦糸町のガチャガチャ設置場所｜PARCO・マルイ・オリナスを南北比較【2026年】</title>
     <link>https://gacha-hiroba.com/guide/kinshicho.html</link>
     <guid isPermaLink="true">https://gacha-hiroba.com/guide/kinshicho.html</guid>
@@ -117,13 +124,6 @@
     <guid isPermaLink="true">https://gacha-hiroba.com/guide/tokyo-large-gacha-guide.html</guid>
     <pubDate>Sat, 22 Aug 2026 00:00:00 GMT</pubDate>
     <description>東京都内でガチャガチャを探すとき、店舗数だけを並べても実際の行き先は決めにくいものです。このガイドでは、ガチャひろばの掲載店のうち、店舗・ブランド・商業施設などの確認元URLと確認日があり、設置規模の公表値を確認できた店舗を対象に、数値による参考順で20店を紹介します。表と店舗詳細は元データから生成し、店舗情報が更新されたときは固定URLのまま再計算します。</description>
-  </item>
-  <item>
-    <title>ガチャガチャの新作・設置場所の探し方｜確認順が分かる5つの手順</title>
-    <link>https://gacha-hiroba.com/guide/guide-find-new.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/guide/guide-find-new.html</guid>
-    <pubDate>Fri, 14 Aug 2026 00:00:00 GMT</pubDate>
-    <description>「SNSで見たあのガチャ、どこで回せるの？」——カプセルトイは発売時期、取扱店、現在庫が別々に更新されるため、1つの投稿だけで来店先を決めると空振りになりがちです。このページでは、商品を特定してから探すのを終えるまでを5段階に分けます。</description>
   </item>
   <item>
     <title>ガチャ予算プランナー｜回せる回数・残額をその場で計算</title>

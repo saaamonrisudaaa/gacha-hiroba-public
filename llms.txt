@@ -27,7 +27,7 @@
 - [東京23区データレポート](https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html): 東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計
 - [東京の大型店ガイド](https://gacha-hiroba.com/guide/tokyo-large-gacha-guide.html): 東京の大型ガチャガチャスポット20選｜公表設置規模・エリア別の回り方【2026年版】
 - [予算プランナー](https://gacha-hiroba.com/guide/gacha-budget-planner.html): ガチャ予算プランナー｜回せる回数・残額をその場で計算
-- [新作の探し方](https://gacha-hiroba.com/guide/guide-find-new.html): ガチャガチャの新作・設置場所の探し方｜確認順が分かる5つの手順
+- [新作の探し方](https://gacha-hiroba.com/guide/guide-find-new.html): 欲しいガチャガチャはどこにある？設置場所・入荷の探し方と来店メモ
 
 ## 月別新作
 - [2026-08の新作](https://gacha-hiroba.com/releases/2026-08.html): メーカー公式情報の発売時期・価格・種類数
