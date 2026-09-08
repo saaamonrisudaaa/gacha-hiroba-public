@@ -609,9 +609,12 @@
         var count = resolveArticleStores(a).length;
         var badge = a.ranking ? 'ランキング' : a.type === 'guide' ? 'ガイド' : 'まとめ';
         return '<a href="' + articleUrl(a) + '" class="gh-news-item">' +
+                 (a.image ? '<img class="gh-news-item__image" src="' + esc(a.image.small) + '" width="480" height="270" alt="" loading="lazy" decoding="async" />' : '') +
+                 '<span class="gh-news-item__body"><span class="gh-news-item__meta">' +
                  '<time class="gh-news-item__date">' + esc(a.updated) + '</time>' +
-                 '<span class="gh-badge gh-badge--new">' + badge + '</span>' +
-                 '<span>' + esc(a.emoji + ' ' + a.title) + (count ? '（' + count + '店舗掲載）' : '') + '</span>' +
+                 '<span class="gh-badge gh-badge--new">' + badge + '</span></span>' +
+                 '<span class="gh-news-item__title">' + esc(a.title) + '</span>' +
+                 '<span class="gh-news-item__more">記事を読む →' + (count ? '（' + count + '店舗掲載）' : '') + '</span></span>' +
                '</a>';
       }).join('');
     });

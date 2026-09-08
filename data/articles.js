@@ -18,7 +18,7 @@ window.GH_ARTICLES = [
     "title": "横浜駅のガチャガチャ設置場所5選｜ビブレ・ヨドバシ・西口と東口を比較",
     "description": "横浜駅のガチャガチャ5店を公式情報で確認。ビブレ7階、エディオン7階、ヨドバシ6階、シープラ、東口スカイビルを営業時間・建物・地図で比較し、短時間で寄る店を選べます。",
     "published": "2026-09-07",
-    "updated": "2026-09-07",
+    "updated": "2026-09-08",
     "intro": [
       "横浜駅でガチャガチャを探すときは、まず西口か東口を選び、建物と売り場の階をセットで確認しましょう。西口の横浜ビブレとエディオンはどちらも7階ですが別の建物です。ヨドバシの確認できたコーナーは北幸のマルチメディア横浜6階、東口のガチャガチャコレクションはスカイビル7階にあります。",
       "このページでは2026年9月7日にメーカー・運営元・施設の公式情報を確認した5店を比較します。横浜市内の全店舗一覧ではなく、横浜駅での買い物や待ち合わせと組み合わせる候補です。表の店名から同じページの住所・地図・確認元へ進めます。"
@@ -122,7 +122,16 @@ window.GH_ARTICLES = [
         "url": "https://toshin.jpn.com/shop/oshi-pla%E6%A8%AA%E6%B5%9C%E8%A5%BF%E5%8F%A3%E5%BA%97/",
         "note": "同住所3階・10時〜21時。#C-plaの時間と分けて確認"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/city-walk.webp",
+      "small": "/assets/editorial/city-walk-small.webp",
+      "social": "/assets/editorial/city-walk-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "駅周辺でガチャのお店を巡る人たちのイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "capsule-park-store-guide",
@@ -141,7 +150,7 @@ window.GH_ARTICLES = [
     "title": "カプセルパークの店舗一覧・探し方｜東京・郡山・盛岡の4店を比較",
     "description": "カプセルパークの調布・ひばりヶ丘・アティ郡山・川徳の4店を公式情報で確認。住所、売り場の階、営業時間の確認先、公表面数と、全国の公式店舗一覧への入口をまとめました。",
     "published": "2026-09-07",
-    "updated": "2026-09-07",
+    "updated": "2026-09-08",
     "intro": [
       "カプセルパークを探すときは、最初に運営元の公式店舗一覧で地域を選び、店舗名に含まれる商業施設と売り場の階を確認します。このページでは、東京のキテラタウン調布・西友ひばりが丘、福島のアティ郡山、岩手の川徳の4店を比較できます。",
       "掲載は2026年9月7日に運営元・商業施設の案内を確認した範囲です。全国の全店舗数を表す一覧ではありません。ほかの地域は下の「全国の公式店舗一覧」へ進んでください。各店の地図と参照先も、このページ内の店舗情報から開けます。"
@@ -223,7 +232,16 @@ window.GH_ARTICLES = [
         "url": "https://gashapon.jp/shop/shop.php?shop_code=S90000946",
         "note": "バンダイ商品の確認先。更新日時と在庫に関する注意書きを確認"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/capsule-shop.webp",
+      "small": "/assets/editorial/capsule-shop-small.webp",
+      "social": "/assets/editorial/capsule-shop-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "カプセルトイ売り場で商品を選ぶ人のイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "ikebukuro",
@@ -241,7 +259,7 @@ window.GH_ARTICLES = [
     "title": "池袋のガチャガチャ設置場所｜東口・西口・サンシャインの回り方",
     "description": "池袋のガチャガチャ4店を公式情報で確認。東口のgashacoco2店、西口のカプセル楽局、サンシャインシティのガシャポンのデパートを、営業時間・建物・地図で比較します。",
     "published": "2026-09-06",
-    "updated": "2026-09-06",
+    "updated": "2026-09-08",
     "intro": [
       "池袋でガチャガチャを探すなら、まず「東口の駅周辺」「サンシャインシティ」「西口」のどこに行くかを決めましょう。大きな売り場で時間を使いたい日はサンシャインシティ、買い物の合間なら今いる出口側の店舗が候補になります。",
       "このガイドは2026年9月6日に店舗公式ページを確認した4店を選び、移動の組み立て方を整理したものです。池袋の全店舗一覧ではありません。比較表から営業時間を確認し、回り方の店名を押すと同じページ内の住所・地図へ進めます。"
@@ -321,7 +339,16 @@ window.GH_ARTICLES = [
         "q": "西口だけでも探せますか？",
         "a": "このガイドではカプセル楽局 池袋西口店を掲載しています。東口の店舗と分け、予定のある出口側で選べます。"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/city-walk.webp",
+      "small": "/assets/editorial/city-walk-small.webp",
+      "social": "/assets/editorial/city-walk-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "駅周辺でガチャのお店を巡る人たちのイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "akihabara",
@@ -338,7 +365,7 @@ window.GH_ARTICLES = [
     "title": "秋葉原のガチャガチャ設置場所｜駅改札内・電気街・末広町の3店比較",
     "description": "秋葉原のガチャガチャを探す人向けに、JR改札内のケンエレスタンド、ガシャポンのデパート、ガチャポン会館を比較。営業時間、改札内外、地図、末広町への回り方がわかります。",
     "published": "2026-09-06",
-    "updated": "2026-09-06",
+    "updated": "2026-09-08",
     "intro": [
       "秋葉原のガチャガチャ探しは、JRの改札を出る前と出た後で候補が変わります。乗換の途中なら駅3階のケンエレスタンド、電気街へ出るならガシャポンのデパート、末広町方面まで歩くならガチャポン会館を候補にできます。",
       "2026年9月6日に公式情報を確認した3店を、駅との位置関係と営業時間で整理しました。街の全設置場所を数えた一覧や訪問記ではありません。寄り道か街歩きかを決めてから、比較表と回り方を使って行き先を選んでください。"
@@ -424,7 +451,16 @@ window.GH_ARTICLES = [
         "url": "https://www.akibagacha.com/",
         "note": "営業時間・アクセス・最新情報への入口"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/city-walk.webp",
+      "small": "/assets/editorial/city-walk-small.webp",
+      "social": "/assets/editorial/city-walk-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "駅周辺でガチャのお店を巡る人たちのイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "shibuya",
@@ -442,7 +478,7 @@ window.GH_ARTICLES = [
     "title": "渋谷のガチャガチャ設置場所｜109・MAGNET・センター街・フクラスを比較",
     "description": "渋谷のガチャガチャ4店を建物と階で比較。SHIBUYA109とMAGNETの違い、センター街の階別営業時間、フクラスへの回り方を公式情報と地図付きで案内します。",
     "published": "2026-09-06",
-    "updated": "2026-09-06",
+    "updated": "2026-09-08",
     "intro": [
       "渋谷でガチャガチャを探すときは、「109」という名前だけで行き先を決めないのがコツです。道玄坂のSHIBUYA109と神南のMAGNET by SHIBUYA109は別の建物で、ガチャ売り場の階も異なります。センター街や渋谷フクラスも含め、建物名から候補を選びましょう。",
       "このガイドでは2026年9月6日に運営元の店舗ページを確認した4店を比較します。渋谷の全店舗や全商品の在庫を網羅したものではありません。建物の取り違えを防ぎ、買い物・待ち合わせの合間に行き先を決めるための案内です。"
@@ -522,7 +558,16 @@ window.GH_ARTICLES = [
         "q": "東急プラザ渋谷店は朝10時からですか？",
         "a": "今回の公式確認ではガチャ売り場は11時から22時です。同じページのくじステーションは21時までの案内です。"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/city-walk.webp",
+      "small": "/assets/editorial/city-walk-small.webp",
+      "social": "/assets/editorial/city-walk-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "駅周辺でガチャのお店を巡る人たちのイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "omori",
@@ -542,7 +587,7 @@ window.GH_ARTICLES = [
     "title": "大森駅周辺のガチャガチャ設置場所｜改札外・西友・イトーヨーカドーを確認【2026年】",
     "description": "大森駅周辺で現在の確認元があるガチャガチャ設置場所を、住所、営業時間、公表設置規模、確認日とともに比較。過去掲載店の扱いと来店前の確認方法も説明します。",
     "published": "2026-09-03",
-    "updated": "2026-09-03",
+    "updated": "2026-09-08",
     "intro": [
       "大森駅周辺のガチャガチャ設置場所について、店舗・メーカーの確認元URLと確認日がそろう3店を掲載します。対象はJR大森駅改札外のNewDays付近、西友大森店3階のガシャポンバンダイオフィシャルショップ、イトーヨーカドー大森店のガチャコーナーです。駅名が同じでも、大田区側と品川区側の住所が含まれます。",
       "以前当サイトにあった「ガチャガチャの森 アトレ大森店」の記録は、2026年9月3日の再確認で現行の公式店舗一覧に掲載根拠を見つけられなかったため、この確認済み一覧には含めていません。これは閉店を断定する表現ではなく、現在の公開条件を満たさない記録を推測で残さないための措置です。"
@@ -639,7 +684,16 @@ window.GH_ARTICLES = [
         "url": "https://www.gachagachanomori.com/shoplist/",
         "note": "現行掲載状況の再確認に使用"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/city-walk.webp",
+      "small": "/assets/editorial/city-walk-small.webp",
+      "social": "/assets/editorial/city-walk-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "駅周辺でガチャのお店を巡る人たちのイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "ueno",
@@ -659,7 +713,7 @@ window.GH_ARTICLES = [
     "title": "上野・アメ横のガチャガチャ設置場所｜駅改札内・駅前の回り方【2026年】",
     "description": "上野駅・アメ横周辺のガチャガチャ設置場所を、JR改札内、駅前、アメ横に分けて比較。住所、営業時間、公表設置規模、確認日、公式情報と歩き方を案内します。",
     "published": "2026-07-02",
-    "updated": "2026-09-03",
+    "updated": "2026-09-08",
     "intro": [
       "上野でガチャガチャを探す場合は、JR上野駅の改札内、駅前の商業施設、アメ横方面を同じ場所と考えないことが大切です。このページでは、店舗・施設・メーカーなどの掲載根拠URLと確認日がある上野エリアの7店を比較し、乗換中に寄る場合と街歩きで回る場合を分けて案内します。",
       "掲載分には、JR上野駅改札内3階のケンエレスタンド エキュート上野店（上野ランド）、上野マルイのドリームカプセル、駅前のヤマシロヤ、アメ横のカプセル楽局、東京メトロ施設内のケンエレスタンド、ヨドバシカメラ、JR入谷改札口付近のメーカー掲載コーナーがあります。どの改札を使うかで実際の移動時間が変わります。"
@@ -755,7 +809,16 @@ window.GH_ARTICLES = [
         "url": "https://e-yamashiroya.com/floor/",
         "note": "店舗・売り場案内の確認元"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/city-walk.webp",
+      "small": "/assets/editorial/city-walk-small.webp",
+      "social": "/assets/editorial/city-walk-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "駅周辺でガチャのお店を巡る人たちのイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "kinshicho",
@@ -775,7 +838,7 @@ window.GH_ARTICLES = [
     "title": "錦糸町のガチャガチャ設置場所｜PARCO・マルイ・オリナスを南北比較【2026年】",
     "description": "錦糸町駅周辺のガチャガチャ設置場所を南口・北口に分け、PARCO、マルイ、オリナス、駅前店などの住所、営業時間、公表設置規模、確認元を案内します。",
     "published": "2026-07-02",
-    "updated": "2026-09-03",
+    "updated": "2026-09-08",
     "intro": [
       "錦糸町のガチャガチャ設置場所は、駅南口側のPARCO・マルイ・駅前・ヨドバシ周辺と、北口から向かうオリナス側に分けると回りやすくなります。このページは、店舗・施設・メーカーなどの根拠URLと確認日がある6店を、住所、営業時間、公表設置規模、売り場タイプで比較します。",
       "掲載分には#C-pla 錦糸町PARCO店、gashacoco 錦糸町マルイ、gashacoco 錦糸町駅前、ヨドバシカメラ、東京メトロ錦糸町駅のコーナー、ガチャガチャの森 オリナス錦糸町店があります。駅を挟んで南北を往復するより、使う路線と次の予定に合わせて片側から選ぶ方が実用的です。"
@@ -871,7 +934,16 @@ window.GH_ARTICLES = [
         "url": "https://www.gachagachanomori.com/shoplist/",
         "note": "オリナス錦糸町店の確認元"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/city-walk.webp",
+      "small": "/assets/editorial/city-walk-small.webp",
+      "social": "/assets/editorial/city-walk-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "駅周辺でガチャのお店を巡る人たちのイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "tachikawa",
@@ -891,7 +963,7 @@ window.GH_ARTICLES = [
     "title": "立川のガチャガチャ設置場所｜駅前・立飛の大型店を比較【2026年】",
     "description": "立川駅前と立飛のガチャガチャ大型店4店を、住所、営業時間、公表設置規模、駅からの動線、公式確認元で比較。短時間と半日の回り方を案内します。",
     "published": "2026-07-03",
-    "updated": "2026-09-03",
+    "updated": "2026-09-08",
     "intro": [
       "立川のガチャガチャ掲載店は、JR立川駅前の3店と、多摩モノレール立飛駅前の1店に分かれます。このページでは、店舗・ブランドの公式ページで住所、営業時間、公表設置規模を確認できた4店だけを比較し、徒歩だけで回る場合とモノレールを使う場合の違いを整理します。",
       "駅前には立川髙島屋S.C.のガシャポンのデパート、ビックカメラのガチャガチャの森、グランデュオ立川の#C-plaがあります。立飛にはららぽーと立川立飛のガシャポンのデパートがあります。4店とも設置規模の数値がありますが、参照元の単位が異なるため直接の順位づけや合算は行いません。"
@@ -987,7 +1059,16 @@ window.GH_ARTICLES = [
         "url": "https://toshin.jpn.com/shop/%E3%82%B0%E3%83%A9%E3%83%B3%E3%83%87%E3%83%A5%E3%82%AA%E7%AB%8B%E5%B7%9D%E5%BA%97/",
         "note": "所在地・営業時間・公表設置規模"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/city-walk.webp",
+      "small": "/assets/editorial/city-walk-small.webp",
+      "social": "/assets/editorial/city-walk-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "駅周辺でガチャのお店を巡る人たちのイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "capsule-rakkyoku-tokyo",
@@ -1008,7 +1089,7 @@ window.GH_ARTICLES = [
     "title": "カプセル楽局の東京店舗一覧｜住所・営業時間・エリア別検索【2026年】",
     "description": "カプセル楽局の東京都内店舗を、公式店舗一覧で確認した住所・営業時間・確認日とともに掲載。池袋・赤羽・巣鴨・高円寺・町田など、同名エリアの複数店舗も見分けやすく整理します。",
     "published": "2026-09-03",
-    "updated": "2026-09-07",
+    "updated": "2026-09-08",
     "intro": [
       "来店前の確認：門前仲町店は公式一覧で「店内改装のため休業中」と案内されています（2026年9月6日再確認）。再開日はここでは断定せず、公式案内を確認してください。",
       "カプセル楽局を東京で探す人向けに、運営元の公式店舗一覧で店名と所在地を確認でき、ガチャひろば側で確認日を記録した店舗だけをまとめました。2026年9月3日のページ生成時点では東京都内61店、51エリアを掲載しています。公式の全店舗数を転載した一覧ではなく、当サイトの公開条件を満たした掲載分です。",
@@ -1095,7 +1176,16 @@ window.GH_ARTICLES = [
         "url": "https://www.warehousenet.jp/capsule/",
         "note": "店舗名・住所・営業時間の確認元"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/capsule-shop.webp",
+      "small": "/assets/editorial/capsule-shop-small.webp",
+      "social": "/assets/editorial/capsule-shop-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "カプセルトイ売り場で商品を選ぶ人のイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "cpla-store-guide",
@@ -1116,7 +1206,7 @@ window.GH_ARTICLES = [
     "title": "シープラ（#C-pla）の店舗一覧｜東京・全国の住所・営業時間・設置規模【2026年】",
     "description": "シープラ（#C-pla）の当サイト掲載店舗を、東京を中心に都道府県、住所、営業時間、公表設置ボックス数で比較。公式ページと確認日がある店舗だけを掲載します。",
     "published": "2026-09-03",
-    "updated": "2026-09-07",
+    "updated": "2026-09-08",
     "intro": [
       "シープラ（#C-pla）の店舗を探す人向けに、店舗または施設の確認元URLと確認日がそろう掲載分を1ページで比較します。2026年9月3日の生成時点では全国46店で、そのうち東京都が25店です。北海道から九州まで12都道府県を含みますが、公式チェーン全体の完全な店舗一覧ではなく、ガチャひろばが根拠を確認できた範囲です。",
       "店舗名には「#C-pla」「#C-pla+」「#C-pla premium」「#C-pla 2nd」などがあり、同じ商業施設や同じエリアに複数の売り場がある場合があります。このページでは名称をまとめて同一店舗扱いにせず、住所、棟、階、営業時間、公表設置規模を別々に掲載します。"
@@ -1202,7 +1292,16 @@ window.GH_ARTICLES = [
         "url": "https://toshin.jpn.com/shop/",
         "note": "店舗別ページで所在地・営業時間・公表設置ボックス数を確認"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/capsule-shop.webp",
+      "small": "/assets/editorial/capsule-shop-small.webp",
+      "social": "/assets/editorial/capsule-shop-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "カプセルトイ売り場で商品を選ぶ人のイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "shinjuku",
@@ -1222,7 +1321,7 @@ window.GH_ARTICLES = [
     "title": "新宿のガチャガチャ設置場所｜東口・西口・歌舞伎町の大型店と深夜営業【2026年】",
     "description": "新宿のガチャガチャ設置場所を、東口・新宿三丁目、西口、歌舞伎町・サブナードに分けて比較。住所、営業時間、公表設置規模、確認元と回り方を掲載します。",
     "published": "2026-08-11",
-    "updated": "2026-09-07",
+    "updated": "2026-09-08",
     "intro": [
       "新宿でガチャガチャを探すときは、店舗数より先に「東口・新宿三丁目」「西口」「歌舞伎町・サブナード」のどこへ行くかを決めると迷いにくくなります。このページは、店舗・ブランド・施設などの根拠URLと確認日がある新宿エリアの掲載店を、住所、営業時間、公表設置規模で比較します。",
       "2026年9月3日の生成時点では15店を掲載しています。アドホック新宿の#C-pla、サブナードのガチャガチャの森2店、東急歌舞伎町タワーの公式ショップ、駅東南口近くのME TOKYO、西口と東口の量販店など、立地と営業時間が異なるため、1つの「新宿駅最寄り」として扱わず目的別に整理します。"
@@ -1318,7 +1417,16 @@ window.GH_ARTICLES = [
         "url": "https://www.maruhan.co.jp/amusement/metokyoshinjuku/outline/",
         "note": "所在地・営業時間・フロア案内"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/city-walk.webp",
+      "small": "/assets/editorial/city-walk-small.webp",
+      "social": "/assets/editorial/city-walk-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "駅周辺でガチャのお店を巡る人たちのイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "new-gacha-shops-2026-summer",
@@ -1330,7 +1438,7 @@ window.GH_ARTICLES = [
     "title": "2026年7〜8月オープンのガチャガチャ専門店10店｜新店舗・営業時間・公表設置規模",
     "description": "2026年7〜8月にオープンした#C-pla・gashacocoの新店舗10店を、開店日、住所、営業時間、公表設置規模、駅・施設からのアクセスで独自比較。大阪・北海道・兵庫・岡山・鹿児島の来店前確認ポイントも解説します。",
     "published": "2026-08-30",
-    "updated": "2026-08-30",
+    "updated": "2026-09-08",
     "areas": [],
     "storeIds": [
       "cpla-aeon-otaru",
@@ -1435,7 +1543,16 @@ window.GH_ARTICLES = [
         "url": "https://gashacoco.jp/shop-list/",
         "note": "店舗別ページで所在地・営業時間・電話番号を確認"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/capsule-shop.webp",
+      "small": "/assets/editorial/capsule-shop-small.webp",
+      "social": "/assets/editorial/capsule-shop-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "カプセルトイ売り場で商品を選ぶ人のイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "store-data-report",
@@ -1447,7 +1564,7 @@ window.GH_ARTICLES = [
     "report": "store-data-audit",
     "title": "ガチャ店舗データ監査レポート｜確認状況・欠損率・情報充足率を公開",
     "published": "2026-08-14",
-    "updated": "2026-08-22",
+    "updated": "2026-09-08",
     "areas": [],
     "intro": [
       "ガチャひろばが保有する店舗データについて、「何件あるか」だけでなく、掲載根拠URLと確認日がどこまでそろっているか、営業時間・公表設置規模・アクセスなど各項目をどの程度確認できているかを集計しました。ページ内の数値は data/spots.js から生成時に再計算しています。",
@@ -1509,7 +1626,16 @@ window.GH_ARTICLES = [
         "q": "公表設置規模の数値を合計して市場規模にできますか？",
         "a": "できません。掲載対象は当サイトが確認できた一部の店舗で、参照元の「台・面・種類・設置ボックス数」の定義も統一されていません。当サイトでは単位が異なる数値の合計を掲載しません。"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/budget-planning.webp",
+      "small": "/assets/editorial/budget-planning-small.webp",
+      "social": "/assets/editorial/budget-planning-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "カプセルトイと財布、電卓、計画用ノートのイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "tokyo-ward-gacha-data-report",
@@ -1521,7 +1647,7 @@ window.GH_ARTICLES = [
     "report": "tokyo-ward-audit",
     "title": "東京23区のガチャスポット掲載分布｜区別・ブランド別に独自集計",
     "published": "2026-08-25",
-    "updated": "2026-08-25",
+    "updated": "2026-09-08",
     "areas": [],
     "intro": [
       "ガチャひろばで公開している東京都の店舗データを、23区内・23区外、区別、運営ブランド別に独自集計しました。数値は、掲載根拠URLと確認日の両方がある記録だけを対象に、data/spots.js からページ生成時に再計算します。",
@@ -1590,7 +1716,16 @@ window.GH_ARTICLES = [
         "q": "数値はどのように更新されますか？",
         "a": "店舗データの公開対象を追加・訂正した後、ページ生成時に区別・ブランド別の表を再計算します。更新日は本文または元データが変わったときだけ更新します。"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/budget-planning.webp",
+      "small": "/assets/editorial/budget-planning-small.webp",
+      "social": "/assets/editorial/budget-planning-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "カプセルトイと財布、電卓、計画用ノートのイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "tokyo-large-gacha-guide",
@@ -1605,7 +1740,7 @@ window.GH_ARTICLES = [
     },
     "title": "東京の大型ガチャガチャスポット20選｜公表設置規模・エリア別の回り方【2026年版】",
     "published": "2026-08-22",
-    "updated": "2026-09-07",
+    "updated": "2026-09-08",
     "areas": [],
     "intro": [
       "東京都内でガチャガチャを探すとき、店舗数だけを並べても実際の行き先は決めにくいものです。このガイドでは、ガチャひろばの掲載店のうち、店舗・ブランド・商業施設などの確認元URLと確認日があり、設置規模の公表値を確認できた店舗を対象に、数値による参考順で20店を紹介します。表と店舗詳細は元データから生成し、店舗情報が更新されたときは固定URLのまま再計算します。",
@@ -1695,7 +1830,16 @@ window.GH_ARTICLES = [
         "q": "1日で20店すべて回れますか？",
         "a": "おすすめしません。駅・施設内の移動と売り場を見る時間が必要です。目的を決め、同じ駅または同じ沿線の1〜3店へ絞ってください。"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/capsule-shop.webp",
+      "small": "/assets/editorial/capsule-shop-small.webp",
+      "social": "/assets/editorial/capsule-shop-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "カプセルトイ売り場で商品を選ぶ人のイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "gacha-budget-planner",
@@ -1707,7 +1851,7 @@ window.GH_ARTICLES = [
     "tool": "budget-planner",
     "title": "ガチャ予算プランナー｜回せる回数・残額をその場で計算",
     "published": "2026-08-14",
-    "updated": "2026-08-14",
+    "updated": "2026-09-08",
     "areas": [],
     "intro": [
       "ガチャを回す前に、使ってよい予算、残しておく金額、1回の価格を入力すると、最大で何回回せるかと残額を計算できます。計算はこのブラウザ内だけで行い、入力内容を送信・保存しません。",
@@ -1769,7 +1913,16 @@ window.GH_ARTICLES = [
         "q": "価格の違う商品を一緒に計算できますか？",
         "a": "このツールは1回分の価格を1つ指定する方式です。価格が違う商品を混ぜる場合は、実際に使った額を予算から差し引き、商品ごとに計算し直してください。"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/budget-planning.webp",
+      "small": "/assets/editorial/budget-planning-small.webp",
+      "social": "/assets/editorial/budget-planning-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "カプセルトイと財布、電卓、計画用ノートのイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   },
   {
     "slug": "guide-find-new",
@@ -1779,7 +1932,7 @@ window.GH_ARTICLES = [
     "reviewReady": true,
     "title": "欲しいガチャガチャはどこにある？設置場所・入荷の探し方と来店メモ",
     "published": "2026-08-14",
-    "updated": "2026-09-07",
+    "updated": "2026-09-08",
     "tool": "visit-memo",
     "areas": [],
     "intro": [
@@ -1859,6 +2012,15 @@ window.GH_ARTICLES = [
         "q": "利用者の投稿はどこまで信用できますか？",
         "a": "店舗名、商品名、投稿時刻が分かるものを現地確認の手掛かりとして利用してください。時間経過で売り切れるため、現在も同じ状況だとは断定できません。"
       }
-    ]
+    ],
+    "image": {
+      "src": "/assets/editorial/find-a-capsule.webp",
+      "small": "/assets/editorial/find-a-capsule-small.webp",
+      "social": "/assets/editorial/find-a-capsule-social.jpg",
+      "width": 1280,
+      "height": 720,
+      "alt": "カプセルトイとスマートフォン、虫眼鏡、確認用ノートのイメージイラスト",
+      "caption": "イメージイラスト（AI生成）。実際の店舗・商品を撮影したものではありません。"
+    }
   }
 ];
