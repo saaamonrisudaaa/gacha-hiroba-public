@@ -953,6 +953,13 @@
         metric('ブランド', store.brand || '—', isVerified(store) ? '出典確認済み' : '確認中');
     }
 
+    var featureBox = qs('spotFeature');
+    if (featureBox) {
+      var featureHtml = window.GHStoreFeature ? window.GHStoreFeature.render(store, false) : '';
+      featureBox.innerHTML = featureHtml;
+      featureBox.hidden = !featureHtml;
+    }
+
     /* 詳細情報テーブル */
     var infoBody = qs('spotInfoBody');
     if (infoBody) {

@@ -193,10 +193,39 @@ window.GH_SPOTS = [
     "hours": "10:00〜21:00",
     "machines": 3775,
     "sourceUrl": "https://bandainamco-am.co.jp/others/capsule-toy-store/store/ikebukuro/",
-    "verifiedAt": "2026-09-06",
+    "verifiedAt": "2026-09-08",
     "lat": 35.729,
     "lon": 139.72,
-    "access": "サンシャインシティ ワールドインポートマートビル 3F（バンダイナムコ Cross Store 東京内）"
+    "access": "サンシャインシティ ワールドインポートマートビル 3F（バンダイナムコ Cross Store 東京内）",
+    "editorial": {
+      "theme": "large-store-outing",
+      "guideSlug": "ikebukuro",
+      "title": "サンシャインシティで、じっくり売り場を巡る",
+      "intro": "ガシャポンのデパート池袋総本店は、サンシャインシティのワールドインポートマートビル3階にあります。駅前の短い寄り道とは分けて、売り場を見て回る時間を取りたい日の候補です。",
+      "points": [
+        {
+          "label": "行き方",
+          "text": "公式の徒歩目安は池袋駅から約8分、東池袋駅から約3分。利用路線に合わせて入口を選び、館内の3階まで向かいます。"
+        },
+        {
+          "label": "売り場の規模",
+          "text": "公式公表は3,775面です。面数は売り場規模の参考で、異なる商品の種類数や当日の在庫数とは一致しません。"
+        },
+        {
+          "label": "来店前の確認",
+          "text": "営業時間は10時〜21時で、店休日はCross Store東京に準じます。電話での商品・在庫案内は行っていないため、公式アイテムページや店舗発信を確認します。"
+        }
+      ],
+      "checkedAt": "2026-09-08",
+      "image": {
+        "src": "/assets/editorial/large-store-outing.webp",
+        "small": "/assets/editorial/large-store-outing-small.webp",
+        "width": 1280,
+        "height": 720,
+        "alt": "広いカプセルトイ売り場で行き先を選ぶ人のイメージイラスト",
+        "caption": "利用シーンのイメージイラスト（AI生成）。実際の店舗の外観・内装・商品を再現したものではありません。"
+      }
+    }
   },
   {
     "id": "yodobashi-ikebukuro-gacha-jungle",
@@ -486,13 +515,42 @@ window.GH_SPOTS = [
     "area": "東京都・池袋",
     "address": "東京都豊島区東池袋1-21-13 aune池袋 1F",
     "sourceUrl": "https://gashacoco.jp/shop-list/3219",
-    "verifiedAt": "2026-09-06",
+    "verifiedAt": "2026-09-08",
     "lat": 35.73,
     "lon": 139.7143,
     "access": "サンシャイン通り沿い aune池袋 1F（池袋駅東口から徒歩約4分・2026年2月5日オープン）",
     "hours": "11:00〜22:00",
     "tel": "070-6525-6149",
-    "zip": "170-0013"
+    "zip": "170-0013",
+    "editorial": {
+      "theme": "shopping-street-stop",
+      "guideSlug": "ikebukuro",
+      "title": "サンシャイン通りの買い物と組み合わせる",
+      "intro": "gashacoco 池袋サンシャイン通りは、東池袋1丁目のaune池袋1階にある店舗です。池袋の東口側で予定がある日に、建物名まで控えて行き先に加えると探しやすくなります。",
+      "points": [
+        {
+          "label": "目指す建物",
+          "text": "所在地は東池袋1-21-13、aune池袋の1階。「gashacoco 池袋」という別店舗と混同せず、サンシャイン通り店まで店名を照合しましょう。"
+        },
+        {
+          "label": "利用する時間",
+          "text": "公式に掲載されている営業時間は11時〜22時です。早い時間の予定に組み込むときは、11時の開店時刻に合わせます。"
+        },
+        {
+          "label": "商品を探すとき",
+          "text": "商品トピックスはブランド全体の案内の場合があります。欲しい商品名と、この店舗の正式名称をそろえて確認すると、別店舗への入荷との取り違えを防げます。"
+        }
+      ],
+      "checkedAt": "2026-09-08",
+      "image": {
+        "src": "/assets/editorial/shopping-street-stop.webp",
+        "small": "/assets/editorial/shopping-street-stop-small.webp",
+        "width": 1280,
+        "height": 720,
+        "alt": "買い物の途中でカプセルトイ店に立ち寄る人たちのイメージイラスト",
+        "caption": "利用シーンのイメージイラスト（AI生成）。実際の店舗の外観・内装・商品を再現したものではありません。"
+      }
+    }
   },
   {
     "id": "caprak-machida",
@@ -1199,8 +1257,37 @@ window.GH_SPOTS = [
     "lon": 139.7006,
     "zip": "150-0041",
     "sourceUrl": "https://www.dreamcapsule.co.jp/shop/134",
-    "verifiedAt": "2026-09-07",
-    "access": "MAGNET by SHIBUYA109の5F。道玄坂のSHIBUYA109とは別の建物"
+    "verifiedAt": "2026-09-08",
+    "access": "MAGNET by SHIBUYA109の5F。道玄坂のSHIBUYA109とは別の建物",
+    "editorial": {
+      "theme": "mall-capsule-break",
+      "guideSlug": "shibuya",
+      "title": "MAGNETの5階で、買い物の合間に立ち寄る",
+      "intro": "ドリームカプセル MAGNET by SHIBUYA109店は、神南1丁目のMAGNET by SHIBUYA109の5階です。渋谷で買い物をする日に、目的の建物とフロアをセットで覚えておきたい店舗です。",
+      "points": [
+        {
+          "label": "建物を区別する",
+          "text": "所在地は神南1-23-10のMAGNET by SHIBUYA109。道玄坂のSHIBUYA109とは別の建物なので、地図でもMAGNETまで名前を確認します。"
+        },
+        {
+          "label": "売り場と時間",
+          "text": "売り場は5階、営業時間は10時〜21時です。館内の移動時間も含めて、ほかの買い物や待ち合わせと組み合わせます。"
+        },
+        {
+          "label": "取扱いの見方",
+          "text": "公式店舗ページは有人店と案内し、カプセルトイのほか、くじ・物販商品などの取扱区分を掲載しています。取扱区分は個別商品の在庫を保証する表示ではありません。"
+        }
+      ],
+      "checkedAt": "2026-09-08",
+      "image": {
+        "src": "/assets/editorial/mall-capsule-break.webp",
+        "small": "/assets/editorial/mall-capsule-break-small.webp",
+        "width": 1280,
+        "height": 720,
+        "alt": "商業施設の買い物とカプセルトイを楽しむ人たちのイメージイラスト",
+        "caption": "利用シーンのイメージイラスト（AI生成）。実際の店舗の外観・内装・商品を再現したものではありません。"
+      }
+    }
   },
   {
     "id": "capsulelab-harajuku-takeshita",
@@ -1266,9 +1353,38 @@ window.GH_SPOTS = [
     "lon": 139.7717,
     "zip": "101-0021",
     "sourceUrl": "https://www.akibagacha.com/",
-    "verifiedAt": "2026-09-06",
+    "verifiedAt": "2026-09-08",
     "hours": "平日11:00〜20:00／日祝11:00〜19:00（土曜は公式の最新案内を確認）",
-    "access": "JR秋葉原駅 電気街口から徒歩7分／東京メトロ銀座線 末広町駅から徒歩2分（公式案内）"
+    "access": "JR秋葉原駅 電気街口から徒歩7分／東京メトロ銀座線 末広町駅から徒歩2分（公式案内）",
+    "editorial": {
+      "theme": "hobby-shop-discovery",
+      "guideSlug": "akihabara",
+      "title": "電気街から末広町方面へ、街歩きの途中に",
+      "intro": "秋葉原ガチャポン会館は、外神田3丁目のMNビル1階にあります。JR秋葉原駅から街を歩いて向かう場合と、銀座線の末広町駅から向かう場合を、ほかの買い物の予定に合わせて選べます。",
+      "points": [
+        {
+          "label": "駅からの目安",
+          "text": "公式案内はJR秋葉原駅の電気街口から徒歩7分、末広町駅から徒歩2分。駅に着いた後の移動も予定に含めておきます。"
+        },
+        {
+          "label": "曜日で時間を確認",
+          "text": "公式サイトには平日11時〜20時、日祝11時〜19時と記載されています。土曜日を含め、行く日の最新営業時間は公式Xの案内も確認してください。"
+        },
+        {
+          "label": "入荷案内の確認",
+          "text": "公式サイトからお知らせや今月のスケジュールへ進めます。予定に掲載されていることと、到着時点で購入できることは分けて考えましょう。"
+        }
+      ],
+      "checkedAt": "2026-09-08",
+      "image": {
+        "src": "/assets/editorial/hobby-shop-discovery.webp",
+        "small": "/assets/editorial/hobby-shop-discovery-small.webp",
+        "width": 1280,
+        "height": 720,
+        "alt": "小さなカプセルトイを見比べて楽しむホビーショップのイメージイラスト",
+        "caption": "利用シーンのイメージイラスト（AI生成）。実際の店舗の外観・内装・商品を再現したものではありません。"
+      }
+    }
   },
   {
     "id": "caprak-kanda",
@@ -1507,8 +1623,37 @@ window.GH_SPOTS = [
     "zip": "101-0021",
     "hours": "10:00〜21:00",
     "sourceUrl": "https://kenelephant.co.jp/kenelestand/",
-    "verifiedAt": "2026-09-07",
-    "access": "JR秋葉原駅3F・改札内。総武線6番線ホーム裏コンコース"
+    "verifiedAt": "2026-09-08",
+    "access": "JR秋葉原駅3F・改札内。総武線6番線ホーム裏コンコース",
+    "editorial": {
+      "theme": "station-miniature-stop",
+      "guideSlug": "akihabara",
+      "title": "改札内の移動と一緒に、ミニチュア探し",
+      "intro": "ケンエレスタンド秋葉原店は、JR秋葉原駅3階の改札内、総武線6番線ホーム裏コンコースにあります。駅の外のショップと区別して、鉄道で移動する日の予定に組み込む店舗です。",
+      "points": [
+        {
+          "label": "改札の内側",
+          "text": "行き先は駅の3階・改札内です。改札外から利用する場合は、入場方法や条件を鉄道会社の案内で確認してください。"
+        },
+        {
+          "label": "何を探せるか",
+          "text": "運営元は、ケンエレファントのミニチュアを中心とするショップと案内しています。掲載商品がすべて常時そろうという意味ではありません。"
+        },
+        {
+          "label": "立ち寄る前に",
+          "text": "営業時間は10時〜21時。列車の出発時刻までに戻れる範囲で見る商品を絞り、販売状況は運営元が案内するSNSで確認します。"
+        }
+      ],
+      "checkedAt": "2026-09-08",
+      "image": {
+        "src": "/assets/editorial/station-miniature-stop.webp",
+        "small": "/assets/editorial/station-miniature-stop-small.webp",
+        "width": 1280,
+        "height": 720,
+        "alt": "駅での移動中にミニチュアのカプセルトイを選ぶ人のイメージイラスト",
+        "caption": "利用シーンのイメージイラスト（AI生成）。実際の店舗の外観・内装・商品を再現したものではありません。"
+      }
+    }
   },
   {
     "id": "kenele-stand-jr-shimbashi",

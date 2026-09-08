@@ -3501,3 +3501,35 @@ a.gh-hot--row:hover { background: #fffaf5; text-decoration: none; }
   .gh-guide-visual h3 { margin: 9px 0; }
   .gh-coverage-chart { padding: 15px; }
 }
+
+/* 公式情報をもとにした5店舗の画像付き紹介 */
+#spotFeature { scroll-margin-top: 110px; }
+.gh-store-feature { overflow: hidden; border: 1px solid #e7ded1; border-radius: 12px; background: #fffaf3; }
+.gh-store-feature__figure { margin: 0; padding: 0; }
+.gh-store-feature__figure img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; background: #f5eddf; }
+.gh-store-feature__figure figcaption { padding: 9px 16px; font-size: 10px; line-height: 1.8; color: #61656b; background: #fff; }
+.gh-store-feature__content { padding: 24px; }
+.gh-store-feature__label { color: #9b3347; font-size: 11px; font-weight: 700; letter-spacing: .06em; }
+.gh-store-feature__title { margin: 8px 0 14px; color: #203a48; font-size: 20px; line-height: 1.65; }
+.gh-store-feature__intro { margin: 0 0 18px; font-size: 14px; line-height: 1.95; }
+.gh-store-feature__points { display: grid; gap: 12px; margin: 0; }
+.gh-store-feature__points > div { padding: 12px 14px; border-left: 3px solid #43817d; border-radius: 0 6px 6px 0; background: #fff; }
+.gh-store-feature__points dt { margin: 0 0 5px; color: #285968; font-size: 13px; font-weight: 700; }
+.gh-store-feature__points dd { margin: 0; font-size: 13px; line-height: 1.9; }
+.gh-store-feature__source { margin: 16px 0; font-size: 11px; line-height: 1.9; color: #586470; }
+.gh-store-feature__source a { color: #285968; text-decoration: underline; text-underline-offset: 3px; }
+.gh-store-feature--compact { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: start; margin: 18px 0; }
+.gh-store-feature--compact .gh-store-feature__content { display: contents; }
+.gh-store-feature--compact .gh-store-feature__lead { padding: 18px; }
+.gh-store-feature--compact .gh-store-feature__points { grid-column: 1 / -1; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 18px 18px 0; }
+.gh-store-feature--compact .gh-store-feature__source { grid-column: 1 / -1; margin: 16px 18px 18px; }
+.gh-store-feature--compact .gh-store-feature__title { font-size: 17px; }
+.gh-store-feature--compact .gh-store-feature__intro { font-size: 12px; }
+.gh-store-feature--compact .gh-store-feature__points dd { font-size: 12px; }
+@media (max-width: 700px) {
+  .gh-store-feature--compact { grid-template-columns: 1fr; }
+  .gh-store-feature--compact .gh-store-feature__points { grid-template-columns: 1fr; margin-top: 0; }
+  .gh-store-feature__content { padding: 17px; }
+  .gh-store-feature__title { font-size: 18px; }
+  .gh-store-feature__intro { font-size: 13px; }
+}

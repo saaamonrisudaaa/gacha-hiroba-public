@@ -17,10 +17,11 @@
   <meta property="og:image" content="https://gacha-hiroba.com/assets/ogp.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
-  <link rel="stylesheet" href="styles.css?v=20260903-seo-board" />
+  <link rel="stylesheet" href="styles.css?v=20260908-stores" />
   <!-- 店舗データ → 描画 → 共通JSの順で読み込む。掲示板は公開REST APIへ直接接続する。 -->
-  <script src="data/spots.js" defer></script>
-  <script src="spots-ui.js?v=20260903-seo-board" defer></script>
+  <script src="data/spots.js?v=20260908-stores" defer></script>
+  <script src="store-feature.js?v=20260908-stores" defer></script>
+  <script src="spots-ui.js?v=20260908-stores" defer></script>
   <script src="script.js?v=20260903-seo-board" defer></script>
 </head>
 <body>
@@ -105,6 +106,7 @@
 
           <!-- ============ 詳細 panel ============ -->
           <section class="gh-tab-panel" data-panel="detail">
+            <section class="gh-section" id="spotFeature" hidden></section>
 
             <section class="gh-section gh-bbs-preview" data-gh-bbs-preview hidden>
               <div class="gh-section__header">
