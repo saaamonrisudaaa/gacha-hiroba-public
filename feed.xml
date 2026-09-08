@@ -5,7 +5,14 @@
   <link>https://gacha-hiroba.com/</link>
   <description>メーカー公式情報で確認した新作ガチャと、ガチャひろば運営者が作成した実用ガイドの更新情報を配信します。</description>
   <language>ja</language>
-  <lastBuildDate>Mon, 07 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Tue, 08 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <item>
+    <title>ガチャ店舗データ監査レポート｜確認状況・欠損率・情報充足率を公開</title>
+    <link>https://gacha-hiroba.com/guide/store-data-report.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/store-data-report.html</guid>
+    <pubDate>Tue, 08 Sep 2026 00:00:00 GMT</pubDate>
+    <description>ガチャひろばが保有する店舗データについて、「何件あるか」だけでなく、掲載根拠URLと確認日がどこまでそろっているか、営業時間・公表設置規模・アクセスなど各項目をどの程度確認できているかを集計しました。ページ内の数値は data/spots.js から生成時に再計算しています。</description>
+  </item>
   <item>
     <title>2026年8月の新作ガチャ20商品｜発売時期・価格・メーカー</title>
     <link>https://gacha-hiroba.com/releases/2026-08.html</link>
@@ -19,13 +26,6 @@
     <guid isPermaLink="true">https://gacha-hiroba.com/releases/2026-09.html</guid>
     <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
     <description>メーカー公式情報で確認した2026年9月発売の新作ガチャ14商品を、発売時期・価格・メーカー別に整理しました。</description>
-  </item>
-  <item>
-    <title>ガチャ店舗データ監査レポート｜確認状況・欠損率・情報充足率を公開</title>
-    <link>https://gacha-hiroba.com/guide/store-data-report.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/guide/store-data-report.html</guid>
-    <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
-    <description>ガチャひろばが保有する店舗データについて、「何件あるか」だけでなく、掲載根拠URLと確認日がどこまでそろっているか、営業時間・公表設置規模・アクセスなど各項目をどの程度確認できているかを集計しました。ページ内の数値は data/spots.js から生成時に再計算しています。</description>
   </item>
   <item>
     <title>カプセルパークの店舗一覧・探し方｜東京・郡山・盛岡の4店を比較</title>
