@@ -13,9 +13,63 @@
       price: 1回いくらかと種類数。公式ページで確認できた場合だけ入れます。
    =========================================================================== */
 /* 一次情報を実際に再確認した日。生成処理を走らせただけでは更新しないこと。 */
-window.GH_RELEASES_CHECKED_ON = '2026-09-20';
+window.GH_RELEASES_CHECKED_ON = '2026-09-29';
 
 window.GH_RELEASES = [
+  {
+    date: '2026-09-28',
+    label: '9月第5週より順次',
+    title: 'NARUTO-ナルト- 疾風伝 めじるしアクセサリー',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回300円／全5種',
+    note: 'ナルトやサスケなど5人を、尾獣や口寄せ動物をモチーフにした雨合羽姿でデザイン。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118196736000'
+  },
+  {
+    date: '2026-09-28',
+    label: '9月第5週より順次',
+    title: 'TVアニメ『逃げ上手の若君』 まちぼうけ',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回500円／全5種',
+    note: 'TVアニメ「逃げ上手の若君」のキャラクターを立体化した「まちぼうけ」シリーズ。全5種類。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582769979477000'
+  },
+  {
+    date: '2026-09-28',
+    label: '9月第5週より順次',
+    title: '仮面ライダーシリーズ めじるしアクセサリー5',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回300円／全10種',
+    note: '仮面ライダーを題材にしたアクセサリー第5弾。傘の持ち手やペットボトルなどに取り付けられる。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770069082000'
+  },
+  {
+    date: '2026-10-01',
+    label: '10月第1週より順次',
+    title: 'グレムリン もぐもぐかくれんぼ',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回400円／全4種',
+    note: 'ギズモとロールケーキやドーナツなどのお菓子を組み合わせたフィギュア。全4種類。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118184832000'
+  },
+  {
+    date: '2026-10-01',
+    label: '10月第1週より順次',
+    title: 'Lil ala mode お星さまライトスイング',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回400円／全5種',
+    note: 'Lil ala modeのキャラクターを星型ライトにデザイン。スイッチで点灯・消灯できる。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770053883000'
+  },
+  {
+    date: '2026-10-01',
+    label: '10月第1週より順次',
+    title: 'キン肉マン ドットフィギュアチャーム2',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回400円／全6種',
+    note: 'キン肉マンのドット絵風フィギュアチャーム第2弾。バッグに付けたり、並べて飾ったりできる。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770055467000'
+  },
   {
     date: '2026-09-21',
     label: '9月第4週より順次',
