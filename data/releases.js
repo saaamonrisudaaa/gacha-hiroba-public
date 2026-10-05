@@ -13,35 +13,62 @@
       price: 1回いくらかと種類数。公式ページで確認できた場合だけ入れます。
    =========================================================================== */
 /* 一次情報を実際に再確認した日。生成処理を走らせただけでは更新しないこと。 */
-window.GH_RELEASES_CHECKED_ON = '2026-09-29';
+window.GH_RELEASES_CHECKED_ON = '2026-10-05';
 
 window.GH_RELEASES = [
   {
-    date: '2026-09-28',
-    label: '9月第5週より順次',
-    title: 'NARUTO-ナルト- 疾風伝 めじるしアクセサリー',
+    date: '2026-10-05',
+    label: '10月第2週より順次',
+    title: 'サンリオキャラクターズ ふわふわめじるしアクセサリー ～Baby～',
     maker: 'バンダイ（ガシャポン）',
     price: '1回300円／全5種',
-    note: 'ナルトやサスケなど5人を、尾獣や口寄せ動物をモチーフにした雨合羽姿でデザイン。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118196736000'
+    note: '赤ちゃん姿のハローキティやシナモロールなどを集めた、フロッキー加工のアクセサリー。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118186768000'
   },
   {
-    date: '2026-09-28',
-    label: '9月第5週より順次',
-    title: 'TVアニメ『逃げ上手の若君』 まちぼうけ',
+    date: '2026-10-05',
+    label: '10月第2週より順次',
+    title: '雪印メグミルク ミニチュアチャーム ～ゼリー＆プリンシリーズ～',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回300円／全7種',
+    note: 'ゼリーやプリンの容器を小さく再現。スプーンも付いた2つ組のチャーム。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582769927409000'
+  },
+  {
+    date: '2026-10-05',
+    label: '10月第2週より順次',
+    title: 'お文具といっしょ お惣菜なりきりマスコットなのです',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回300円／全5種',
+    note: 'お惣菜に扮したキャラクターを透明パックに収めたミニチュア。シールが付属する。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770026528000'
+  },
+  {
+    date: '2026-10-05',
+    label: '10月第2週より順次',
+    title: 'たまごっち UFOスイング ～オーロラver.～',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回300円／全5種',
+    note: 'オーロラ仕様のUFOとキャラクターを組み合わせたスイング。接続金具で付け替えられる。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770071016000'
+  },
+  {
+    date: '2026-10-12',
+    label: '10月第3週より順次',
+    title: 'ねこあつめ2 ぬいぐるみクリップ',
     maker: 'バンダイ（ガシャポン）',
     price: '1回500円／全5種',
-    note: 'TVアニメ「逃げ上手の若君」のキャラクターを立体化した「まちぼうけ」シリーズ。全5種類。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4582769979477000'
+    note: 'ねこあつめ2のねこをぬいぐるみにしたクリップ。背面のクリップでバッグやポケットに留められる。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118183958000'
   },
   {
-    date: '2026-09-28',
-    label: '9月第5週より順次',
-    title: '仮面ライダーシリーズ めじるしアクセサリー5',
+    date: '2026-10-12',
+    label: '10月第3週より順次',
+    title: 'ドラえもん ひみつ道具カラフルマルチチャーム',
     maker: 'バンダイ（ガシャポン）',
-    price: '1回300円／全10種',
-    note: '仮面ライダーを題材にしたアクセサリー第5弾。傘の持ち手やペットボトルなどに取り付けられる。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770069082000'
+    price: '1回300円／全5種',
+    note: 'ひみつ道具を題材にしたチャーム。シリコンバンドと接続金具を使って持ち物に取り付けられる。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770026757000'
   },
   {
     date: '2026-10-01',
@@ -69,185 +96,5 @@ window.GH_RELEASES = [
     price: '1回400円／全6種',
     note: 'キン肉マンのドット絵風フィギュアチャーム第2弾。バッグに付けたり、並べて飾ったりできる。',
     source: 'https://gashapon.jp/products/detail.php?jan_code=4582770055467000'
-  },
-  {
-    date: '2026-09-21',
-    label: '9月第4週より順次',
-    title: '星のカービィ プププなおかしやさん マスコットチャーム',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回300円／全6種',
-    note: 'カービィやワドルディなどをクッキー風にデザイン。お菓子を模したパッケージとボールチェーンが付いたマスコット。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4582769928154000'
-  },
-  {
-    date: '2026-09-21',
-    label: '9月第4週より順次',
-    title: '妖怪ウォッチ サウンドロップ',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回500円／全8種',
-    note: '「妖怪ウォッチ」の召喚ソングを楽しめる音声付きアイテム。全8種類を展開。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770069167000'
-  },
-  {
-    date: '2026-09-07',
-    label: '9月第2週より順次',
-    title: 'クレヨンしんちゃん ペンライトステッキ',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回400円／全5種',
-    note: 'しんちゃんやシロなどをデザインしたライト。キャラクターごとに発光色が異なり、中にはアクリルパーツ入り。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118187284000'
-  },
-  {
-    date: '2026-09-14',
-    label: '9月第3週より順次',
-    title: 'オタマトーン めじるしアクセサリー2',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回300円／全11種',
-    note: '電子楽器オタマトーンをかたどったアクセサリー第2弾。きらめく仕様で、パックマン版を含む11種類を展開。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118181688000'
-  },
-  {
-    date: '2026-09-14',
-    label: '9月第3週より順次',
-    title: 'ドラえもん ライトマスコット',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回500円／全4種',
-    note: 'ドラえもんをモチーフにした、点灯して飾れるマスコット。全4種類のラインナップ。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118198099000'
-  },
-  {
-    date: '2026-09-14',
-    label: '9月第3週より順次',
-    title: 'シュガーバニーズ カップケーキチャーム',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回300円／全6種',
-    note: 'シュガーバニーズのキャラクターとカップケーキを組み合わせたチャーム。全6種類。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118184597000'
-  },
-  {
-    date: '2026-09-07',
-    label: '9月第2週より順次',
-    title: 'サンリオキャラクターズ ガラケー風ミラーチャーム',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回400円／全5種',
-    note: '折りたたみ携帯電話の形をしたチャーム。開くと内側にミラーがあり、ハローキティやクロミなどを展開。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770068405000'
-  },
-  {
-    date: '2026-09-07',
-    label: '9月第2週より順次',
-    title: 'お茶犬 和菓子マスコット',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回300円／全5種',
-    note: 'リョクと抹茶ぜんざい、ロンとどら焼きなど、お茶犬と和菓子を組み合わせたボールチェーン付きマスコット。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118187208000'
-  },
-  {
-    date: '2026-09-14',
-    label: '9月第3週より順次',
-    title: 'るかっぷ ミニチュアコレクション 鬼滅の刃',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回500円／全4種',
-    note: '炭治郎、禰豆子、善逸、伊之助のミニチュア。座って上を向くポーズで、パッケージが付属。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4535123850622000'
-  },
-  {
-    date: '2026-09-14',
-    label: '9月第3週より順次',
-    title: 'たまごっち ケーキチャームコレクション',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回400円／全5種',
-    note: 'まめっちやくちぱっちなど5キャラクターをケーキで表現したチャーム。飾るときに使えるケーキボックス付き。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4582769995170000'
-  },
-  {
-    date: '2026-09-14',
-    label: '9月第3週より順次',
-    title: 'ポケットモンスター ガシャっとコレクト07',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回500円／全5種',
-    note: 'カビゴン、ピカチュウ、コイル、ゲンガー、スターミーを収録。ボールチェーンで持ち歩くほか、カプセルを台座にして飾れる。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118183859000'
-  },
-  {
-    date: '2026-09-01',
-    label: '9月第1週より順次',
-    title: 'Richell ミニチュアチャーム',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回300円／全6種',
-    note: 'Richellのストローマグ、おふろマット、食器セットなどのベビー用品をミニチュア化。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118196347000'
-  },
-  {
-    date: '2026-09-01',
-    label: '9月第1週より順次',
-    title: 'Polly Pocket ミニチュアコレクション',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回600円／全4種',
-    note: '90mmカプセルに入った、リングのミニチュア付きディスプレイアイテム。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4582769934766000'
-  },
-  {
-    date: '2026-09-01',
-    label: '9月第1週より順次',
-    title: '富江 アソートコレクション',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回400円／全8種',
-    note: '「富江」のスタチューフィギュア、アクリルミラー、めじるしアクセサリーを収録。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4582769995286000'
-  },
-  {
-    date: '2026-09-01',
-    label: '9月第1週より順次',
-    title: 'カードキャプターさくら スタッフコレクション',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回500円／全3種',
-    note: '封印の杖・星の杖・夢の杖を約15cmで立体化し、各作品の魔法陣を描いたスタンドが付属。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770027167000'
-  },
-  {
-    date: '2026-09-07',
-    label: '9月第2週より順次',
-    title: 'サンリオキャラクターズ めじるしアクセサリー Halloween！',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回300円／全6種',
-    note: 'ハローキティ、マイメロディ、クロミなど6キャラクターをハロウィーン姿で商品化。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118186744000'
-  },
-  {
-    date: '2026-09-07',
-    label: '9月第2週より順次',
-    title: '東京喰種 まちぼうけ',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回400円／全4種',
-    note: '金木研、霧嶋董香、神代利世、鈴屋什造を「まちぼうけ」シリーズで立体化。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4582769979453000'
-  },
-  {
-    date: '2026-09-07',
-    label: '9月第2週より順次',
-    title: '光るまちぼうけ ガシャポンの場合',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回500円／全5種',
-    note: 'ガシャポンステーション3種と大小カプセルを、光る「まちぼうけ」仕様で展開。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770054552000'
-  },
-  {
-    date: '2026-09-07',
-    label: '9月第2週より順次',
-    title: '“ディズニーキャラクター” カプセルリングライトコレクション',
-    maker: 'バンダイ（ガシャポン）',
-    price: '1回500円／全5種',
-    note: 'プーさん、スティッチ、エイリアン、ベイマックス、ロッツォの点灯式リングライト。',
-    source: 'https://gashapon.jp/products/detail.php?jan_code=4582769972386000'
-  },
-  {
-    date: '2026-09-07',
-    label: '9月7日週 発売',
-    title: 'ポケモン プロジェクターライト 旅立ちの三匹編',
-    maker: 'タカラトミーアーツ',
-    price: '1回300円／全9種',
-    note: '各地方の旅立ちの三匹が進化した姿を投影できるライト。タグに30周年ロゴ入り。',
-    source: 'https://www.takaratomy-arts.co.jp/items/item.html?n=Y906558'
   }
 ];
