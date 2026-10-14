@@ -13,9 +13,63 @@
       price: 1回いくらかと種類数。公式ページで確認できた場合だけ入れます。
    =========================================================================== */
 /* 一次情報を実際に再確認した日。生成処理を走らせただけでは更新しないこと。 */
-window.GH_RELEASES_CHECKED_ON = '2026-10-05';
+window.GH_RELEASES_CHECKED_ON = '2026-10-14';
 
 window.GH_RELEASES = [
+  {
+    date: '2026-10-12',
+    label: '10月第3週より順次',
+    title: 'ナルミヤキャラクターズ あみぐるみフロッキー',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回400円／全6種',
+    note: '編み目を表現したナルミヤキャラクターズのマスコット。表面にフロッキー加工を施した全6種類。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770055337000'
+  },
+  {
+    date: '2026-10-12',
+    label: '10月第3週より順次',
+    title: 'mofusand 給食当番がんばるにゃん',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回400円／全5種',
+    note: '給食を運ぶねこたちを立体化。給食当番をテーマにしたガシャポン独自デザインのマスコット。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770068665000'
+  },
+  {
+    date: '2026-10-19',
+    label: '10月第4週より順次',
+    title: 'miffy カラフルカラビナマスコット',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回500円／全5種',
+    note: 'フロッキー加工のミッフィーとカラビナを組み合わせたマスコット。バッグなどに取り付けられる。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582769979286000'
+  },
+  {
+    date: '2026-10-19',
+    label: '10月第4週より順次',
+    title: '初音ミク まちぼうけ',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回400円／全4種',
+    note: '初音ミクたちを題材にした「まちぼうけ」シリーズのフィギュア。全4種類。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582769979804000'
+  },
+  {
+    date: '2026-10-19',
+    label: '10月第4週より順次',
+    title: 'MOOMIN カプセルボトルチャーム',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回400円／全4種',
+    note: '丸いボトルの中にムーミンたちを収めたチャーム。持ち物に取り付けるボールチェーン付き。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770054989000'
+  },
+  {
+    date: '2026-10-26',
+    label: '10月第5週より順次',
+    title: 'ジュエルポッド ミニチュアチャームコレクション',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回300円／全6種',
+    note: 'ジュエルペットのジュエルポッドを小さくしたチャーム。全6種類を展開。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118186942000'
+  },
   {
     date: '2026-10-05',
     label: '10月第2週より順次',
