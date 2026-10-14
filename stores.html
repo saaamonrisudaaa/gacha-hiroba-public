@@ -13,7 +13,9 @@
       'カプセルパーク': '/guide/capsule-park-store-guide.html'
     };
     var ghBrandGuide = Object.prototype.hasOwnProperty.call(ghCuratedBrandGuides, ghStoreParams.get('brand')) &&
-      !ghStoreParams.get('q') && !ghStoreParams.get('pref') && !location.hash &&
+      !ghStoreParams.get('q') && !ghStoreParams.get('pref') &&
+      !ghStoreParams.get('region') && !ghStoreParams.get('minMachines') &&
+      ghStoreParams.get('view') !== 'list' && !location.hash &&
       ghCuratedBrandGuides[ghStoreParams.get('brand')];
     if (ghBrandGuide) {
       location.replace(ghBrandGuide);
@@ -33,7 +35,7 @@
   <meta property="og:image" content="https://gacha-hiroba.com/assets/ogp.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=20260921-map" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -60,8 +62,8 @@
   </script>
   <script src="data/spots.js" defer></script>
   <script src="data/articles.js" defer></script>
-  <script src="spots-ui.js" defer></script>
-  <script src="script.js" defer></script>
+  <script src="spots-ui.js?v=20260921-map" defer></script>
+  <script src="script.js?v=20260921-map" defer></script>
 </head>
 <body>
   <header class="gh-header">
@@ -105,6 +107,12 @@
         <p class="gh-detail-note"><a href="/guide/new-gacha-shops-2026-summer.html">🆕 2026年7〜8月オープンの新店舗10店を比較する</a></p>
       </div>
 
+      <nav class="gh-view-switch gh-view-switch--stores" aria-label="店舗の探し方">
+        <a href="stores.html" aria-current="page">一覧で探す</a>
+        <a href="map.html" data-gh-store-map-link>地図で探す</a>
+      </nav>
+
+      <p class="gh-detail-note" data-gh-store-filter-note hidden></p>
       <div class="gh-tab-group gh-tab-group--lg" role="tablist" aria-label="地方で絞り込み" style="margin-bottom:20px">
         <button class="gh-tab" role="tab" data-store-region="all">すべて</button>
         <button class="gh-tab" role="tab" data-store-region="kanto">関東</button>
@@ -230,7 +238,8 @@
           <p>全国のガチャガチャ設置場所情報を掲載。<br />確認できた情報を随時更新しています。</p>
         </div>
         <div class="gh-footer__links">
-          <div><strong>サービス</strong><a href="/">トップ</a><a href="stores.html">店舗一覧</a><a href="ranking.html">ランキング</a><a href="map.html">マップ検索</a></div>
+          <div><strong>サービス</strong><a href="/">トップ</a><a href="stores.html">店舗一覧</a>
+          <a href="map.html">地図で探す</a><a href="ranking.html">ランキング</a><a href="map.html">マップ検索</a></div>
           <div><strong>情報</strong><a href="guide/tokyo-ward-gacha-data-report.html">東京23区掲載レポート</a><a href="methodology.html">データ確認方法</a><a href="news.html">新着情報</a><a href="area.html">エリア別</a></div>
           <div><strong>サポート</strong><a href="contact.html">お問い合わせ</a><a href="terms.html">利用規約</a><a href="privacy.html">プライバシー</a><a href="sitemap.html">サイトマップ</a><a href="english.html">English</a><a href="about.html">運営方針</a></div>
         </div>

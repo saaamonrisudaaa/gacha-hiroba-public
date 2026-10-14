@@ -134,6 +134,23 @@
   }
   function guideUrl(slug) { return '/guide/' + encodeURIComponent(slug) + '.html'; }
   function spotUrl(id) { return '/spot.html?id=' + encodeURIComponent(id || ''); }
+  function storeMapLink(s) {
+    return Number.isFinite(s.lat) && Number.isFinite(s.lon)
+      ? '<a class="gh-store-map-link" href="/map.html?spot=' + encodeURIComponent(s.id) + '" aria-label="' + esc(s.name) + 'を地図で見る">地図で見る →</a>'
+      : '';
+  }
+  function updateStoreMapLink(region) {
+    var params = new URLSearchParams();
+    ['q', 'pref', 'brand', 'minMachines'].forEach(function (key) {
+      var value = getParam(key);
+      if (value) params.set(key, value);
+    });
+    var area = region == null ? getParam('region') : region;
+    if (area && area !== 'all') params.set('region', area);
+    document.querySelectorAll('[data-gh-store-map-link]').forEach(function (link) {
+      link.href = '/map.html' + (params.toString() ? '?' + params.toString() : '');
+    });
+  }
   function markNoindex() {
     var meta = document.querySelector('meta[name="robots"]');
     if (!meta) { meta = document.createElement('meta'); meta.name = 'robots'; document.head.appendChild(meta); }
@@ -1009,7 +1026,7 @@
       var bbox = (lon - d) + '%2C' + (lat - d) + '%2C' + (lon + d) + '%2C' + (lat + d);
       var full = 'https://www.openstreetmap.org/?mlat=' + lat + '&mlon=' + lon + '#map=17/' + lat + '/' + lon;
       html +=
-        '<a href="' + full + '" class="gh-section__more" target="_blank" rel="noopener">大きな地図で見る →</a></div>' +
+        '<a href="/map.html?spot=' + encodeURIComponent(store.id) + '" class="gh-section__more">周辺のガチャも地図で見る →</a></div>' +
         '<div class="gh-osm-embed"><iframe title="' + esc(store.name) + 'の地図（OpenStreetMap）" ' +
           'src="https://www.openstreetmap.org/export/embed.html?bbox=' + bbox +
           '&amp;layer=mapnik&amp;marker=' + lat + '%2C' + lon + '" ' +
@@ -1077,16 +1094,31 @@
     var pref = getParam('pref');
     var query = getParam('q');
     var brand = getParam('brand');
+    var regionFilter = getParam('region');
+    var minMachines = Math.max(0, Number(getParam('minMachines')) || 0);
+    var source = SPOTS.filter(function (s) {
+      return (!pref || s.pref === pref) && (!brand || s.brand === brand) &&
+        ((!query && !brand && !pref) || !regionFilter || regionFilter === 'all' || s.region === regionFilter) &&
+        (!minMachines || Number(s.machines) >= minMachines);
+    });
+    updateStoreMapLink();
+    var filterNote = document.querySelector('[data-gh-store-filter-note]');
+    if (filterNote) {
+      var labels = [pref, brand, REGION_LABEL[regionFilter], minMachines ? '公表設置規模 ' + minMachines + '以上' : ''].filter(Boolean);
+      filterNote.textContent = labels.length ? '絞り込み：' + labels.join(' ／ ') : '';
+      filterNote.hidden = !labels.length;
+    }
 
     /* 絞り込み結果は組み合わせが増える機能画面のため、基本URLだけを検索対象にする。 */
     if (query || brand || pref) markNoindex();
+    if (regionFilter || minMachines) markNoindex();
 
     /* ── キーワード検索（?q=）: 店名・エリア・住所・ブランドを横断で部分一致。
           スペース区切りの複数キーワードは AND 検索（例:「浅草 ガチャ」）── */
     if (query) {
       var terms = searchTerms(query);
       /* 「ガチャ」「カプセルトイ」等の一般語は全店舗が該当するため常にマッチ扱い */
-      var hits = SPOTS.filter(function (s) {
+      var hits = source.filter(function (s) {
         var hay = normSearch([s.name, s.brand, s.area, s.pref, s.address, s.access]
           .map(function (f) { return (f == null ? '' : String(f)); }).join(' '));
         /* 空白を詰めた版も見る。「Main Labo」を「mainlabo」と入力しても、
@@ -1137,7 +1169,7 @@
         hits.map(function (s) {
           return '<tr>' +
             '<td><a class="gh-table__link" href="' + spotUrl(s.id) + '">' + esc(s.name) + '</a>' + openBadge(s) +
-              '<small class="gh-store-brand">' + esc(s.brand) + '</small></td>' +
+              '<small class="gh-store-brand">' + esc(s.brand) + '</small>' + storeMapLink(s) + '</td>' +
             '<td>' + esc(s.area) + '</td>' +
             '<td>' + verifiedMachinesText(s) + '</td>' +
             '<td>' + esc(verifiedHoursText(s)) + '</td>' +
@@ -1148,7 +1180,7 @@
 
     /* ── ブランド別一覧（?brand=）: noindex の利用者向け絞り込み ── */
     if (brand) {
-      var bHits = SPOTS.filter(function (s) { return s.brand === brand; })
+      var bHits = source.slice()
         .sort(function (a, b) {
           return (Number(isVerified(b)) - Number(isVerified(a))) ||
             ((isVerified(b) ? b.machines || 0 : 0) - (isVerified(a) ? a.machines || 0 : 0));
@@ -1176,7 +1208,7 @@
         bHits.map(function (s) {
           return '<tr>' +
             '<td><a class="gh-table__link" href="' + spotUrl(s.id) + '">' + esc(s.name) + '</a>' + openBadge(s) +
-              '<small class="gh-store-brand">' + esc(s.brand) + '</small></td>' +
+              '<small class="gh-store-brand">' + esc(s.brand) + '</small>' + storeMapLink(s) + '</td>' +
             '<td>' + esc(s.area) + '</td>' +
             '<td>' + verifiedMachinesText(s) + '</td>' +
             '<td>' + esc(verifiedHoursText(s)) + '</td>' +
@@ -1184,8 +1216,6 @@
         }).join('') + '</tbody></table></div></section>';
       return;
     }
-
-    var source = pref ? SPOTS.filter(function (s) { return s.pref === pref; }) : SPOTS;
 
     // ?pref= 指定時は都道府県で絞り込み表示（地方タブは隠す）
     if (pref) {
@@ -1225,7 +1255,7 @@
         html +=
           '<tr' + (i >= LIMIT ? ' hidden data-more="' + region + '"' : '') + '>' +
             '<td><a class="gh-table__link" href="' + spotUrl(s.id) + '">' + esc(s.name) + '</a>' + openBadge(s) +
-              '<small class="gh-store-brand">' + esc(s.brand) + '</small></td>' +
+              '<small class="gh-store-brand">' + esc(s.brand) + '</small>' + storeMapLink(s) + '</td>' +
             '<td>' + esc(s.area) + '</td>' +
             '<td>' + verifiedMachinesText(s) + '</td>' +
             '<td>' + esc(verifiedHoursText(s)) + '</td>' +
@@ -1363,6 +1393,7 @@
         if (show) visible += sec.querySelectorAll('tbody tr').length;
       });
       setText('storeCount', String(visible));
+      updateStoreMapLink(region);
     }
     tabs.forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -1371,7 +1402,7 @@
         apply(btn.dataset.storeRegion);
       });
     });
-    var def = document.querySelector('[data-store-region="all"]') || tabs[0];
+    var def = Array.from(tabs).find(function (tab) { return tab.dataset.storeRegion === getParam('region'); }) || document.querySelector('[data-store-region="all"]') || tabs[0];
     def.click();
   }
 })();

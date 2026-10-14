@@ -22,12 +22,12 @@
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="alternate" type="application/rss+xml" title="ガチャひろば 新着・特集記事" href="https://gacha-hiroba.com/feed.xml" />
   <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
-  <link rel="stylesheet" href="styles.css?v=20260908-visuals" />
+  <link rel="stylesheet" href="styles.css?v=20260921-map" />
   <script src="data/spots.js" defer></script>
   <script src="data/articles.js?v=20260908-visuals" defer></script>
   <script src="data/releases.js" defer></script>
-  <script src="spots-ui.js?v=20260908-visuals" defer></script>
-  <script src="script.js?v=20260903-adsense2" defer></script>
+  <script src="spots-ui.js?v=20260921-map" defer></script>
+  <script src="script.js?v=20260921-map" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -87,6 +87,7 @@
         <nav class="gh-nav-tabs" aria-label="メインナビゲーション">
           <a href="/" class="active">トップ</a>
           <a href="stores.html">店舗一覧</a>
+          <a href="map.html">地図で探す</a>
           <a href="board.html">掲示板</a>
           <a href="news.html">新着情報</a>
           <a href="ranking.html">ランキング</a>
@@ -128,11 +129,16 @@
               <span>検索</span>
             </button>
           </form>
-          <!-- 検索語を思いつく前の人の入口。map.html?near=1 は開いた瞬間に現在地を取りにいく -->
+          <div class="gh-find-actions">
+          <a class="gh-topbar__map" href="map.html">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3Z"/><path d="M9 3v15M15 6v15"/></svg>
+            <span><strong>地図で探す</strong><small>街を広げて、ガチャのお店を見つけよう</small></span><span aria-hidden="true">→</span>
+          </a>
           <a class="gh-topbar__near" href="map.html?near=1">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
             <span>いまいる場所の近くを探す</span>
           </a>
+          </div>
           <nav class="gh-station-guides" aria-label="駅別のガチャガチャ設置場所ガイド">
             <h2>駅別ガイドから探す</h2>
             <div>

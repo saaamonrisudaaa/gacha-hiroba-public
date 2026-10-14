@@ -622,6 +622,17 @@ document.querySelectorAll('.gh-nav-tabs').forEach(function (nav) {
   else nav.insertBefore(link, nav.children[1] || null);
 });
 
+/* 地図は店舗一覧と並ぶ検索入口。旧生成ページにも同じ導線を補う。 */
+document.querySelectorAll('.gh-nav-tabs').forEach(function (nav) {
+  if (nav.querySelector('a[href$="map.html"]')) return;
+  var link = document.createElement('a');
+  link.href = '/map.html';
+  link.textContent = '地図で探す';
+  var storesLink = nav.querySelector('a[href$="stores.html"]');
+  if (storesLink) storesLink.insertAdjacentElement('afterend', link);
+  else nav.insertBefore(link, nav.children[1] || null);
+});
+
 /* ── Always-visible language switch on Japanese pages ──
    Language selection is explicit; browser language and IP never force a redirect. */
 (function () {
@@ -1109,7 +1120,7 @@ renderRanking('national');
       番号を揃えているのは、地図のピンと一覧の行を目で往復できるようにするため。
    ★ 正確な緯度・経度は当サイトで保存しない。地図表示時はOpenStreetMapへ
       表示範囲のタイル要求が送信される。
-   ★ Leaflet（CDN）が読めない環境でも一覧だけは動くよう、地図処理はすべて任意扱い。
+   ★ 地図ライブラリが読めない環境でも一覧だけは動くよう、地図処理はすべて任意扱い。
    =========================================================================== */
 (function () {
   var listBox = document.querySelector('[data-gh-map-list]');
@@ -1119,17 +1130,19 @@ renderRanking('national');
   var esc = function (s) {
     var d = document.createElement('div');
     d.textContent = (s == null ? '' : String(s));
-    return d.innerHTML;
+    return d.innerHTML.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   };
   var machinesText = function (n) {
     return (n == null || n === '') ? '—' : '約' + Number(n).toLocaleString('ja-JP') + '（公表値）';
   };
-  var ALL = (window.GH_SPOTS || []).filter(function (s) {
-    return isVerified(s) && s.lat != null && s.lon != null;
-  });
+  var VERIFIED = (Array.isArray(window.GH_SPOTS) ? window.GH_SPOTS : []).filter(isVerified);
+  function hasCoordinates(s) {
+    return typeof s.lat === 'number' && isFinite(s.lat) && s.lat >= -90 && s.lat <= 90 &&
+      typeof s.lon === 'number' && isFinite(s.lon) && s.lon >= -180 && s.lon <= 180;
+  }
+  var ALL = VERIFIED.filter(hasCoordinates);
 
   var NEAR_LIMIT = 20;        /* 「範囲指定なし」で出す件数 */
-  var FAR_LIMIT = 100;        /* 現在地なしのとき、地図に出すピンの上限 */
   var RADIUS_STEPS = [0.5, 1, 3, 5, 10];
 
   /* 2点間の距離（km・ハーバサイン）。国内の距離なら十分な精度 */
@@ -1170,7 +1183,12 @@ renderRanking('national');
     try { s = s.normalize('NFKC'); } catch (e) {}
     return s.toLowerCase().replace(/[#\-‐‑–—−]/g, '');
   }
-  var GENERIC = 'ガチャ ガチャガチャ ガチャポン ガシャポン カプセルトイ カプセル 専門店 店舗';
+  function searchTerms(query) {
+    var generic = ['ガチャ', 'ガチャガチャ', 'ガチャポン', 'ガシャポン', 'カプセルトイ', 'カプセル', '専門店', '店舗', '設置場所'];
+    return norm(query).split(/\s+/).filter(function (term) {
+      return term && generic.indexOf(term) === -1;
+    }).map(function (term) { return term.length > 1 ? term.replace(/駅$/, '') : term; });
+  }
 
   /* ── 画面の状態 ─────────────────────────────────────────── */
   var st = {
@@ -1178,30 +1196,47 @@ renderRanking('national');
     acc: null,         /* 位置精度（m） */
     radiusKm: 1,       /* 0 = 範囲指定なし（近い順に上位だけ） */
     pref: '',
+    brand: '',
+    region: '',
     minMachines: 0,
     query: '',
-    viewportMode: false, /* true = 検索語・半径よりも、いま見えている地図範囲を優先 */
+    viewportMode: false, /* true = 明示した検索条件を保ち、現在地の半径を地図範囲へ切り替える */
     selectedId: ''     /* 地図で開いている店舗。一覧側の強調表示にも使う */
   };
+  var initialParams;
+  try {
+    initialParams = new URLSearchParams(location.search);
+    var hashParams = new URLSearchParams(String(location.hash || '').replace(/^#/, ''));
+    ['q', 'pref', 'brand', 'region', 'minMachines', 'spot'].forEach(function (key) {
+      if (!initialParams.has(key) && hashParams.has(key)) initialParams.set(key, hashParams.get(key));
+    });
+    st.query = (initialParams.get('q') || '').trim();
+    st.pref = initialParams.get('pref') || '';
+    st.brand = initialParams.get('brand') || '';
+    st.region = initialParams.get('region') || '';
+    st.minMachines = Math.max(0, Number(initialParams.get('minMachines')) || 0);
+  } catch (e) { initialParams = new URLSearchParams(); }
+
+  function matchingSpots() {
+    var terms = searchTerms(st.query);
+    return ALL.filter(function (s) {
+      if (st.pref && s.pref !== st.pref) return false;
+      if (st.brand && s.brand !== st.brand) return false;
+      if (st.region && s.region !== st.region) return false;
+      if (st.minMachines && Number(s.machines) < st.minMachines) return false;
+      if (st.minMachines && !Number(s.machines)) return false;
+      var hay = norm([s.name, s.brand, s.area, s.pref, s.address, s.access].join(' '));
+      var flat = hay.replace(/\s+/g, '');
+      return terms.every(function (term) { return hay.indexOf(term) !== -1 || flat.indexOf(term) !== -1; });
+    }).sort(function (a, b) {
+      return st.here
+        ? distKm(st.here[0], st.here[1], a.lat, a.lon) - distKm(st.here[0], st.here[1], b.lat, b.lon)
+        : (Number(b.machines) || 0) - (Number(a.machines) || 0);
+    });
+  }
 
   /* ── 絞り込み ───────────────────────────────────────────── */
-  function filtered() {
-    var arr = ALL.filter(function (s) {
-      if (st.pref && s.pref !== st.pref) return false;
-      if (st.minMachines && !(isVerified(s) && Number(s.machines) >= st.minMachines)) return false;
-      /* 地図を自分で動かした後は、検索語を外して「見えている範囲」を優先する。 */
-      if (st.query && !st.viewportMode) {
-        var terms = norm(st.query).split(/\s+/).filter(Boolean);
-        var hay = norm([s.name, s.brand, s.area, s.pref, s.address, s.access]
-          .map(function (f) { return f == null ? '' : String(f); }).join(' ') + ' ' + GENERIC);
-        var flat = hay.replace(/\s+/g, '');
-        var ok = terms.every(function (t) {
-          return hay.indexOf(t) !== -1 || flat.indexOf(t.replace(/\s+/g, '')) !== -1;
-        });
-        if (!ok) return false;
-      }
-      return true;
-    });
+  function filtered(arr) {
 
     /* 検索結果を入口に地図を広げたら、現在の表示範囲に入る全店舗を反映する。
        都道府県・台数の明示的なセレクト条件だけはそのまま尊重する。 */
@@ -1219,16 +1254,16 @@ renderRanking('national');
             ((isVerified(b) ? b.machines || 0 : 0) - (isVerified(a) ? a.machines || 0 : 0));
         });
       }
-      return { rows: inView, total: inView.length, nearestOutside: null };
+      return { rows: inView, markers: arr, total: inView.length, nearestOutside: null };
     }
 
-    /* 現在地なし：公表設置規模の数値順。ピンが多すぎると読めないので上限を掛ける */
+    /* 現在地なし：全店舗を表示し、密集したピンはクラスタにまとめる。 */
     if (!st.here) {
       var byMach = arr.slice().sort(function (a, b) {
         return (Number(isVerified(b)) - Number(isVerified(a))) ||
           ((isVerified(b) ? b.machines || 0 : 0) - (isVerified(a) ? a.machines || 0 : 0));
       });
-      return { rows: byMach.slice(0, FAR_LIMIT), total: byMach.length, nearestOutside: null };
+      return { rows: byMach, markers: byMach, total: byMach.length, nearestOutside: null };
     }
 
     /* 現在地あり：距離順。半径の外は落とすが「1件も無い」で行き止まりにしないため
@@ -1269,16 +1304,18 @@ renderRanking('national');
     var km = st.here ? distKm(st.here[0], st.here[1], s.lat, s.lon) : null;
     var walk = km == null ? '' : walkText(km);
     var selected = st.selectedId === s.id;
+    var number = markerNumberById[s.id] || i + 1;
     return '<div class="gh-map-spot-row' + (selected ? ' gh-map-spot-row--selected' : '') + '" ' +
       'data-gh-spot-row="' + esc(s.id) + '">' +
       '<a href="' + ghSpotUrl(s.id) + '" class="gh-map-spot' +
         (selected ? ' gh-map-spot--selected' : '') + '"' + (selected ? ' aria-current="location"' : '') + '>' +
-        '<div class="gh-map-spot__num' + (i === 0 ? ' gh-map-spot__num--1' : '') + '">' + (i + 1) + '</div>' +
+        '<div class="gh-map-spot__num' + (number === 1 ? ' gh-map-spot__num--1' : '') + '">' + number + '</div>' +
         '<div class="gh-map-spot__info">' +
           '<strong class="gh-map-spot__name">' + esc(s.name) +
             (isPreOpen(s) ? '<span class="gh-badge gh-badge--soon">' + esc(soonText(s)) + ' オープン予定</span>' : '') +
           '</strong>' +
           '<span class="gh-map-spot__area">' + esc(s.area) + '</span>' +
+          '<span class="gh-map-spot__address">' + esc(s.address || s.access || '施設内の場所は店舗詳細をご確認ください。') + '</span>' +
           '<div class="gh-map-spot__meta">' +
             (km == null ? '' : '<span class="gh-map-spot__dist">📍 ' + distText(km) +
               (walk ? '（' + walk + '）' : '') + '</span>') +
@@ -1300,7 +1337,7 @@ renderRanking('national');
     if (!listBox) return;
     var count = document.querySelector('.gh-map-list__count');
     var heading = document.querySelector('.gh-map-list__header strong');
-    if (heading) heading.textContent = st.viewportMode ? '地図内のスポット' : (st.query ? '検索結果' : '周辺スポット');
+    if (heading) heading.textContent = st.viewportMode ? '地図内のスポット' : (st.query || st.pref || st.brand || st.region ? '検索結果' : st.here ? '周辺スポット' : '全国のスポット');
 
     if (!res.rows.length) {
       var near = res.nearestOutside;
@@ -1367,20 +1404,55 @@ renderRanking('national');
   var map = null, mapReady = false;
   var spotLayer = null, meLayer = null;
   var markerById = {};
+  var markerNumberById = {};
+  var focusSequence = 0;
+  var tileError = false;
+  var spotNotice = '';
+
+  function setMapStatus(message) {
+    var status = document.querySelector('[data-gh-map-status]');
+    if (!status) return;
+    status.textContent = message || '';
+    status.hidden = !message;
+  }
+
+  function updateMapStatus() {
+    setMapStatus(!mapReady
+      ? '地図を読み込めませんでした。店舗一覧と「経路」から場所をご確認いただけます。ページを再読み込みすると再試行できます。'
+      : tileError
+      ? '背景地図の一部を読み込めませんでした。店舗一覧と「経路」もご利用ください。'
+      : spotNotice);
+  }
 
   function initMap() {
-    if (!mapEl || typeof L === 'undefined') return false;
-    map = L.map(mapEl, { scrollWheelZoom: false });
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-    spotLayer = L.layerGroup().addTo(map);
-    meLayer = L.layerGroup().addTo(map);
-    /* ページスクロールを奪わないよう、クリックで初めてホイールズームを許可 */
-    map.on('click', function () { map.scrollWheelZoom.enable(); });
-    mapReady = true;
-    return true;
+    if (!mapEl || typeof L === 'undefined') { updateMapStatus(); return false; }
+    try {
+      map = L.map(mapEl, { center: [36.5, 137.5], zoom: 5, scrollWheelZoom: false });
+      var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      });
+      tiles.on('tileerror', function () { tileError = true; updateMapStatus(); });
+      tiles.on('loading', function () { tileError = false; });
+      tiles.on('load', updateMapStatus);
+      tiles.addTo(map);
+      spotLayer = (typeof L.markerClusterGroup === 'function'
+        ? L.markerClusterGroup({ maxClusterRadius: 48, showCoverageOnHover: false, animate: false,
+            spiderfyOnMaxZoom: true, zoomToBoundsOnClick: true })
+        : L.layerGroup()).addTo(map);
+      meLayer = L.layerGroup().addTo(map);
+      /* ページスクロールを奪わないよう、クリックで初めてホイールズームを許可 */
+      map.on('click', function () { map.scrollWheelZoom.enable(); });
+      mapReady = true;
+      updateMapStatus();
+      return true;
+    } catch (error) {
+      if (map && typeof map.remove === 'function') map.remove();
+      map = null;
+      mapReady = false;
+      updateMapStatus();
+      return false;
+    }
   }
 
   function popupHtml(s, km) {
@@ -1389,6 +1461,9 @@ renderRanking('national');
       (km == null ? '' : '<span style="color:#1d4ed8;font-weight:700">📍 現在地から' + distText(km) +
         (walkText(km) ? '（' + walkText(km) + '）' : '') + '</span><br>') +
       '<span style="color:#6b7280">' + esc(s.area) + '</span><br>' +
+      '<span>' + esc(s.address || '') + '</span><br>' +
+      (s.access ? '<span>' + esc(s.access) + '</span><br>' : '') +
+      '<small>ピンは施設のおおよその位置です。階数・売場は住所や店舗詳細をご確認ください。</small><br>' +
       '🎰 ' + mapMachines(s) + ' ・ 🕒 ' + esc(mapHours(s)) + '<br>' +
       '<div class="gh-map-popup__actions">' +
         '<a href="' + ghSpotUrl(s.id) + '">店舗詳細</a>' +
@@ -1422,23 +1497,38 @@ renderRanking('national');
   }
 
   function drawSpots(rows) {
+    markerNumberById = {};
+    rows.forEach(function (s, i) { markerNumberById[s.id] = i + 1; });
     if (!mapReady) return [];
-    spotLayer.clearLayers();
-    markerById = {};
+    /* 地図移動でマーカーを作り直すと、クラスタの展開とポップアップが閉じる。
+       検索条件で増減した店舗だけを更新し、同じマーカーを保つ。 */
+    Object.keys(markerById).forEach(function (id) {
+      if (!markerNumberById[id]) { spotLayer.removeLayer(markerById[id]); delete markerById[id]; }
+    });
     var pts = [];
     rows.forEach(function (s, i) {
       var km = st.here ? distKm(st.here[0], st.here[1], s.lat, s.lon) : null;
       var variant = isPreOpen(s) ? 'soon' : (i === 0 ? 'first' : '');
-      var m = L.marker([s.lat, s.lon], {
-        icon: pinIcon(i + 1, variant, i === 0),
-        title: s.name,
-        /* 近い順の上位を手前に重ねる（ピンが密集する繁華街で1番が隠れないように） */
-        zIndexOffset: Math.max(0, 1000 - i)
-      }).addTo(spotLayer);
-      m.bindPopup(popupHtml(s, km));
-      /* ピンを選ぶと右の一覧でも同じ店舗を強調する。 */
-      m.on('click', function () { selectSpot(s.id, true); });
-      markerById[s.id] = m;
+      var m = markerById[s.id];
+      var signature = [i, variant, km].join('|');
+      if (!m) {
+        m = L.marker([s.lat, s.lon], { icon: pinIcon(i + 1, variant, i === 0), title: s.name,
+          zIndexOffset: Math.max(0, 1000 - i) });
+        m.bindPopup(popupHtml(s, km), {
+          maxWidth: Math.min(300, Math.max(160, (mapEl.clientWidth || 380) - 76)),
+          maxHeight: 220,
+          autoPanPaddingTopLeft: [12, 64],
+          autoPanPaddingBottomRight: [12, 12]
+        });
+        m.on('click', function () { selectSpot(s.id, true); });
+        markerById[s.id] = m;
+        m.addTo(spotLayer);
+      } else if (m.ghSignature !== signature) {
+        m.setIcon(pinIcon(i + 1, variant, i === 0));
+        m.setPopupContent(popupHtml(s, km));
+        m.setZIndexOffset(Math.max(0, 1000 - i));
+      }
+      m.ghSignature = signature;
       pts.push([s.lat, s.lon]);
     });
     return pts;
@@ -1483,20 +1573,34 @@ renderRanking('national');
     suppressViewportRefresh = true;
     if (all.length > 1) map.fitBounds(all, fitOpts);
     else if (all.length === 1) map.setView(all[0], 15, { animate: false });
-    else map.setView([35.68, 139.76], 9, { animate: false });
+    else map.setView([36.5, 137.5], 5, { animate: false });
     suppressViewportRefresh = false;
   }
 
   function render(opts) {
-    var res = filtered();
+    var res = filtered(matchingSpots());
     if (st.selectedId && !res.rows.some(function (s) { return s.id === st.selectedId; })) {
       st.selectedId = '';
     }
+    var pts = drawSpots(res.markers || res.rows);
     renderList(res);
     renderSummary(res);
-    var pts = drawSpots(res.rows);
     drawMe();
     if (!opts || opts.fit !== false) fitView(pts);
+    syncListLink();
+  }
+
+  function syncListLink() {
+    var params = new URLSearchParams();
+    if (st.query) params.set('q', st.query);
+    if (st.pref) params.set('pref', st.pref);
+    if (st.brand) { params.set('brand', st.brand); params.set('view', 'list'); }
+    if (st.region) params.set('region', st.region);
+    if (st.minMachines) params.set('minMachines', String(st.minMachines));
+    var links = document.querySelectorAll('[data-gh-map-list-link]');
+    for (var i = 0; i < links.length; i++) {
+      links[i].href = '/stores.html' + (params.toString() ? '?' + params.toString() : '');
+    }
   }
 
   /* ── 現在地の取得 ── */
@@ -1509,6 +1613,7 @@ renderRanking('national');
   }
 
   var locatePending = false;
+  var locateSequence = 0;
   var locationHelp = document.querySelector('[data-gh-location-help]');
 
   function setLocateButton(loading, label) {
@@ -1541,7 +1646,17 @@ renderRanking('national');
     setLocateButton(false, label || '現在地から探す');
   }
 
+  function leaveCurrentLocation() {
+    locateSequence += 1;
+    finishLocateRequest();
+    st.here = null;
+    st.acc = null;
+    hideLocationHelp();
+    setStatus('');
+  }
+
   function requestCurrentLocation() {
+    var request = ++locateSequence;
     window.GHLocationAccess.requestPosition(navigator, {
       permissionTimeout: 800,
       positionOptions: {
@@ -1550,17 +1665,19 @@ renderRanking('national');
         maximumAge: 60000
       },
       onPermissionState: function (state) {
+        if (request !== locateSequence) return;
         setStatus(state === 'prompt'
           ? '表示された確認画面で、位置情報の利用を「許可」してください。'
           : '現在地を取得しています…');
       }
     }).then(
       function (pos) {
+        if (request !== locateSequence) return;
         st.here = [pos.coords.latitude, pos.coords.longitude];
         st.acc = pos.coords.accuracy;
         finishLocateRequest('現在地を再取得');
         hideLocationHelp();
-        setStatus('現在地を取得しました（誤差およそ' + Math.round(st.acc) + 'm）。位置情報は端末の中だけで使い、送信していません。', 'ok');
+        setStatus('現在地を取得しました（誤差およそ' + Math.round(st.acc) + 'm）。現在地は当サイトでは保存しません。地図の表示範囲はOpenStreetMapへ送信されます。', 'ok');
         render();
         var anchor = document.querySelector('[data-gh-nearme-result]');
         if (anchor && anchor.scrollIntoView) {
@@ -1568,6 +1685,7 @@ renderRanking('national');
         }
       },
       function (err) {
+        if (request !== locateSequence) return;
         finishLocateRequest('現在地から探す');
         if (err && err.code === 1) {
           setStatus('位置情報が許可されていません。端末に合わせた設定手順をご確認ください。', 'warn');
@@ -1601,6 +1719,8 @@ renderRanking('national');
       return;
     }
     locatePending = true;
+    focusSequence += 1;
+    suppressViewportRefresh = false;
     st.viewportMode = false;
     ghTrack('nearby_search', { map_context: 'current_location' });
     setLocateButton(true, '現在地を取得中…');
@@ -1651,9 +1771,6 @@ renderRanking('national');
     if (!mapReady || suppressViewportRefresh) return;
     if (ignoreNextMoveEnd) { ignoreNextMoveEnd = false; return; }
     st.viewportMode = true;
-    st.query = '';
-    var mapInput = document.querySelector('.gh-map-search-input');
-    if (mapInput) mapInput.value = '';
     render({ fit: false });
   }
   if (mapReady) {
@@ -1667,12 +1784,42 @@ renderRanking('national');
     var sel = document.querySelector('[data-gh-pref]');
     if (!sel) return;
     var counts = {};
+    VERIFIED.forEach(function (s) { if (s.pref) counts[s.pref] = counts[s.pref] || 0; });
     ALL.forEach(function (s) { counts[s.pref] = (counts[s.pref] || 0) + 1; });
+    if (st.pref && counts[st.pref] == null) counts[st.pref] = 0;
     var prefs = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; });
     sel.innerHTML = '<option value="">都道府県：すべて</option>' + prefs.map(function (p) {
       return '<option value="' + esc(p) + '">' + esc(p) + '（' + counts[p] + '件）</option>';
     }).join('');
+    sel.value = st.pref;
   })();
+
+  var brandSel = document.querySelector('[data-gh-map-brand]');
+  if (brandSel) {
+    var brandCounts = {};
+    VERIFIED.forEach(function (s) { if (s.brand) brandCounts[s.brand] = brandCounts[s.brand] || 0; });
+    ALL.forEach(function (s) { brandCounts[s.brand] = (brandCounts[s.brand] || 0) + 1; });
+    if (st.brand && brandCounts[st.brand] == null) brandCounts[st.brand] = 0;
+    brandSel.innerHTML = '<option value="">ブランド：すべて</option>' + Object.keys(brandCounts).sort(function (a, b) {
+      return brandCounts[b] - brandCounts[a];
+    }).map(function (brand) {
+      return '<option value="' + esc(brand) + '">' + esc(brand) + '（' + brandCounts[brand] + '件）</option>';
+    }).join('');
+    brandSel.value = st.brand;
+    brandSel.addEventListener('change', function () {
+      focusSequence += 1;
+      suppressViewportRefresh = false;
+      st.brand = brandSel.value;
+      render({ fit: !st.viewportMode });
+    });
+  }
+
+  var coverage = document.querySelector('[data-gh-map-coverage]');
+  if (coverage) {
+    coverage.textContent = '公式情報を確認した' + VERIFIED.length + '店舗のうち、位置情報のある' + ALL.length +
+      '店舗を地図に掲載しています。位置情報未確認の' + (VERIFIED.length - ALL.length) +
+      '店舗は店舗一覧からご確認ください。ピンは施設のおおよその位置で、建物内の階数・売場を示すものではありません。';
+  }
 
   var locBtns = document.querySelectorAll('[data-gh-locate]');
   for (var i = 0; i < locBtns.length; i++) locBtns[i].addEventListener('click', locate);
@@ -1681,6 +1828,8 @@ renderRanking('national');
   if (radiusSel) {
     st.radiusKm = Number(radiusSel.value || 1);
     radiusSel.addEventListener('change', function () {
+      focusSequence += 1;
+      suppressViewportRefresh = false;
       st.viewportMode = false;
       st.radiusKm = Number(radiusSel.value || 0);
       render();
@@ -1688,22 +1837,38 @@ renderRanking('national');
   }
   var prefSel = document.querySelector('[data-gh-pref]');
   if (prefSel) prefSel.addEventListener('change', function () {
+    focusSequence += 1;
+    suppressViewportRefresh = false;
+    leaveCurrentLocation();
     st.viewportMode = false;
     st.pref = prefSel.value;
+    st.region = '';
     render();
   });
 
   var machSel = document.querySelector('[data-gh-min-machines]');
-  if (machSel) machSel.addEventListener('change', function () {
-    st.minMachines = Number(machSel.value || 0);
-    render({ fit: !st.viewportMode });
-  });
+  if (machSel) {
+    if ([0, 100, 300, 500, 1000].indexOf(st.minMachines) === -1) {
+      machSel.innerHTML += '<option value="' + st.minMachines + '">公表値' + st.minMachines + '以上</option>';
+    }
+    machSel.value = String(st.minMachines);
+    machSel.addEventListener('change', function () {
+      focusSequence += 1;
+      suppressViewportRefresh = false;
+      st.minMachines = Number(machSel.value || 0);
+      render({ fit: !st.viewportMode });
+    });
+  }
 
   var form = document.querySelector('.gh-map-search-form');
   var input = document.querySelector('.gh-map-search-input');
+  if (input) input.value = st.query;
   if (form && input) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      focusSequence += 1;
+      suppressViewportRefresh = false;
+      leaveCurrentLocation();
       st.viewportMode = false;
       st.query = input.value.trim();
       if (st.query) ghTrack('search_submit', { search_term: st.query, search_location: 'map' });
@@ -1714,14 +1879,44 @@ renderRanking('national');
   function focusSpot(id) {
     var m = markerById[id];
     if (!m || !mapReady) return;
+    var focus = ++focusSequence;
     selectSpot(id, false);
     suppressViewportRefresh = true;
     map.setView(m.getLatLng(), Math.max(map.getZoom(), 16), { animate: false });
-    suppressViewportRefresh = false;
-    m.openPopup();
+    var open = function () {
+      if (focus !== focusSequence) return;
+      suppressViewportRefresh = false;
+      st.viewportMode = true;
+      render({ fit: false });
+      selectSpot(id, false);
+      m.openPopup();
+    };
+    if (typeof spotLayer.zoomToShowLayer === 'function') spotLayer.zoomToShowLayer(m, open);
+    else open();
     if (mapEl && mapEl.scrollIntoView) {
       try { mapEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
     }
+  }
+
+  var resetButtons = document.querySelectorAll('[data-gh-map-reset]');
+  for (var resetIndex = 0; resetIndex < resetButtons.length; resetIndex++) {
+    resetButtons[resetIndex].addEventListener('click', function () {
+      focusSequence += 1;
+      suppressViewportRefresh = false;
+      ignoreNextMoveEnd = false;
+      leaveCurrentLocation();
+      st.pref = ''; st.brand = ''; st.region = ''; st.query = ''; st.minMachines = 0;
+      st.viewportMode = false; st.selectedId = ''; st.radiusKm = 1;
+      if (mapReady && typeof map.closePopup === 'function') map.closePopup();
+      if (prefSel) prefSel.value = '';
+      if (brandSel) brandSel.value = '';
+      if (input) input.value = '';
+      if (machSel) machSel.value = '0';
+      if (radiusSel) radiusSel.value = '1';
+      spotNotice = '';
+      updateMapStatus();
+      render();
+    });
   }
 
   function selectSpot(id, scrollList) {
@@ -1765,6 +1960,8 @@ renderRanking('national');
       var widen = t.closest('[data-gh-widen]');
       if (widen) {
         e.preventDefault();
+        focusSequence += 1;
+        suppressViewportRefresh = false;
         st.viewportMode = false;
         st.radiusKm = Number(widen.getAttribute('data-gh-widen') || 0);
         if (radiusSel) radiusSel.value = String(st.radiusKm);
@@ -1781,6 +1978,17 @@ renderRanking('national');
 
   /* 初期描画（現在地なし＝公表設置規模の参考順） */
   render();
+
+  var initialSpotId = initialParams.get('spot');
+  if (initialSpotId) {
+    var requestedSpot = VERIFIED.filter(function (s) { return s.id === initialSpotId; })[0];
+    if (!requestedSpot) spotNotice = '指定された店舗は現在、地図に掲載されていません。検索や店舗一覧をご利用ください。';
+    else if (!hasCoordinates(requestedSpot)) {
+      spotNotice = requestedSpot.name + 'の位置情報は未確認のため、ピンを表示していません。店舗一覧または店舗詳細で住所をご確認ください。';
+    } else if (markerById[initialSpotId]) focusSpot(initialSpotId);
+    else spotNotice = '指定された店舗は現在の検索条件に含まれません。「全国・全条件に戻る」で条件を解除できます。';
+    updateMapStatus();
+  }
 
   /* 他ページから ?near=1 で来たら、そのまま現在地取得へ進む */
   try {

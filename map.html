@@ -17,14 +17,17 @@
   <meta property="og:image" content="https://gacha-hiroba.com/assets/ogp.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" href="assets/mascot-icon.png" />
-  <link rel="stylesheet" href="styles.css?v=20260903-location" />
+  <link rel="stylesheet" href="styles.css?v=20260921-map" />
   <!-- OpenStreetMap (Leaflet) -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
+  <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="assets/vendor/leaflet-markercluster/MarkerCluster.css" />
+  <link rel="stylesheet" href="assets/vendor/leaflet-markercluster/MarkerCluster.Default.css" />
+  <script src="assets/vendor/leaflet/leaflet.js" defer></script>
+  <script src="assets/vendor/leaflet-markercluster/leaflet.markercluster.js" defer></script>
   <script src="data/spots.js" defer></script>
-  <script src="script.js?v=20260903-location" defer></script>
+  <script src="script.js?v=20260921-map" defer></script>
 </head>
-<body>
+<body class="gh-map-page">
   <header class="gh-header">
     <div class="gh-header__top">
       <div class="gh-container gh-header__inner">
@@ -48,6 +51,7 @@
         <nav class="gh-nav-tabs" aria-label="メインナビゲーション">
           <a href="/">トップ</a>
           <a href="stores.html">店舗一覧</a>
+          <a href="map.html" class="active" aria-current="page">地図で探す</a>
           <a href="news.html">新着情報</a>
           <a href="ranking.html">ランキング</a>
           <a href="area.html">エリア別</a>
@@ -60,9 +64,15 @@
   <main id="main" class="gh-main">
     <div class="gh-container">
 
-      <div class="gh-page-hero">
-        <h1 class="gh-page-hero__title">近くのガチャを探す</h1>
-        <p class="gh-page-hero__desc">現在地から近いガチャガチャスポットを、地図と一覧で距離順に表示します。駅名・エリア名での検索にも対応。</p>
+      <div class="gh-page-hero gh-map-hero">
+        <div>
+          <h1 class="gh-page-hero__title">地図でガチャガチャを探す</h1>
+          <p class="gh-page-hero__desc">行きたい街を広げて、お店の場所をチェック。ピンを押すと店舗情報と経路が見られます。</p>
+        </div>
+        <nav class="gh-view-switch" aria-label="店舗の探し方">
+          <a href="stores.html" data-gh-map-list-link>一覧で探す</a>
+          <a href="map.html" aria-current="page">地図で探す</a>
+        </nav>
       </div>
 
       <!-- 現在地から探す（このページの主役）。押した瞬間に地図・一覧・件数が現在地基準に切り替わる -->
@@ -84,16 +94,16 @@
             </select>
           </label>
         </div>
-        <p class="gh-nearme__note">現在地の緯度・経度は端末内の距離計算に使い、当サイトでは保存しません。地図表示時はOpenStreetMapへ表示範囲のタイル要求が送信されます。</p>
+        <details class="gh-map-privacy"><summary>現在地の利用について</summary><p class="gh-nearme__note">現在地の緯度・経度は端末内の距離計算に使い、当サイトでは保存しません。地図表示時はOpenStreetMapへ表示範囲のタイル要求が送信されます。現在地を許可しなくても、地図やキーワードで探せます。</p></details>
         <p class="gh-nearme__status" data-gh-locate-status role="status" aria-live="polite" hidden></p>
         <div class="gh-location-help" data-gh-location-help role="alert" hidden></div>
         <p class="gh-nearme__result" data-gh-nearme-result hidden></p>
       </section>
 
       <!-- キーワード検索・絞り込み -->
-      <section class="gh-section" style="margin-bottom:0">
+      <section class="gh-map-search-section" aria-label="地図の検索条件">
         <div class="gh-map-search-bar">
-          <form class="gh-map-search-form" action="/stores.html" method="get">
+          <form class="gh-map-search-form" action="/map.html" method="get" role="search">
             <div class="gh-map-search-input-wrap">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--gh-muted);pointer-events:none"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
               <input class="gh-map-search-input" type="search" name="q" placeholder="駅名・スポット名・エリアで検索（例: 秋葉原）" aria-label="検索キーワード" />
@@ -106,6 +116,9 @@
             <select class="gh-select" style="width:auto;min-width:150px" data-gh-pref aria-label="都道府県で絞り込む">
               <option value="">都道府県：すべて</option>
             </select>
+            <select class="gh-select" data-gh-map-brand aria-label="ブランドで絞り込む">
+              <option value="">ブランド：すべて</option>
+            </select>
             <select class="gh-select" style="width:auto;min-width:150px" data-gh-min-machines aria-label="公表設置規模で絞り込む">
               <option value="0">公表設置規模：すべて</option>
               <option value="100">公表値100以上</option>
@@ -113,23 +126,28 @@
               <option value="500">公表値500以上</option>
               <option value="1000">公表値1,000以上</option>
             </select>
+            <button type="button" class="gh-btn gh-map-reset" data-gh-map-reset>条件をリセット</button>
           </div>
-          <p class="gh-detail-note">設置規模の単位は情報元により台・面・種類・設置ボックス数など異なります。数値条件は候補を絞る参考で、厳密な同単位比較ではありません。</p>
         </div>
       </section>
 
-      <p class="gh-map-bounds-note">地図を移動・拡大縮小すると、表示範囲内の店舗へ自動で更新されます。</p>
+      <div class="gh-map-toolbar">
+        <p class="gh-map-bounds-note">丸い数字は店舗数。押すと拡大します。地図を動かすと一覧も更新されます。</p>
+        <a href="#mapResults" class="gh-map-results-link">表示中の店舗を見る ↓</a>
+      </div>
+      <p class="gh-map-status" data-gh-map-status role="status" aria-live="polite" hidden></p>
+      <noscript><p class="gh-map-status">地図の利用にはJavaScriptを有効にしてください。<a href="stores.html">店舗一覧からも探せます。</a></p></noscript>
 
       <!-- マップ + リスト -->
       <div class="gh-map-layout">
 
         <!-- マップエリア (OpenStreetMap / Leaflet) -->
         <div class="gh-map-area">
-          <div id="osmMap" class="gh-osm-map" role="application" aria-label="ガチャスポットの地図（OpenStreetMap）"></div>
+          <div id="osmMap" class="gh-osm-map" role="region" aria-label="ガチャスポットの地図（OpenStreetMap）"></div>
         </div>
 
         <!-- リストパネル。番号は地図のピンと一致している -->
-        <div class="gh-map-list">
+        <div class="gh-map-list" id="mapResults" tabindex="-1" aria-label="地図に表示している店舗一覧">
           <div class="gh-map-list__header">
             <strong>周辺スポット</strong>
             <span class="gh-map-list__count" aria-live="polite">読み込み中…</span>
@@ -139,10 +157,15 @@
           <div data-gh-map-list></div>
 
           <div class="gh-map-list__footer">
-            <a href="area.html" class="gh-btn gh-btn--block">エリア別に全店舗を見る</a>
+            <a href="stores.html" class="gh-btn gh-btn--block" data-gh-map-list-link>店舗一覧で見る</a>
           </div>
         </div>
 
+      </div>
+      <div class="gh-map-data-note">
+        <p data-gh-map-coverage>掲載根拠と位置情報のある店舗を表示します。位置情報のない店舗は店舗一覧で確認できます。</p>
+        <p>ピンは施設のおおよその位置です。館内の階数・設置場所は住所と公式情報をご確認ください。商品の在庫や入荷をリアルタイムで示すものではありません。</p>
+        <p>公表設置規模の単位は台・面・種類など情報元により異なります。数値条件は候補選びの目安です。</p>
       </div>
 
     </div>
