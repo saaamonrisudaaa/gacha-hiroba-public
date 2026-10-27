@@ -2617,7 +2617,11 @@ document.addEventListener('click', async function (event) {
       const cls = 'gh-hot' + (lead ? ' gh-hot--lead' : ' gh-hot--row');
       return '<article class="' + cls + '">' + inner + '</article>';
     };
-    const shown = items.slice(0, 7);
+    /* 発売週未定の翌月商品が多いときも、直近発売分を最大2件残す。 */
+    const recent = hasMentions ? [] : items.filter(it =>
+      it.d >= -7 && it.d <= 0 && !/未定/.test(String(it.r.label || ''))
+    ).slice(0, 2);
+    const shown = recent.concat(items.filter(it => !recent.includes(it))).slice(0, 7);
     hotBox.innerHTML = cell(shown[0], true) +
       (shown.length > 1
         ? '<div class="gh-hot-rest">' + shown.slice(1).map(x => cell(x, false)).join('') + '</div>'
@@ -2628,8 +2632,8 @@ document.addEventListener('click', async function (event) {
       if (heading) {
         const dot = heading.querySelector('.gh-live-dot');
         const label = heading.querySelector('[data-gh-hot-heading]');
-        if (label) label.textContent = hasMentions ? '今日話題の商品' : '今週・近日発売の新作';
-        else heading.textContent = hasMentions ? '今日話題の商品' : '今週・近日発売の新作';
+        if (label) label.textContent = hasMentions ? '今日話題の商品' : '新作・発売予定のガチャ';
+        else heading.textContent = hasMentions ? '今日話題の商品' : '新作・発売予定のガチャ';
         if (dot) {
           dot.hidden = !hasMentions;
           if (!label) heading.prepend(dot);

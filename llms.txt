@@ -12,6 +12,7 @@
 - [公表設置規模の比較](https://gacha-hiroba.com/ranking.html): 公表値は情報元ごとに単位・定義が異なるため、合算や現在庫の推定には使いません
 
 ## ガイド
+- [大阪・梅田ガチャガチャガイド](https://gacha-hiroba.com/guide/umeda.html): 大阪駅・梅田駅周辺のガチャガチャ5店を公式情報で確認。ルクア5階、Osaka Metro梅田駅、阪急三番街北館、HEP FIVE9階、namco梅田店1階の位置と営業時間を比較します。
 - [横浜駅ガチャガチャガイド](https://gacha-hiroba.com/guide/yokohama.html): 横浜駅のガチャガチャ5店を公式情報で確認。ビブレ7階、エディオン7階、ヨドバシ6階、シープラ、東口スカイビルを営業時間・建物・地図で比較し、短時間で寄る店を選べます。
 - [カプセルパークの店舗案内](https://gacha-hiroba.com/guide/capsule-park-store-guide.html): カプセルパークの調布・ひばりヶ丘・アティ郡山・川徳の4店を公式情報で確認。住所、売り場の階、営業時間の確認先、公表面数と、全国の公式店舗一覧への入口をまとめました。
 - [池袋ガチャガチャガイド](https://gacha-hiroba.com/guide/ikebukuro.html): 池袋のガチャガチャ4店を公式情報で確認。東口のgashacoco2店、西口のカプセル楽局、サンシャインシティのガシャポンのデパートを、営業時間・建物・地図で比較します。
@@ -35,6 +36,7 @@
 - [2026-08の新作](https://gacha-hiroba.com/releases/2026-08.html): メーカー公式情報の発売時期・価格・種類数
 - [2026-09の新作](https://gacha-hiroba.com/releases/2026-09.html): メーカー公式情報の発売時期・価格・種類数
 - [2026-10の新作](https://gacha-hiroba.com/releases/2026-10.html): メーカー公式情報の発売時期・価格・種類数
+- [2026-11の新作](https://gacha-hiroba.com/releases/2026-11.html): メーカー公式情報の発売時期・価格・種類数
 
 ## 運営・情報の扱い
 - [運営者・編集方針](https://gacha-hiroba.com/about.html)

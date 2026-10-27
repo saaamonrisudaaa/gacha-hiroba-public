@@ -14,6 +14,34 @@
     <description>メーカー公式情報で確認した2026年10月発売の新作ガチャ18商品を、発売時期・価格・メーカー別に整理しました。</description>
   </item>
   <item>
+    <title>2026年11月の新作ガチャ10商品｜発売時期・価格・メーカー</title>
+    <link>https://gacha-hiroba.com/releases/2026-11.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/releases/2026-11.html</guid>
+    <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+    <description>メーカー公式情報で確認した2026年11月発売の新作ガチャ10商品を、発売時期・価格・メーカー別に整理しました。</description>
+  </item>
+  <item>
+    <title>ガチャ店舗データ監査レポート｜確認状況・欠損率・情報充足率を公開</title>
+    <link>https://gacha-hiroba.com/guide/store-data-report.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/store-data-report.html</guid>
+    <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+    <description>ガチャひろばが保有する店舗データについて、「何件あるか」だけでなく、掲載根拠URLと確認日がどこまでそろっているか、営業時間・公表設置規模・アクセスなど各項目をどの程度確認できているかを集計しました。ページ内の数値は data/spots.js から生成時に再計算しています。</description>
+  </item>
+  <item>
+    <title>シープラ（#C-pla）の店舗一覧｜東京・全国の住所・営業時間・設置規模【2026年】</title>
+    <link>https://gacha-hiroba.com/guide/cpla-store-guide.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/cpla-store-guide.html</guid>
+    <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+    <description>シープラ（#C-pla）の店舗を探す人向けに、店舗または施設の確認元URLと確認日がそろう掲載分を1ページで比較します。2026年10月27日の生成時点では全国48店で、そのうち東京都が25店です。北海道から九州まで12都道府県を含みますが、公式チェーン全体の完全な店舗一覧ではなく、ガチャひろばが根拠を確認できた範囲です。</description>
+  </item>
+  <item>
+    <title>大阪・梅田のガチャガチャ設置場所5選｜大阪駅・阪急三番街・HEP FIVEを比較</title>
+    <link>https://gacha-hiroba.com/guide/umeda.html</link>
+    <guid isPermaLink="true">https://gacha-hiroba.com/guide/umeda.html</guid>
+    <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+    <description>梅田でガチャガチャを探すときは、同じ「梅田駅」でもJR大阪駅、Osaka Metro梅田駅、阪急大阪梅田駅のどこを使うかで行き先を分けると探しやすくなります。ルクアはJR大阪駅側、阪急三番街とHEP FIVEは阪急・御堂筋口側、namco梅田店は小松原町です。駅名だけで探すと別の建物や階へ着いてしまうため、店名・建物名・階を合わせて確認しましょう。</description>
+  </item>
+  <item>
     <title>2026年9月の新作ガチャ23商品｜発売時期・価格・メーカー</title>
     <link>https://gacha-hiroba.com/releases/2026-09.html</link>
     <guid isPermaLink="true">https://gacha-hiroba.com/releases/2026-09.html</guid>
@@ -26,13 +54,6 @@
     <guid isPermaLink="true">https://gacha-hiroba.com/guide/new-gacha-shops-2026-summer.html</guid>
     <pubDate>Tue, 08 Sep 2026 00:00:00 GMT</pubDate>
     <description>2026年7月17日から8月28日までにオープンしたガチャガチャ専門店のうち、運営ブランドの公式店舗ページと開店案内で所在地・営業時間を確認できた10店をまとめました。対象は#C-plaが7店、gashacocoが3店で、大阪府5店、北海道2店、兵庫県・岡山県・鹿児島県が各1店です。</description>
-  </item>
-  <item>
-    <title>ガチャ店舗データ監査レポート｜確認状況・欠損率・情報充足率を公開</title>
-    <link>https://gacha-hiroba.com/guide/store-data-report.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/guide/store-data-report.html</guid>
-    <pubDate>Tue, 08 Sep 2026 00:00:00 GMT</pubDate>
-    <description>ガチャひろばが保有する店舗データについて、「何件あるか」だけでなく、掲載根拠URLと確認日がどこまでそろっているか、営業時間・公表設置規模・アクセスなど各項目をどの程度確認できているかを集計しました。ページ内の数値は data/spots.js から生成時に再計算しています。</description>
   </item>
   <item>
     <title>ガチャ予算プランナー｜回せる回数・残額をその場で計算</title>
@@ -54,13 +75,6 @@
     <guid isPermaLink="true">https://gacha-hiroba.com/guide/capsule-rakkyoku-tokyo.html</guid>
     <pubDate>Tue, 08 Sep 2026 00:00:00 GMT</pubDate>
     <description>来店前の確認：門前仲町店は公式一覧で「店内改装のため休業中」と案内されています（2026年9月6日再確認）。再開日はここでは断定せず、公式案内を確認してください。</description>
-  </item>
-  <item>
-    <title>シープラ（#C-pla）の店舗一覧｜東京・全国の住所・営業時間・設置規模【2026年】</title>
-    <link>https://gacha-hiroba.com/guide/cpla-store-guide.html</link>
-    <guid isPermaLink="true">https://gacha-hiroba.com/guide/cpla-store-guide.html</guid>
-    <pubDate>Tue, 08 Sep 2026 00:00:00 GMT</pubDate>
-    <description>シープラ（#C-pla）の店舗を探す人向けに、店舗または施設の確認元URLと確認日がそろう掲載分を1ページで比較します。2026年9月3日の生成時点では全国46店で、そのうち東京都が25店です。北海道から九州まで12都道府県を含みますが、公式チェーン全体の完全な店舗一覧ではなく、ガチャひろばが根拠を確認できた範囲です。</description>
   </item>
   <item>
     <title>横浜駅のガチャガチャ設置場所5選｜ビブレ・ヨドバシ・西口と東口を比較</title>

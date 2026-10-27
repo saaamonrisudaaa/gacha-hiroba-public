@@ -71,6 +71,69 @@ window.GH_RELEASES = [
     source: 'https://gashapon.jp/products/detail.php?jan_code=4582770081770000'
   },
   {
+    date: '2026-11-01',
+    label: '11月予定（発売週未定）',
+    title: 'まちぼうけ 冬の場合 その2',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回300円／全6種',
+    note: 'クリスマスツリー、雪うさぎ、だるまなど、冬を題材にしたフィギュア6種類。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770094367000'
+  },
+  {
+    date: '2026-11-01',
+    label: '11月予定（発売週未定）',
+    title: 'るかっぷミニチュアコレクション 銀魂',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回500円／全4種',
+    note: '坂田銀時、志村新八、神楽、土方十四郎の4人を小さな座り姿で立体化。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4535123852138000'
+  },
+  {
+    date: '2026-11-01',
+    label: '11月予定（発売週未定）',
+    title: 'サンリオキャラクターズ 星座スイングマスコットPART2',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回400円／全6種',
+    note: '星座のマークを添えたチャーム。マイメロディやシナモロールなど全6種類。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770070781000'
+  },
+  {
+    date: '2026-11-01',
+    label: '11月予定（発売週未定）',
+    title: 'メゾピアノ グッズコレクション',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回400円／全8種',
+    note: 'スライドミラー、ティッシュポーチ、めじるしアクセサリーの3タイプを全8種類で展開。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770129830000'
+  },
+  {
+    date: '2026-11-01',
+    label: '11月予定（発売週未定）',
+    title: '東野圭吾 『ガリレオ』シリーズ ブックチャーム',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回300円／全11種',
+    note: 'シリーズ作品の表紙を題材にしたブックチャーム。しおりとして使える全11種類。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118185099000'
+  },
+  {
+    date: '2026-11-01',
+    label: '11月予定（発売週未定）',
+    title: 'パワーパフ ガールズ めじるしアクセサリー3',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回300円／全7種',
+    note: 'ブロッサム、バブルス、バターカップなどを集めた、めじるしアクセサリー第3弾。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118181541000'
+  },
+  {
+    date: '2026-11-01',
+    label: '11月予定（発売週未定）',
+    title: 'ジュエルペット キラキラミラー風コレクション',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回400円／全6種',
+    note: '背面のミラー風シールとラインストーンを組み合わせたチャーム。全6種類。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118186904000'
+  },
+  {
     date: '2026-10-12',
     label: '10月第3週より順次',
     title: 'ナルミヤキャラクターズ あみぐるみフロッキー',

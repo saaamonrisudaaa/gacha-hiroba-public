@@ -2,11 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://gacha-hiroba.com/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://gacha-hiroba.com/news.html</loc><lastmod>2026-10-27</lastmod></url>
-  <url><loc>https://gacha-hiroba.com/stores.html</loc><lastmod>2026-09-08</lastmod></url>
-  <url><loc>https://gacha-hiroba.com/ranking.html</loc><lastmod>2026-09-08</lastmod></url>
-  <url><loc>https://gacha-hiroba.com/english.html</loc><lastmod>2026-09-08</lastmod></url>
+  <url><loc>https://gacha-hiroba.com/stores.html</loc><lastmod>2026-10-27</lastmod></url>
+  <url><loc>https://gacha-hiroba.com/ranking.html</loc><lastmod>2026-10-27</lastmod></url>
+  <url><loc>https://gacha-hiroba.com/english.html</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://gacha-hiroba.com/about.html</loc><lastmod>2026-09-06</lastmod></url>
   <url><loc>https://gacha-hiroba.com/methodology.html</loc><lastmod>2026-09-03</lastmod></url>
+  <url><loc>https://gacha-hiroba.com/guide/umeda.html</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://gacha-hiroba.com/guide/yokohama.html</loc><lastmod>2026-09-08</lastmod></url>
   <url><loc>https://gacha-hiroba.com/guide/capsule-park-store-guide.html</loc><lastmod>2026-09-08</lastmod></url>
   <url><loc>https://gacha-hiroba.com/guide/ikebukuro.html</loc><lastmod>2026-09-08</lastmod></url>
@@ -17,10 +18,10 @@
   <url><loc>https://gacha-hiroba.com/guide/kinshicho.html</loc><lastmod>2026-09-08</lastmod></url>
   <url><loc>https://gacha-hiroba.com/guide/tachikawa.html</loc><lastmod>2026-09-08</lastmod></url>
   <url><loc>https://gacha-hiroba.com/guide/capsule-rakkyoku-tokyo.html</loc><lastmod>2026-09-08</lastmod></url>
-  <url><loc>https://gacha-hiroba.com/guide/cpla-store-guide.html</loc><lastmod>2026-09-08</lastmod></url>
+  <url><loc>https://gacha-hiroba.com/guide/cpla-store-guide.html</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://gacha-hiroba.com/guide/shinjuku.html</loc><lastmod>2026-09-08</lastmod></url>
   <url><loc>https://gacha-hiroba.com/guide/new-gacha-shops-2026-summer.html</loc><lastmod>2026-09-08</lastmod></url>
-  <url><loc>https://gacha-hiroba.com/guide/store-data-report.html</loc><lastmod>2026-09-08</lastmod></url>
+  <url><loc>https://gacha-hiroba.com/guide/store-data-report.html</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://gacha-hiroba.com/guide/tokyo-ward-gacha-data-report.html</loc><lastmod>2026-09-08</lastmod></url>
   <url><loc>https://gacha-hiroba.com/guide/tokyo-large-gacha-guide.html</loc><lastmod>2026-09-08</lastmod></url>
   <url><loc>https://gacha-hiroba.com/guide/gacha-budget-planner.html</loc><lastmod>2026-09-08</lastmod></url>
@@ -28,4 +29,5 @@
   <url><loc>https://gacha-hiroba.com/releases/2026-08.html</loc><lastmod>2026-09-07</lastmod></url>
   <url><loc>https://gacha-hiroba.com/releases/2026-09.html</loc><lastmod>2026-09-29</lastmod></url>
   <url><loc>https://gacha-hiroba.com/releases/2026-10.html</loc><lastmod>2026-10-27</lastmod></url>
+  <url><loc>https://gacha-hiroba.com/releases/2026-11.html</loc><lastmod>2026-10-27</lastmod></url>
 </urlset>
