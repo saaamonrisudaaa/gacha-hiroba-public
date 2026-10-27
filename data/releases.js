@@ -13,9 +13,63 @@
       price: 1回いくらかと種類数。公式ページで確認できた場合だけ入れます。
    =========================================================================== */
 /* 一次情報を実際に再確認した日。生成処理を走らせただけでは更新しないこと。 */
-window.GH_RELEASES_CHECKED_ON = '2026-10-14';
+window.GH_RELEASES_CHECKED_ON = '2026-10-27';
 
 window.GH_RELEASES = [
+  {
+    date: '2026-10-26',
+    label: '10月第5週より順次',
+    title: 'ちいかわ カプセルステッキ',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回400円／全4種',
+    note: '組み立てると高さ約13cmになるステッキ。同時期のフロッキードールと一緒に飾れる。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118187321000'
+  },
+  {
+    date: '2026-10-26',
+    label: '10月第5週より順次',
+    title: 'ちいかわ ふわふわフロッキードール',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回300円／全4種',
+    note: 'ちいかわたちをフロッキー加工で仕上げたマスコット。カプセルステッキと組み合わせて飾れる。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4570118206206000'
+  },
+  {
+    date: '2026-10-26',
+    label: '10月第5週より順次',
+    title: 'ポケットモンスター つまんでつなげてマスコット16',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回300円／全10種',
+    note: 'カメールやカメックス、ヤドランなどを収録。ボールチェーンと接続金具の2仕様で全10種類。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770001747000'
+  },
+  {
+    date: '2026-11-01',
+    label: '11月予定（発売週未定）',
+    title: 'たまごっち めじるしアクセサリー 30th anniversary edition',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回300円／全8種',
+    note: '30周年の記念デザインを採用したたまごっちのアクセサリー。全8種類。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770071023000'
+  },
+  {
+    date: '2026-11-01',
+    label: '11月予定（発売週未定）',
+    title: '牧場物語 スイングコレクション',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回300円／全6種',
+    note: 'ゲームで世話をする動物たちを題材にしたスイング。牧場物語の世界を小さなマスコットで楽しめる。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770071160000'
+  },
+  {
+    date: '2026-11-01',
+    label: '11月予定（発売週未定）',
+    title: 'ポケットモンスター スイングコレクションType:Water',
+    maker: 'バンダイ（ガシャポン）',
+    price: '1回300円／全5種',
+    note: 'シャワーズ、ニョロゾ、スイクン、ラブカス、ポッチャマを収録した、みずタイプのスイング。',
+    source: 'https://gashapon.jp/products/detail.php?jan_code=4582770081770000'
+  },
   {
     date: '2026-10-12',
     label: '10月第3週より順次',
